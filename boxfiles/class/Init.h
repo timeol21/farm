@@ -1,0 +1,72 @@
+#ifndef INIT_H
+#define INIT_H
+using namespace std;
+
+Class Init{
+private:
+    int SerialPortStutas;
+    string GPIOPath;
+    string PortName;
+public:
+    
+    void Init();   //初始化编译设置，使中文可以正常编译
+    bool configureSerial(int fd)   //串口参数配置函数
+    bool initSerial(const char *portName = "/dev/ttyS4") //串口初始化入口函数
+    void closeSerial()   //关闭串口
+
+
+}
+
+#endif
+
+#ifndef Init_H
+#define Init_H
+
+#include <iostream>
+#include <cstdio>
+#include <clocale>
+#include <termios.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <string>
+
+class SerialManager {
+private:
+    // 私有成员变量（封装串口资源）
+    int serialFd;                // 串口文件描述符（初始化为-1）
+    std::string gpioValuePath;   // 传感器GPIO路径
+    std::string portName;        // 串口端口名
+
+    // 私有方法：串口参数配置（外部无需调用）
+    bool configureSerial();
+
+public:
+    // 构造函数（支持自定义串口端口、GPIO路径，默认值与原逻辑一致）
+    SerialManager(const std::string& port = "/dev/ttyS4", 
+                  const std::string& gpioPath = "/sys/class/gpio/gpio33/value");
+    
+    // 析构函数（自动关闭串口，释放资源）
+    ~SerialManager();
+
+    // 公有方法：编码初始化（解决中文乱码）
+    void initEncoding();
+
+    // 公有方法：串口初始化入口（打开串口 + 配置参数）
+    bool initSerial();
+
+    // 公有方法：主动关闭串口
+    void closeSerial();
+
+    // 公有接口：获取串口文件描述符（外部读写串口时需要）
+    int getSerialFd() const;
+
+    // 公有接口：设置/获取GPIO路径（增加灵活性）
+    void setGpioValuePath(const std::string& path);
+    std::string getGpioValuePath() const;
+
+    // 公有接口：设置/获取串口端口名（支持动态切换串口）
+    void setPortName(const std::string& port);
+    std::string getPortName() const;
+};
+
+#endif
