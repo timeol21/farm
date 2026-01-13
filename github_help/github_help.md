@@ -1,6 +1,17 @@
-
 打开VPN以后执行：（检查是否能连接上网络）
 
+ping github.com -c 3
+
+git add .(或者是git add /home/ztl/program/github_help/github_help.md或者是git add program/github_help/github_help.md或者是git add /home/ztl/program)
+
+git commit -m "具体改动的说明"
+
+git pull origin main (或者git pull origin master看你的仓库的主分支的名称)
+
+git push origin main
+
+
+相关操作的解释：
 ztl@RK356X:~/program$ ping www.baidu.com -c 3
 PING www.a.shifen.com (180.101.49.44) 56(84) bytes of data.
 64 字节，来自 180.101.49.44 (180.101.49.44): icmp_seq=1 ttl=50 时间=16.3 毫秒

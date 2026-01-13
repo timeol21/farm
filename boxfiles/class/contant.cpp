@@ -1,4 +1,4 @@
-#include <iostream>
+#include <iostream>    //开关电磁阀
 #include <fcntl.h>
 #include <unistd.h>
 #include <termios.h>

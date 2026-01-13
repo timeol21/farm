@@ -1,18 +1,19 @@
 #ifndef INIT_H
 #define INIT_H
-using namespace std;
 
 Class Init{
 private:
     int SerialPortStutas;
     string GPIOPath;
     string PortName;
+    bool ConfigureSerial(int fd)   //串口参数配置函数
 public:
+    void InitEncoding();
     
     void Init();   //初始化编译设置，使中文可以正常编译
-    bool configureSerial(int fd)   //串口参数配置函数
-    bool initSerial(const char *portName = "/dev/ttyS4") //串口初始化入口函数
-    void closeSerial()   //关闭串口
+    void ~Init();
+    bool InitSerial(); //串口初始化入口函数
+    void CloseSerial();   //关闭串口
 
 
 }
