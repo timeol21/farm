@@ -1,5 +1,5 @@
 
-打开VPN以后执行：
+打开VPN以后执行：（检查是否能连接上网络）
 
 ztl@RK356X:~/program$ ping www.baidu.com -c 3
 PING www.a.shifen.com (180.101.49.44) 56(84) bytes of data.
@@ -19,20 +19,20 @@ PING github.com (20.205.243.166) 56(84) bytes of data.
 --- github.com ping 统计 ---
 已发送 3 个包， 已接收 3 个包, 0% 包丢失, 耗时 2003 毫秒
 rtt min/avg/max/mdev = 93.709/95.586/98.615/2.161 ms
-ztl@RK356X:~/program$ find /home/ztl -name ".git" -type d
+ztl@RK356X:~/program$ find /home/ztl -name ".git" -type d(找到可以设置成远程仓库的对应的文件夹)
 /home/ztl/program/.git
 /home/ztl/rknn_model_zoo/.git
 ztl@RK356X:~/program$ # 查看远程仓库关联信息
 ztl@RK356X:~/program$ git remote -v
 origin  git@github.com:timeol21/farm.git (fetch)
 origin  git@github.com:timeol21/farm.git (push)
-ztl@RK356X:~/program$ git add .
-ztl@RK356X:~/program$ git commit
+ztl@RK356X:~/program$ git add .(或者是git add /home/ztl/program/github_help/github_help.md或者是git add program/github_help/github_help.md)
+ztl@RK356X:~/program$ git commit -m "具体改动的说明"
 位于分支 main
 您的分支与上游分支 'origin/main' 一致。
 
 无文件要提交，干净的工作区
-ztl@RK356X:~/program$ git pull origin main
+ztl@RK356X:~/program$ git pull origin main (或者git pull origin master看你的仓库的主分支的名称)
 Enter passphrase for key '/home/ztl/.ssh/id_ed25519': 
 来自 github.com:timeol21/farm
  * branch            main       -> FETCH_HEAD
