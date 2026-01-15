@@ -10,6 +10,15 @@ git pull origin main (或者git pull origin master看你的仓库的主分支的名称)
 
 git push origin main
 
+编译及运行命令行
+ztl@RK356X:~/program/boxfiles/class$ g++ contant.cpp -o contant -std=c++11
+ztl@RK356X:~/program/boxfiles/class$ ./contant
+或者
+# 编译代码（单文件直接编译）
+g++ contant.cpp -o device_control -std=c++11
+
+# 必须用sudo运行（GPIO导出需要root权限）
+sudo ./device_control
 
 相关操作的解释：
 ztl@RK356X:~/program$ ping www.baidu.com -c 3

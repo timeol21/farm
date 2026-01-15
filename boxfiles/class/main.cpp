@@ -15,6 +15,8 @@ int main() {
     init.InitEncoding();
     init.InitSerial("/dev/ttyS4");
     init.CloseSerial();
+
+    
     return 0;
 }
 
