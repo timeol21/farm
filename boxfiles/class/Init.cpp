@@ -12,10 +12,14 @@ void Init::InitEncoding() {
         perror("设置编码失败");
     }
 }
-//串口配置：9600波特率、8N1、无流控（适配DC-A568-V06串口4）
-bool Init::ConfigureSerial(int fd) {
+//串口配置：9600波特率、8N1、无流控（适配DC-A568-V06串口4）,初始化 / 配置指定串口的通信参数
+bool Init::ConfigureSerial(int fd) {//在调用.InitSerial的时候会调用这个函数
     struct termios tty;
-    if (tcgetattr(fd, &tty) != 0) {
+    /*
+    termios 是 Linux/Unix 系统中专门用于描述终端（包括串口）属性的结构体，
+    里面包含了波特率、数据位、停止位、校验位、流控等所有串口通信的配置参数。
+    */
+    if (tcgetattr(fd, &tty) != 0) {//tcgetattr()成功时返回 0，失败时返回 -1
         perror("tcgetattr");
         return false;
     }
@@ -44,6 +48,11 @@ bool Init::ConfigureSerial(int fd) {
     tty.c_cc[VTIME] = 10;
 
     if (tcsetattr(fd, TCSANOW, &tty) != 0) {
+        /*
+        tcsetattr()：这是 Linux/Unix 系统提供的系统调用，
+        作用是设置（写入）指定文件描述符对应的终端 / 串口属性,
+        TCSANOW 表示立即生效
+        */
         perror("tcsetattr");
         return false;
     }
@@ -51,12 +60,12 @@ bool Init::ConfigureSerial(int fd) {
     return true;
 }
 //整体的基础设置初始化
-void Init::Init(const string& portname, const string& gpiopath) :
+Init::Init(const string& portname, const string& gpiopath) :
     SerialPortStutas(-1),
     GPIOPath(gpiopath),
     PortName(portname) {}
 //串口初始化完成
-void Init::~Init() {
+Init::~Init() {
     cout << "初始化完成" << endl;
 }
 //初始化串口（固定为/dev/ttyS4）（初始化函数，需在调用开关函数前执行）
@@ -67,7 +76,7 @@ bool Init::InitSerial(const char *PortName) {
         return false;
     }
 
-    if (!configureSerial(SerialPortStutas)) {
+    if (!ConfigureSerial(SerialPortStutas)) {
         close(SerialPortStutas);
         SerialPortStutas = -1;
         return false;

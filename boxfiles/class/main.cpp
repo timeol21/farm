@@ -8,8 +8,16 @@
 #include <iomanip>
 #include <string>
 using namespace std;
-
 #include "Init.cpp"
+
+int main() {
+    Init init("/dev/ttyS4","/sys/class/gpio/gpio33/value");
+    init.InitEncoding();
+    init.InitSerial("/dev/ttyS4");
+    init.CloseSerial();
+    return 0;
+}
+
 /*
 连接方式：
 通过485通信和PLC连接，控制电池阀（现在是这个）
@@ -25,10 +33,7 @@ using namespace std;
 电池阀开启
 电池阀关闭
 关闭串口
+
+
+GPIO输入不需要初始化串口
 */
-
-
-int main() {
-    
-    return 0;
-}

@@ -3,7 +3,7 @@
 #include <unistd.h>
 
 int main() {
-    const char* gpio_value_path = "/sys/class/gpio/gpio33/value";
+    const char* gpio_value_path = "/sys/class/gpio/gpio33/value";   
 
     while (true) {
         std::ifstream gpio_value_file(gpio_value_path);
