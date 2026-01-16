@@ -3,39 +3,50 @@
 #include <unistd.h>
 #include <termios.h>
 #include <cstring>
+#include <cstddef> 
 #include <chrono>
 #include <thread>
 #include <iomanip>
+#include <locale.h>  
 #include <string>
-using namespace std;
+#include <stdio.h> 
 #include "Init.cpp"
+using namespace std;
 
 int main() {
+    int mainChoice;
     Init init("/dev/ttyS4","/sys/class/gpio/gpio33/value");
     init.InitEncoding();
-    init.InitSerial("/dev/ttyS4");
+    init.InitSerial();    //åˆå§‹åŒ–ä¸²å£
+    if (!init.ExportGPIOX()) {  // è°ƒç”¨å¯¹è±¡çš„ExportGPIOXæ–¹æ³•å¹¶åˆ¤æ–­
+        cout << "GPIOåˆå§‹åŒ–å¤±è´¥ï¼Œç¨‹åºæ— æ³•æ­£å¸¸è¿è¡Œä¼ æ„Ÿå™¨æ£€æµ‹åŠŸèƒ½" << endl;
+        init.CloseSerial();  // å¤±è´¥æ—¶å…ˆå…³é—­å·²åˆå§‹åŒ–çš„ä¸²å£ï¼Œé¿å…èµ„æºæ³„æ¼
+        return -1;           // é€€å‡ºç¨‹åºï¼Œè¿”å›é”™è¯¯ç -1
+    }
+    bool OpenSolenoidValve();
+    bool CloseSolenoidValve();
+    void DetectSensorStatus();
+    void PrintMainMenu();
     init.CloseSerial();
-
-    
     return 0;
 }
 
 /*
-Á¬½Ó·½Ê½£º
-Í¨¹ı485Í¨ĞÅºÍPLCÁ¬½Ó£¬¿ØÖÆµç³Ø·§£¨ÏÖÔÚÊÇÕâ¸ö£©
-Í¨¹ıGPIO¿ØÖÆ
+è¿æ¥æ–¹å¼ï¼š
+é€šè¿‡485é€šä¿¡å’ŒPLCè¿æ¥ï¼Œæ§åˆ¶ç”µæ± é˜€ï¼ˆç°åœ¨æ˜¯è¿™ä¸ªï¼‰
+é€šè¿‡GPIOæ§åˆ¶
 */
 
 
 /*
-Ë®Î»£¬ÑÌ¸Ğ£¬µç³Ø·§£¬±¨¾¯Æ÷£¬ÃÅËø£¬ºìÍâ¸ĞÓ¦£¬ÎÂÊª¶È
-³ÌĞòµÄÖĞÎÄÏÔÊ¾³õÊ¼»¯
-´®¿ÚµÄÅäÖÃ£º
-´®¿Ú³õÊ¼»¯
-µç³Ø·§¿ªÆô
-µç³Ø·§¹Ø±Õ
-¹Ø±Õ´®¿Ú
+æ°´ä½ï¼ŒçƒŸæ„Ÿï¼Œç”µæ± é˜€ï¼ŒæŠ¥è­¦å™¨ï¼Œé—¨é”ï¼Œçº¢å¤–æ„Ÿåº”ï¼Œæ¸©æ¹¿åº¦
+ç¨‹åºçš„ä¸­æ–‡æ˜¾ç¤ºåˆå§‹åŒ–
+ä¸²å£çš„é…ç½®ï¼š
+ä¸²å£åˆå§‹åŒ–
+ç”µæ± é˜€å¼€å¯
+ç”µæ± é˜€å…³é—­
+å…³é—­ä¸²å£
 
 
-GPIOÊäÈë²»ĞèÒª³õÊ¼»¯´®¿Ú
+GPIOè¾“å…¥ä¸éœ€è¦åˆå§‹åŒ–ä¸²å£
 */

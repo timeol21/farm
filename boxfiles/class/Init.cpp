@@ -1,34 +1,66 @@
 #include "Init.h"
- 
-// È«¾Ö±äÁ¿£º´®¿ÚÎÄ¼şÃèÊö·û£¨¹©µç´Å·§º¯ÊıÊ¹ÓÃ£©
-int SerialPortStutas = -1;
-// ´«¸ĞÆ÷GPIOÂ·¾¶£¨¿É¸ù¾İÊµ¼ÊÓ²¼şĞŞ¸Ä£©
-const char* gpiopath = "/sys/class/gpio/gpio33/value";
-const char* portname = "/dev/ttyS4";
+#include <iostream>
+#include <cstring> 
+#include <dirent.h>
+#include <fstream>
+#include <string>
+#include <unistd.h>
 
-//±àÂë³õÊ¼»¯£¨½â¾öÖĞÎÄÂÒÂë£©
+ 
+// å…¨å±€å˜é‡ï¼šä¸²å£æ–‡ä»¶æè¿°ç¬¦ï¼ˆä¾›ç”µç£é˜€å‡½æ•°ä½¿ç”¨ï¼‰
+int SerialPortStutas = -1;
+// ä¼ æ„Ÿå™¨GPIOè·¯å¾„ï¼ˆå¯æ ¹æ®å®é™…ç¡¬ä»¶ä¿®æ”¹ï¼‰
+const char* gpio_value_path = "/sys/class/gpio/gpio33/value";
+const char* portname = "/dev/ttyS4";
+const char* gpio_export_path = "/sys/class/gpio/export";
+const char* gpio_dir_path = "/sys/class/gpio/gpio33";
+
+Init::Init(const string& portname, const string& gpio_value_path) :
+    SerialPortStutas(-1),
+    Gpio_Value_Path(gpio_value_path),
+    PortName(portname),
+    Gpio_Export_Path(gpio_export_path),
+    Gpio_Dir_Path(gpio_dir_path) {}
+//ä¸²å£åˆå§‹åŒ–å®Œæˆ
+Init::~Init() {
+}
 void Init::InitEncoding() {
-    if (setlocale(LC_CTYPE, "en_US.UTF-8") == NULL) {
-        perror("ÉèÖÃ±àÂëÊ§°Ü");
+    // æ–¹æ¡ˆ1ï¼šä¼˜å…ˆå°è¯•ä¸­æ–‡UTF-8ç¼–ç ï¼ˆé€‚é…ä¸­æ–‡æ‰“å°ï¼‰
+    const char* locales[] = {"zh_CN.UTF-8", "en_US.UTF-8", "C.UTF-8", "POSIX"};
+    bool localeSet = false;
+
+    // ä¾æ¬¡å°è¯•å¤šä¸ªç¼–ç ï¼Œç¡®ä¿èƒ½æˆåŠŸè®¾ç½®
+    for (const char* loc : locales) {
+        if (setlocale(LC_ALL, loc) != NULL) { // ç”¨LC_ALLè€ŒéLC_CTYPEï¼Œè¦†ç›–æ‰€æœ‰ç¼–ç åœºæ™¯
+            cout << "ç¼–ç åˆå§‹åŒ–æˆåŠŸï¼šä½¿ç”¨ " << loc << " ç¼–ç " << endl;
+            localeSet = true;
+            break;
+        }
+        cerr << "å°è¯•è®¾ç½® " << loc << " ç¼–ç å¤±è´¥ï¼Œç»§ç»­å°è¯•ä¸‹ä¸€ä¸ª..." << endl;
+    }
+
+    // è‹¥æ‰€æœ‰ç¼–ç éƒ½å¤±è´¥ï¼Œç»™å‡ºæ˜ç¡®æç¤ºï¼ˆä½†ä¸ç»ˆæ­¢ç¨‹åºï¼‰
+    if (!localeSet) {
+        perror("æ‰€æœ‰ç¼–ç è®¾ç½®å‡å¤±è´¥ï¼Œå¯èƒ½å¯¼è‡´æ‰“å°ä¹±ç ");
     }
 }
-//´®¿ÚÅäÖÃ£º9600²¨ÌØÂÊ¡¢8N1¡¢ÎŞÁ÷¿Ø£¨ÊÊÅäDC-A568-V06´®¿Ú4£©,³õÊ¼»¯ / ÅäÖÃÖ¸¶¨´®¿ÚµÄÍ¨ĞÅ²ÎÊı
-bool Init::ConfigureSerial(int fd) {//ÔÚµ÷ÓÃ.InitSerialµÄÊ±ºò»áµ÷ÓÃÕâ¸öº¯Êı
+//ä¸²å£é…ç½®ï¼š9600æ³¢ç‰¹ç‡ã€8N1ã€æ— æµæ§ï¼ˆé€‚é…DC-A568-V06ä¸²å£4ï¼‰,åˆå§‹åŒ– / é…ç½®æŒ‡å®šä¸²å£çš„é€šä¿¡å‚æ•°
+bool Init::ConfigureSerial(int fd) {//åœ¨è°ƒç”¨.InitSerialçš„æ—¶å€™ä¼šè°ƒç”¨è¿™ä¸ªå‡½æ•°
     struct termios tty;
     /*
-    termios ÊÇ Linux/Unix ÏµÍ³ÖĞ×¨ÃÅÓÃÓÚÃèÊöÖÕ¶Ë£¨°üÀ¨´®¿Ú£©ÊôĞÔµÄ½á¹¹Ìå£¬
-    ÀïÃæ°üº¬ÁË²¨ÌØÂÊ¡¢Êı¾İÎ»¡¢Í£Ö¹Î»¡¢Ğ£ÑéÎ»¡¢Á÷¿ØµÈËùÓĞ´®¿ÚÍ¨ĞÅµÄÅäÖÃ²ÎÊı¡£
+    termios æ˜¯ Linux/Unix ç³»ç»Ÿä¸­ä¸“é—¨ç”¨äºæè¿°ç»ˆç«¯ï¼ˆåŒ…æ‹¬ä¸²å£ï¼‰å±æ€§çš„ç»“æ„ä½“ï¼Œ
+    é‡Œé¢åŒ…å«äº†æ³¢ç‰¹ç‡ã€æ•°æ®ä½ã€åœæ­¢ä½ã€æ ¡éªŒä½ã€æµæ§ç­‰æ‰€æœ‰ä¸²å£é€šä¿¡çš„é…ç½®å‚æ•°ã€‚
     */
-    if (tcgetattr(fd, &tty) != 0) {//tcgetattr()³É¹¦Ê±·µ»Ø 0£¬Ê§°ÜÊ±·µ»Ø -1
+    if (tcgetattr(fd, &tty) != 0) {//tcgetattr()æˆåŠŸæ—¶è¿”å› 0ï¼Œå¤±è´¥æ—¶è¿”å› -1
         perror("tcgetattr");
         return false;
     }
 
-    // ÉèÖÃ²¨ÌØÂÊ 9600
+    // è®¾ç½®æ³¢ç‰¹ç‡ 9600
     cfsetospeed(&tty, B9600);
     cfsetispeed(&tty, B9600);
 
-    // 8Êı¾İÎ»¡¢ÎŞĞ£Ñé¡¢1Í£Ö¹Î»
+    // 8æ•°æ®ä½ã€æ— æ ¡éªŒã€1åœæ­¢ä½
     tty.c_cflag &= ~PARENB;
     tty.c_cflag &= ~CSTOPB;
     tty.c_cflag &= ~CSIZE;
@@ -37,21 +69,21 @@ bool Init::ConfigureSerial(int fd) {//ÔÚµ÷ÓÃ.InitSerialµÄÊ±ºò»áµ÷ÓÃÕâ¸öº¯Êı
     tty.c_cflag &= ~CRTSCTS;
     tty.c_cflag |= CREAD | CLOCAL;
 
-    // ÊäÈëÊä³öÄ£Ê½ÅäÖÃ
+    // è¾“å…¥è¾“å‡ºæ¨¡å¼é…ç½®
     tty.c_iflag &= ~(IXON | IXOFF | IXANY);
     tty.c_iflag &= ~(IGNBRK | BRKINT | PARMRK | ISTRIP | INLCR | IGNCR | ICRNL);
     tty.c_oflag = 0;
     tty.c_lflag = 0;
 
-    // ¶ÁÈ¡³¬Ê±ÉèÖÃ
+    // è¯»å–è¶…æ—¶è®¾ç½®
     tty.c_cc[VMIN] = 0;
     tty.c_cc[VTIME] = 10;
 
     if (tcsetattr(fd, TCSANOW, &tty) != 0) {
         /*
-        tcsetattr()£ºÕâÊÇ Linux/Unix ÏµÍ³Ìá¹©µÄÏµÍ³µ÷ÓÃ£¬
-        ×÷ÓÃÊÇÉèÖÃ£¨Ğ´Èë£©Ö¸¶¨ÎÄ¼şÃèÊö·û¶ÔÓ¦µÄÖÕ¶Ë / ´®¿ÚÊôĞÔ,
-        TCSANOW ±íÊ¾Á¢¼´ÉúĞ§
+        tcsetattr()ï¼šè¿™æ˜¯ Linux/Unix ç³»ç»Ÿæä¾›çš„ç³»ç»Ÿè°ƒç”¨ï¼Œ
+        ä½œç”¨æ˜¯è®¾ç½®ï¼ˆå†™å…¥ï¼‰æŒ‡å®šæ–‡ä»¶æè¿°ç¬¦å¯¹åº”çš„ç»ˆç«¯ / ä¸²å£å±æ€§,
+        TCSANOW è¡¨ç¤ºç«‹å³ç”Ÿæ•ˆ
         */
         perror("tcsetattr");
         return false;
@@ -59,18 +91,11 @@ bool Init::ConfigureSerial(int fd) {//ÔÚµ÷ÓÃ.InitSerialµÄÊ±ºò»áµ÷ÓÃÕâ¸öº¯Êı
 
     return true;
 }
-//ÕûÌåµÄ»ù´¡ÉèÖÃ³õÊ¼»¯
-Init::Init(const string& portname, const string& gpiopath) :
-    SerialPortStutas(-1),
-    GPIOPath(gpiopath),
-    PortName(portname) {}
-//´®¿Ú³õÊ¼»¯Íê³É
-Init::~Init() {
-    cout << "³õÊ¼»¯Íê³É" << endl;
-}
-//³õÊ¼»¯´®¿Ú£¨¹Ì¶¨Îª/dev/ttyS4£©£¨³õÊ¼»¯º¯Êı£¬ĞèÔÚµ÷ÓÃ¿ª¹Øº¯ÊıÇ°Ö´ĞĞ£©
-bool Init::InitSerial(const char *PortName) {
-    SerialPortStutas = open(PortName, O_RDWR | O_NOCTTY | O_SYNC);
+//æ•´ä½“çš„åŸºç¡€è®¾ç½®åˆå§‹åŒ–
+
+//åˆå§‹åŒ–ä¸²å£ï¼ˆå›ºå®šä¸º/dev/ttyS4ï¼‰ï¼ˆåˆå§‹åŒ–å‡½æ•°ï¼Œéœ€åœ¨è°ƒç”¨å¼€å…³å‡½æ•°å‰æ‰§è¡Œï¼‰
+bool Init::InitSerial() {
+    SerialPortStutas = open(PortName.c_str(), O_RDWR | O_NOCTTY | O_SYNC);
     if (SerialPortStutas < 0) {
         perror("open serial port");
         return false;
@@ -85,7 +110,42 @@ bool Init::InitSerial(const char *PortName) {
     cout << "Serial port initialized successfully" << endl;
     return true;
 }
-//¹Ø±Õ´®¿Ú£¨³ÌĞò½áÊøÊ±µ÷ÓÃ£©
+bool Init::ExportGPIOX() {
+    cout << "æ­£åœ¨è‡ªåŠ¨å¯¼å‡ºGPIO33..." << endl;
+
+    // 1. å…ˆæ£€æŸ¥GPIO33æ˜¯å¦å·²å¯¼å‡ºï¼ˆé¿å…é‡å¤å¯¼å‡ºæŠ¥é”™ï¼‰
+    DIR* dir = opendir(Gpio_Dir_Path.c_str());
+    if (dir != NULL) {
+        closedir(dir);
+        cout << "GPIO33å·²å¯¼å‡ºï¼Œæ— éœ€é‡å¤æ“ä½œ" << endl;
+        return true;
+    }
+
+    // 2. æ‰§è¡Œå¯¼å‡ºæ“ä½œï¼ˆéœ€è¦rootæƒé™ï¼Œå› æ­¤ç¨‹åºå¿…é¡»ç”¨sudoè¿è¡Œï¼‰
+    ofstream export_file(Gpio_Export_Path);
+    if (!export_file.is_open()) {
+        cerr << "GPIOå¯¼å‡ºæ–‡ä»¶æ‰“å¼€å¤±è´¥ï¼è¯·ç¡®ä¿ç”¨sudoè¿è¡Œç¨‹åº" << endl;
+        return false;
+    }
+
+    export_file << "33";  // å†™å…¥GPIOç¼–å·33
+    export_file.close();
+
+    // 3. å»¶è¿Ÿ100msï¼Œç¡®ä¿ç³»ç»Ÿå®Œæˆå¯¼å‡º
+    usleep(100000);
+
+    // 4. éªŒè¯å¯¼å‡ºæ˜¯å¦æˆåŠŸ
+    dir = opendir(Gpio_Dir_Path.c_str());
+    if (dir == NULL) {
+        cerr << "GPIO33å¯¼å‡ºå¤±è´¥ï¼è¯·æ£€æŸ¥GPIOç¼–å·æ˜¯å¦æ­£ç¡®" << endl;
+        return false;
+    }
+
+    closedir(dir);
+    cout << "GPIO33å¯¼å‡ºæˆåŠŸï¼" << endl;
+    return true;
+}
+//å…³é—­ä¸²å£ï¼ˆç¨‹åºç»“æŸæ—¶è°ƒç”¨ï¼‰
 void Init::CloseSerial() {
     if (SerialPortStutas >= 0) {
         close(SerialPortStutas);

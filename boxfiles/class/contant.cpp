@@ -13,19 +13,19 @@
 // using namespace std;
 
 // // 全局变量：串口文件描述符（供电磁阀函数使用）
-// int serialFd = -1;
+// int SerialPortStutas = -1;
 // // 传感器GPIO路径（可根据实际硬件修改）
 // const char* gpio_value_path = "/sys/class/gpio/gpio33/value";
 
 // // -------------------------- 编码初始化（解决中文乱码） --------------------------
-// void initEncoding() {
+// void InitEncoding() {
 //     if (setlocale(LC_CTYPE, "en_US.UTF-8") == NULL) {
 //         perror("设置编码失败");
 //     }
 // }
 
 // // -------------------------- 串口配置相关函数 --------------------------
-// bool configureSerial(int fd) {
+// bool ConfigureSerial(int fd) {
 //     struct termios tty;
 //     if (tcgetattr(fd, &tty) != 0) {
 //         perror("串口配置失败（tcgetattr）");
@@ -61,21 +61,21 @@
 //     return true;
 // }
 
-// bool initSerial(const char *portName = "/dev/ttyS4") {
-//     if (serialFd >= 0) {
+// bool InitSerial(const char *portName = "/dev/ttyS4") {
+//     if (SerialPortStutas >= 0) {
 //         cout << "串口已处于初始化状态" << endl;
 //         return true;
 //     }
 
-//     serialFd = open(portName, O_RDWR | O_NOCTTY | O_SYNC);
-//     if (serialFd < 0) {
+//     SerialPortStutas = open(portName, O_RDWR | O_NOCTTY | O_SYNC);
+//     if (SerialPortStutas < 0) {
 //         perror("串口打开失败");
 //         return false;
 //     }
 
-//     if (!configureSerial(serialFd)) {
-//         close(serialFd);
-//         serialFd = -1;
+//     if (!ConfigureSerial(SerialPortStutas)) {
+//         close(SerialPortStutas);
+//         SerialPortStutas = -1;
 //         return false;
 //     }
 
@@ -83,23 +83,23 @@
 //     return true;
 // }
 
-// void closeSerial() {
-//     if (serialFd >= 0) {
-//         close(serialFd);
-//         serialFd = -1;
+// void CloseSerial() {
+//     if (SerialPortStutas >= 0) {
+//         close(SerialPortStutas);
+//         SerialPortStutas = -1;
 //         cout << "串口已关闭" << endl;
 //     }
 // }
 
 // // -------------------------- 电磁阀控制函数 --------------------------
-// bool openSolenoidValve() {
-//     if (serialFd < 0) {
+// bool OpenSolenoidValve() {
+//     if (SerialPortStutas < 0) {
 //         cerr << "错误：串口未初始化，请先返回主菜单初始化串口" << endl;
 //         return false;
 //     }
 
 //     unsigned char sendBuf[] = {0x01, 0x05, 0x05, 0x00, 0xFF, 0x00, 0x8C, 0xF6};
-//     ssize_t sent = write(serialFd, sendBuf, sizeof(sendBuf));
+//     ssize_t sent = write(SerialPortStutas, sendBuf, sizeof(sendBuf));
 
 //     if (sent != (ssize_t)sizeof(sendBuf)) {
 //         perror("电磁阀开启指令发送失败");
@@ -113,7 +113,7 @@
 
 //     // 接收响应
 //     unsigned char recvBuf[256];
-//     ssize_t len = read(serialFd, recvBuf, sizeof(recvBuf));
+//     ssize_t len = read(SerialPortStutas, recvBuf, sizeof(recvBuf));
 //     if (len > 0) {
 //         cout << "接收响应（" << len << "字节）：";
 //         for (ssize_t i = 0; i < len; ++i)
@@ -125,14 +125,14 @@
 //     return true;
 // }
 
-// bool closeSolenoidValve() {
-//     if (serialFd < 0) {
+// bool CloseSolenoidValve() {
+//     if (SerialPortStutas < 0) {
 //         cerr << "错误：串口未初始化，请先返回主菜单初始化串口" << endl;
 //         return false;
 //     }
 
 //     unsigned char sendBuf[] = {0x01, 0x05, 0x05, 0x00, 0x00, 0x00, 0xCD, 0x06};
-//     ssize_t sent = write(serialFd, sendBuf, sizeof(sendBuf));
+//     ssize_t sent = write(SerialPortStutas, sendBuf, sizeof(sendBuf));
 
 //     if (sent != (ssize_t)sizeof(sendBuf)) {
 //         perror("电磁阀关闭指令发送失败");
@@ -146,7 +146,7 @@
 
 //     // 接收响应
 //     unsigned char recvBuf[256];
-//     ssize_t len = read(serialFd, recvBuf, sizeof(recvBuf));
+//     ssize_t len = read(SerialPortStutas, recvBuf, sizeof(recvBuf));
 //     if (len > 0) {
 //         cout << "接收响应（" << len << "字节）：";
 //         for (ssize_t i = 0; i < len; ++i)
@@ -159,7 +159,7 @@
 // }
 
 // // -------------------------- 传感器检测函数 --------------------------
-// void detectSensorStatus() {
+// void DetectSensorStatus() {
 //     cout << "传感器检测已启动（每0.5秒读取一次），按'q'并回车退出检测" << endl;
 //     cout << "------------------------------------------------" << endl;
 
@@ -209,7 +209,7 @@
 // }
 
 // // -------------------------- 主菜单打印函数（新增） --------------------------
-// void printMainMenu() {
+// void PrintMainMenu() {
 //     cout << "\n=================================================" << endl;
 //     cout << "            设备控制中心（V1.0）" << endl;
 //     cout << "=================================================" << endl;
@@ -222,12 +222,12 @@
 
 // // -------------------------- 主菜单交互逻辑 --------------------------
 // int main() {
-//     initEncoding(); // 初始化UTF-8编码，解决中文乱码
+//     InitEncoding(); // 初始化UTF-8编码，解决中文乱码
 
 //     int mainChoice;
 //     while (true) {
 //         // 每次循环都打印主菜单（关键修改）
-//         printMainMenu();
+//         PrintMainMenu();
 
 //         cout << "请输入功能编号（0-2）：";
 //         cin >> mainChoice;
@@ -252,9 +252,9 @@
 //                     }
 
 //                     // 串口未初始化时自动尝试初始化
-//                     if (serialFd < 0) {
+//                     if (SerialPortStutas < 0) {
 //                         cout << "正在初始化串口..." << endl;
-//                         if (!initSerial()) {
+//                         if (!InitSerial()) {
 //                             cout << "串口初始化失败，无法进行电磁阀控制" << endl;
 //                             break;
 //                         }
@@ -262,10 +262,10 @@
 
 //                     switch (valveChoice) {
 //                         case 1:
-//                             openSolenoidValve();
+//                             OpenSolenoidValve();
 //                             break;
 //                         case 2:
-//                             closeSolenoidValve();
+//                             CloseSolenoidValve();
 //                             break;
 //                         default:
 //                             cout << "无效指令，请输入0-2之间的数字" << endl;
@@ -277,13 +277,13 @@
 
 //             case 2:
 //                 // 传感器检测（退出后返回主循环，重新打印主菜单）
-//                 detectSensorStatus();
+//                 DetectSensorStatus();
 //                 break;
 
 //             case 0:
 //                 // 退出系统
 //                 cout << "\n正在退出系统，释放资源..." << endl;
-//                 closeSerial();
+//                 CloseSerial();
 //                 cout << "系统已退出，感谢使用！" << endl;
 //                 return 0;
 
@@ -311,7 +311,7 @@
 using namespace std;
 
 // 全局变量：串口文件描述符（供电磁阀函数使用）
-int serialFd = -1;
+int SerialPortStutas = -1;
 // 传感器GPIO路径（可根据实际硬件修改）
 const char* gpio_value_path = "/sys/class/gpio/gpio33/value";
 // GPIO导出相关路径
@@ -319,14 +319,29 @@ const char* gpio_export_path = "/sys/class/gpio/export";
 const char* gpio_dir_path = "/sys/class/gpio/gpio33";
 
 // -------------------------- 编码初始化（解决中文乱码） --------------------------
-void initEncoding() {
-    if (setlocale(LC_CTYPE, "en_US.UTF-8") == NULL) {
-        perror("设置编码失败");
+
+void InitEncoding() {
+    // 方案1：优先尝试中文UTF-8编码（适配中文打印）
+    const char* locales[] = {"zh_CN.UTF-8", "en_US.UTF-8", "C.UTF-8", "POSIX"};
+    bool localeSet = false;
+
+    // 依次尝试多个编码，确保能成功设置
+    for (const char* loc : locales) {
+        if (setlocale(LC_ALL, loc) != NULL) { // 用LC_ALL而非LC_CTYPE，覆盖所有编码场景
+            cout << "编码初始化成功：使用 " << loc << " 编码" << endl;
+            localeSet = true;
+            break;
+        }
+        cerr << "尝试设置 " << loc << " 编码失败，继续尝试下一个..." << endl;
+    }
+
+    // 若所有编码都失败，给出明确提示（但不终止程序）
+    if (!localeSet) {
+        perror("所有编码设置均失败，可能导致打印乱码");
     }
 }
-
 // -------------------------- GPIO导出与验证函数 --------------------------
-bool exportGPIO33() {
+bool ExportGPIOX() {
     cout << "正在自动导出GPIO33..." << endl;
 
     // 1. 先检查GPIO33是否已导出（避免重复导出报错）
@@ -363,7 +378,7 @@ bool exportGPIO33() {
 }
 
 // -------------------------- 串口配置相关函数 --------------------------
-bool configureSerial(int fd) {
+bool ConfigureSerial(int fd) {
     struct termios tty;
     if (tcgetattr(fd, &tty) != 0) {
         perror("串口配置失败（tcgetattr）");
@@ -399,21 +414,21 @@ bool configureSerial(int fd) {
     return true;
 }
 
-bool initSerial(const char *portName = "/dev/ttyS4") {
-    if (serialFd >= 0) {
+bool InitSerial(const char *portName = "/dev/ttyS4") {
+    if (SerialPortStutas >= 0) {
         cout << "串口已处于初始化状态" << endl;
         return true;
     }
 
-    serialFd = open(portName, O_RDWR | O_NOCTTY | O_SYNC);
-    if (serialFd < 0) {
+    SerialPortStutas = open(portName, O_RDWR | O_NOCTTY | O_SYNC);
+    if (SerialPortStutas < 0) {
         perror("串口打开失败");
         return false;
     }
 
-    if (!configureSerial(serialFd)) {
-        close(serialFd);
-        serialFd = -1;
+    if (!ConfigureSerial(SerialPortStutas)) {
+        close(SerialPortStutas);
+        SerialPortStutas = -1;
         return false;
     }
 
@@ -421,23 +436,23 @@ bool initSerial(const char *portName = "/dev/ttyS4") {
     return true;
 }
 
-void closeSerial() {
-    if (serialFd >= 0) {
-        close(serialFd);
-        serialFd = -1;
+void CloseSerial() {
+    if (SerialPortStutas >= 0) {
+        close(SerialPortStutas);
+        SerialPortStutas = -1;
         cout << "串口已关闭" << endl;
     }
 }
 
 // -------------------------- 电磁阀控制函数 --------------------------
-bool openSolenoidValve() {
-    if (serialFd < 0) {
+bool OpenSolenoidValve() {
+    if (SerialPortStutas < 0) {
         cerr << "错误：串口未初始化，请先返回主菜单初始化串口" << endl;
         return false;
     }
 
     unsigned char sendBuf[] = {0x01, 0x05, 0x05, 0x00, 0xFF, 0x00, 0x8C, 0xF6};
-    ssize_t sent = write(serialFd, sendBuf, sizeof(sendBuf));
+    ssize_t sent = write(SerialPortStutas, sendBuf, sizeof(sendBuf));
 
     if (sent != (ssize_t)sizeof(sendBuf)) {
         perror("电磁阀开启指令发送失败");
@@ -451,7 +466,7 @@ bool openSolenoidValve() {
 
     // 接收响应
     unsigned char recvBuf[256];
-    ssize_t len = read(serialFd, recvBuf, sizeof(recvBuf));
+    ssize_t len = read(SerialPortStutas, recvBuf, sizeof(recvBuf));
     if (len > 0) {
         cout << "接收响应（" << len << "字节）：";
         for (ssize_t i = 0; i < len; ++i)
@@ -463,14 +478,14 @@ bool openSolenoidValve() {
     return true;
 }
 
-bool closeSolenoidValve() {
-    if (serialFd < 0) {
+bool CloseSolenoidValve() {
+    if (SerialPortStutas < 0) {
         cerr << "错误：串口未初始化，请先返回主菜单初始化串口" << endl;
         return false;
     }
 
     unsigned char sendBuf[] = {0x01, 0x05, 0x05, 0x00, 0x00, 0x00, 0xCD, 0x06};
-    ssize_t sent = write(serialFd, sendBuf, sizeof(sendBuf));
+    ssize_t sent = write(SerialPortStutas, sendBuf, sizeof(sendBuf));
 
     if (sent != (ssize_t)sizeof(sendBuf)) {
         perror("电磁阀关闭指令发送失败");
@@ -484,7 +499,7 @@ bool closeSolenoidValve() {
 
     // 接收响应
     unsigned char recvBuf[256];
-    ssize_t len = read(serialFd, recvBuf, sizeof(recvBuf));
+    ssize_t len = read(SerialPortStutas, recvBuf, sizeof(recvBuf));
     if (len > 0) {
         cout << "接收响应（" << len << "字节）：";
         for (ssize_t i = 0; i < len; ++i)
@@ -497,7 +512,7 @@ bool closeSolenoidValve() {
 }
 
 // -------------------------- 传感器检测函数 --------------------------
-void detectSensorStatus() {
+void DetectSensorStatus() {
     cout << "传感器检测已启动（每0.5秒读取一次），按'q'并回车退出检测" << endl;
     cout << "------------------------------------------------" << endl;
 
@@ -552,7 +567,7 @@ void detectSensorStatus() {
 }
 
 // -------------------------- 主菜单打印函数 --------------------------
-void printMainMenu() {
+void PrintMainMenu() {
     cout << "\n=================================================" << endl;
     cout << "            设备控制中心（V1.0）" << endl;
     cout << "=================================================" << endl;
@@ -565,10 +580,10 @@ void printMainMenu() {
 
 // -------------------------- 主菜单交互逻辑 --------------------------
 int main() {
-    initEncoding(); // 初始化UTF-8编码，解决中文乱码
+    InitEncoding(); // 初始化UTF-8编码，解决中文乱码
 
     // 程序启动时自动执行GPIO33导出和验证
-    if (!exportGPIO33()) {
+    if (!ExportGPIOX()) {
         cout << "GPIO初始化失败，程序无法正常运行传感器检测功能" << endl;
         return -1;
     }
@@ -576,7 +591,7 @@ int main() {
     int mainChoice;
     while (true) {
         // 每次循环都打印主菜单
-        printMainMenu();
+        PrintMainMenu();
 
         cout << "请输入功能编号（0-2）：";
         cin >> mainChoice;
@@ -601,9 +616,9 @@ int main() {
                     }
 
                     // 串口未初始化时自动尝试初始化
-                    if (serialFd < 0) {
+                    if (SerialPortStutas < 0) {
                         cout << "正在初始化串口..." << endl;
-                        if (!initSerial()) {
+                        if (!InitSerial()) {
                             cout << "串口初始化失败，无法进行电磁阀控制" << endl;
                             break;
                         }
@@ -611,10 +626,10 @@ int main() {
 
                     switch (valveChoice) {
                         case 1:
-                            openSolenoidValve();
+                            OpenSolenoidValve();
                             break;
                         case 2:
-                            closeSolenoidValve();
+                            CloseSolenoidValve();
                             break;
                         default:
                             cout << "无效指令，请输入0-2之间的数字" << endl;
@@ -626,13 +641,13 @@ int main() {
 
             case 2:
                 // 传感器检测（退出后返回主循环）
-                detectSensorStatus();
+                DetectSensorStatus();
                 break;
 
             case 0:
                 // 退出系统
                 cout << "\n正在退出系统，释放资源..." << endl;
-                closeSerial();
+                CloseSerial();
                 cout << "系统已退出，感谢使用！" << endl;
                 return 0;
 

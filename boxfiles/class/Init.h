@@ -1,20 +1,36 @@
 #ifndef INIT_H
 #define INIT_H
-
+#include <string> 
+#include <iostream>
+#include <fcntl.h>
+#include <unistd.h>
+#include <termios.h>
+#include <cstring>
+#include <cstddef> 
+#include <chrono>
+#include <thread>
+#include <iomanip>
+#include <locale.h>  
+#include <string>
+#include <stdio.h> 
+using namespace std;
 class Init{
 private:
-    int SerialPortStutas;
-    string GPIOPath;   //gpio_value_path
+    int SerialPortStutas;  //SerialPortStutasä¸²å£æ–‡ä»¶æè¿°ç¬¦
+    string Gpio_Value_Path;   //gpio_value_path
     string PortName;
-    bool ConfigureSerial(int fd);   //´®¿Ú²ÎÊıÅäÖÃº¯Êı
+    string Gpio_Export_Path;
+    string Gpio_Dir_Path;
+    bool ConfigureSerial(int fd);   //ä¸²å£å‚æ•°é…ç½®å‡½æ•°
 public:
-    void InitEncoding();  //³õÊ¼»¯±àÒëÉèÖÃ£¬Ê¹ÖĞÎÄ¿ÉÒÔÕı³£±àÒë
-    Init(const std::string& portname, const std::string& gpiopath);          //ÓÃÓÚËùÓĞµÄ¶Ë¿ÚºÅ£¬¶Ë¿ÚÎÄ¼şµÄ×´Ì¬£¬GPIOÂ·¾¶µÄ³õÊ¼»¯
+    void InitEncoding();  //åˆå§‹åŒ–ç¼–è¯‘è®¾ç½®ï¼Œä½¿ä¸­æ–‡å¯ä»¥æ­£å¸¸ç¼–è¯‘
+    Init(const std::string& portname, const std::string& gpio_value_path);          //ç”¨äºæ‰€æœ‰çš„ç«¯å£å·ï¼Œç«¯å£æ–‡ä»¶çš„çŠ¶æ€ï¼ŒGPIOè·¯å¾„çš„åˆå§‹åŒ–
     ~Init();
-    bool InitSerial(const char *PortName);    //´®¿Ú³õÊ¼»¯º¯Êı
-    void CloseSerial();   //¹Ø±Õ´®¿Ú
+    bool InitSerial();    //ä¸²å£åˆå§‹åŒ–å‡½æ•°ss
+    bool ExportGPIOX();
+    void CloseSerial();   //å…³é—­ä¸²å£
 
-};   //·ÖºÅÈİÒ×Â©
+};   //åˆ†å·å®¹æ˜“æ¼
 #endif
 
 // #ifndef Init_H
@@ -30,39 +46,39 @@ public:
 
 // class SerialManager {
 // private:
-//     // Ë½ÓĞ³ÉÔ±±äÁ¿£¨·â×°´®¿Ú×ÊÔ´£©
-//     int serialFd;                // ´®¿ÚÎÄ¼şÃèÊö·û£¨³õÊ¼»¯Îª-1£©
-//     std::string gpioValuePath;   // ´«¸ĞÆ÷GPIOÂ·¾¶
-//     std::string portName;        // ´®¿Ú¶Ë¿ÚÃû
+//     // ç§æœ‰æˆå‘˜å˜é‡ï¼ˆå°è£…ä¸²å£èµ„æºï¼‰
+//     int SerialPortStutas;                // ä¸²å£æ–‡ä»¶æè¿°ç¬¦ï¼ˆåˆå§‹åŒ–ä¸º-1ï¼‰
+//     std::string gpioValuePath;   // ä¼ æ„Ÿå™¨GPIOè·¯å¾„
+//     std::string portName;        // ä¸²å£ç«¯å£å
 
-//     // Ë½ÓĞ·½·¨£º´®¿Ú²ÎÊıÅäÖÃ£¨Íâ²¿ÎŞĞèµ÷ÓÃ£©
-//     bool configureSerial();
+//     // ç§æœ‰æ–¹æ³•ï¼šä¸²å£å‚æ•°é…ç½®ï¼ˆå¤–éƒ¨æ— éœ€è°ƒç”¨ï¼‰
+//     bool ConfigureSerial();
 
 // public:
-//     // ¹¹Ôìº¯Êı£¨Ö§³Ö×Ô¶¨Òå´®¿Ú¶Ë¿Ú¡¢GPIOÂ·¾¶£¬Ä¬ÈÏÖµÓëÔ­Âß¼­Ò»ÖÂ£©
+//     // æ„é€ å‡½æ•°ï¼ˆæ”¯æŒè‡ªå®šä¹‰ä¸²å£ç«¯å£ã€GPIOè·¯å¾„ï¼Œé»˜è®¤å€¼ä¸åŸé€»è¾‘ä¸€è‡´ï¼‰
 //     SerialManager(const std::string& port = "/dev/ttyS4", 
 //                   const std::string& gpioPath = "/sys/class/gpio/gpio33/value");
     
-//     // Îö¹¹º¯Êı£¨×Ô¶¯¹Ø±Õ´®¿Ú£¬ÊÍ·Å×ÊÔ´£©
+//     // ææ„å‡½æ•°ï¼ˆè‡ªåŠ¨å…³é—­ä¸²å£ï¼Œé‡Šæ”¾èµ„æºï¼‰
 //     ~SerialManager();
 
-//     // ¹«ÓĞ·½·¨£º±àÂë³õÊ¼»¯£¨½â¾öÖĞÎÄÂÒÂë£©
-//     void initEncoding();
+//     // å…¬æœ‰æ–¹æ³•ï¼šç¼–ç åˆå§‹åŒ–ï¼ˆè§£å†³ä¸­æ–‡ä¹±ç ï¼‰
+//     void InitEncoding();
 
-//     // ¹«ÓĞ·½·¨£º´®¿Ú³õÊ¼»¯Èë¿Ú£¨´ò¿ª´®¿Ú + ÅäÖÃ²ÎÊı£©
-//     bool initSerial();
+//     // å…¬æœ‰æ–¹æ³•ï¼šä¸²å£åˆå§‹åŒ–å…¥å£ï¼ˆæ‰“å¼€ä¸²å£ + é…ç½®å‚æ•°ï¼‰
+//     bool InitSerial();
 
-//     // ¹«ÓĞ·½·¨£ºÖ÷¶¯¹Ø±Õ´®¿Ú
-//     void closeSerial();
+//     // å…¬æœ‰æ–¹æ³•ï¼šä¸»åŠ¨å…³é—­ä¸²å£
+//     void CloseSerial();
 
-//     // ¹«ÓĞ½Ó¿Ú£º»ñÈ¡´®¿ÚÎÄ¼şÃèÊö·û£¨Íâ²¿¶ÁĞ´´®¿ÚÊ±ĞèÒª£©
+//     // å…¬æœ‰æ¥å£ï¼šè·å–ä¸²å£æ–‡ä»¶æè¿°ç¬¦ï¼ˆå¤–éƒ¨è¯»å†™ä¸²å£æ—¶éœ€è¦ï¼‰
 //     int getSerialFd() const;
 
-//     // ¹«ÓĞ½Ó¿Ú£ºÉèÖÃ/»ñÈ¡GPIOÂ·¾¶£¨Ôö¼ÓÁé»îĞÔ£©
+//     // å…¬æœ‰æ¥å£ï¼šè®¾ç½®/è·å–GPIOè·¯å¾„ï¼ˆå¢åŠ çµæ´»æ€§ï¼‰
 //     void setGpioValuePath(const std::string& path);
 //     std::string getGpioValuePath() const;
 
-//     // ¹«ÓĞ½Ó¿Ú£ºÉèÖÃ/»ñÈ¡´®¿Ú¶Ë¿ÚÃû£¨Ö§³Ö¶¯Ì¬ÇĞ»»´®¿Ú£©
+//     // å…¬æœ‰æ¥å£ï¼šè®¾ç½®/è·å–ä¸²å£ç«¯å£åï¼ˆæ”¯æŒåŠ¨æ€åˆ‡æ¢ä¸²å£ï¼‰
 //     void setPortName(const std::string& port);
 //     std::string getPortName() const;
 // };
