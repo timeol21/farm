@@ -11,6 +11,24 @@ using namespace std;
 // 全局变量：串口文件描述符（供所有函数使用）
 int serialFd = -1;
 
+void InitEncoding() {
+    const char* locales[] = {"zh_CN.UTF-8", "en_US.UTF-8", "C.UTF-8", "POSIX"};
+    bool localeSet = false;
+
+    for (const char* loc : locales) {
+        if (setlocale(LC_ALL, loc) != NULL) {
+            cout << "编码初始化成功：使用 " << loc << " 编码" << endl;
+            localeSet = true;
+            break;
+        }
+        cerr << "尝试设置 " << loc << " 编码失败，继续尝试下一个..." << endl;
+    }
+
+    if (!localeSet) {
+        perror("所有编码设置均失败，可能导致打印乱码");
+    }
+}
+
 // 串口配置函数（与水位传感器、电磁阀程序完全一致）
 bool configureSerial(int fd) {
     struct termios tty;
@@ -143,6 +161,7 @@ void closeSerial() {
 
 // 主函数：循环轮询X1（烟雾报警器）状态
 int main() {
+    InitEncoding();
     // 初始化串口
     if (!initSerial()) {
         return 1;

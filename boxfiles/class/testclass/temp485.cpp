@@ -134,6 +134,24 @@ using namespace std;
 
 int serialFd = -1;
 
+void InitEncoding() {
+    const char* locales[] = {"zh_CN.UTF-8", "en_US.UTF-8", "C.UTF-8", "POSIX"};
+    bool localeSet = false;
+
+    for (const char* loc : locales) {
+        if (setlocale(LC_ALL, loc) != NULL) {
+            cout << "编码初始化成功：使用 " << loc << " 编码" << endl;
+            localeSet = true;
+            break;
+        }
+        cerr << "尝试设置 " << loc << " 编码失败，继续尝试下一个..." << endl;
+    }
+
+    if (!localeSet) {
+        perror("所有编码设置均失败，可能导致打印乱码");
+    }
+}
+
 // 串口配置：9600波特率、8N1、无流控（适配DC-A568-V06串口4）
 bool configureSerial(int fd) {
     struct termios tty;
@@ -232,6 +250,8 @@ void closeSerial() {
 }
 
 int main() {
+    InitEncoding();
+
     if (!initSerial()) return 1;
 
     cout << "开始实时温湿度监控（按Ctrl+C停止）" << endl;
