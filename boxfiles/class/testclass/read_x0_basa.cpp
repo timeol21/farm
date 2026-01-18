@@ -1,4 +1,4 @@
-#include <iostream>
+#include <iostream>    //只有电磁阀可以正常使用，其他的功能暂时不可以正常的使用
 #include <fcntl.h>
 #include <unistd.h>
 #include <termios.h>
