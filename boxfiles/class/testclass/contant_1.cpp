@@ -1,4 +1,4 @@
-#include <iostream>
+#include <iostream>   //完整的可以控制两个电磁阀代码
 #include <fcntl.h>
 #include <unistd.h>
 #include <termios.h>

@@ -25,7 +25,7 @@ int main() {
 
         gpio_value_file.close();
 
-        usleep(500000); // 每 0.5 秒读取一次
+        usleep(500000); 
     }
 
     return 0;
