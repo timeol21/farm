@@ -125,6 +125,7 @@ bool InitSerial(const char *portName = "/dev/ttyS4") {
     }
 
     SerialPortStutas = open(portName, O_RDWR | O_NOCTTY | O_SYNC);
+    //SerialPortStutas：初始值-1，表示串口未打开；成功打开后变为非负整数（如 3、4）；
     if (SerialPortStutas < 0) {
         perror("串口打开失败");
         return false;
@@ -157,7 +158,11 @@ bool OpenSolenoidValve() {
 
     unsigned char sendBuf[] = {0x01, 0x05, 0x05, 0x00, 0xFF, 0x00, 0x8C, 0xF6};
     ssize_t sent = write(SerialPortStutas, sendBuf, sizeof(sendBuf));
-
+    /*程序尝试向 SerialPortStutas 标识的串口，发送 sendBuf 中前 sizeof(sendBuf) 个字节；
+    发送结果会赋值给 sent：
+    成功：sent = 8（等于要发送的字节数），说明 8 个字节的 Modbus 指令全部发送出去；
+    部分成功：0 < sent < 8（极少发生在串口场景，通常是网络 / I/O 阻塞导致）；
+    失败：sent = -1，说明发送失败（比如串口未打开、权限不足、串口断开）。*/
     if (sent != (ssize_t)sizeof(sendBuf)) {
         perror("电磁阀开启指令发送失败");
         return false;
@@ -167,19 +172,53 @@ bool OpenSolenoidValve() {
     for (size_t i = 0; i < sizeof(sendBuf); ++i)
         printf("%02X ", sendBuf[i]);
     cout << endl;
-
+    usleep(100000);
     // 接收响应
     unsigned char recvBuf[256];
     ssize_t len = read(SerialPortStutas, recvBuf, sizeof(recvBuf));
-    if (len > 0) {
+    /*程序尝试从串口读取数据，最多读 256 字节（sizeof(recvBuf)）；
+    开始计时，如果 1 秒内读到了数据：
+    读到多少字节就返回多少（比如读到 8 字节，len=8），并把这 8 字节存入recvBuf[0]到recvBuf[7]；
+    即使只读到 1 字节，也会立即返回（因为VMIN=0，不要求最小字节数）；
+    如果 1 秒内没读到任何数据：
+    read()返回0（表示超时，无数据），而非失败；
+    如果读取出错（比如串口断开）：
+    返回-1，可通过perror打印错误原因。*/
+    // if (len > 0) {
+    //     cout << "接收响应（" << len << "字节）：";
+    //     for (ssize_t i = 0; i < len; ++i)
+    //         printf("%02X ", recvBuf[i]);
+    //     cout << endl;
+    // }
+    // cout << "电磁阀状态：已开启" << endl;
+        // 情况1：读取出错（如串口断开）
+    if (len == -1) {
+        perror("读取电磁阀响应失败（串口异常）");
+        return false;
+    }
+    // 情况2：超时无响应
+    else if (len == 0) {
+        cerr << "警告：未收到电磁阀响应（超时1秒），操作可能未生效！" << endl;
+        // 返回false表示操作存疑，也可根据需求改为return true（仅提示不阻断）
+        return false;
+    }
+    // 情况3：收到响应（可选：校验响应是否符合Modbus规范）
+    else {
         cout << "接收响应（" << len << "字节）：";
         for (ssize_t i = 0; i < len; ++i)
             printf("%02X ", recvBuf[i]);
         cout << endl;
-    }
 
-    cout << "电磁阀状态：已开启" << endl;
-    return true;
+        // 进阶优化：校验Modbus响应是否正确（以线圈写指令响应为例）
+        // Modbus 0x05指令的响应应该和发送指令完全一致（8字节）
+        if (len == sizeof(sendBuf) && memcmp(recvBuf, sendBuf, len) == 0) {
+            cout << "电磁阀状态：已开启（响应校验通过）" << endl;
+            return true;
+        } else {
+            cerr << "警告：收到响应但格式异常，操作结果未知！" << endl;
+            return false;
+        }
+    }
 }
 
 bool CloseSolenoidValve() {
@@ -200,19 +239,38 @@ bool CloseSolenoidValve() {
     for (size_t i = 0; i < sizeof(sendBuf); ++i)
         printf("%02X ", sendBuf[i]);
     cout << endl;
-
+    usleep(100000);
     // 接收响应
     unsigned char recvBuf[256];
     ssize_t len = read(SerialPortStutas, recvBuf, sizeof(recvBuf));
-    if (len > 0) {
+    // if (len > 0) {
+    //     cout << "接收响应（" << len << "字节）：";
+    //     for (ssize_t i = 0; i < len; ++i)
+    //         printf("%02X ", recvBuf[i]);
+    //     cout << endl;
+    // }
+    // cout << "电磁阀状态：已关闭" << endl;
+        if (len == -1) {
+        perror("读取电磁阀响应失败（串口异常）");
+        return false;
+    } else if (len == 0) {
+        cerr << "警告：未收到电磁阀响应（超时1秒），操作可能未生效！" << endl;
+        return false;
+    } else {
         cout << "接收响应（" << len << "字节）：";
         for (ssize_t i = 0; i < len; ++i)
             printf("%02X ", recvBuf[i]);
         cout << endl;
-    }
 
-    cout << "电磁阀状态：已关闭" << endl;
-    return true;
+        // 校验响应是否和关闭指令一致
+        if (len == sizeof(sendBuf) && memcmp(recvBuf, sendBuf, len) == 0) {
+            cout << "电磁阀状态：已关闭（响应校验通过）" << endl;
+            return true;
+        } else {
+            cerr << "警告：收到响应但格式异常，操作结果未知！" << endl;
+            return false;
+        }
+    }
 }
 
 // -------------------------- 传感器检测函数 --------------------------
