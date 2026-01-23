@@ -14,7 +14,6 @@ public:
     Device();
     virtual ~Device();
 
-    // 对应你习惯的 setBaseInfo 风格
     void setBaseInfo(string newId, string newType, string newPort);
 
     // 纯虚函数：这是第一版架构要求的，强制子类实现各自的工作逻辑

@@ -183,3 +183,25 @@ int main() {
     closeSerial();
     return 0;
 }
+
+/*
+ztl@RK356X:~/program/boxfiles/class/testclass$ sudo ./read_smoke_detector
+[sudo] ztl 的密码： 
+Serial port initialized successfully (port: /dev/ttyS4)
+=== X1 Smoke Detector Monitoring Started ===
+Polling interval: 1 second | Press Ctrl+C to exit
+X1 MODBUS Address: 1025 | Communication Protocol: MODBUS RTU
+=============================================
+
+---------------------------------------------
+Read X1 (Smoke Detector) command sent: 01 01 04 01 00 01 AD 3A 
+X1 (Smoke Detector) response (6 bytes): 01 01 01 00 51 88 
+X1 (Smoke Detector) Status: Low Level (No smoke detected, normal state)
+---------------------------------------------
+Read X1 (Smoke Detector) command sent: 01 01 04 01 00 01 AD 3A 
+X1 (Smoke Detector) response (6 bytes): 01 01 01 01 90 48 
+X1 (Smoke Detector) Status: High Level (Smoke detected! Alarm triggered)
+---------------------------------------------
+^C
+ztl@RK356X:~/program/boxfiles/class/testclass$ 
+*/
