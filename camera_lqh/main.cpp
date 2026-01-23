@@ -28,3 +28,8 @@ int main() {
     cam.start();
     return 0;
 }
+
+
+/*
+g++ main.cpp -o camera_app -lavformat -lavcodec -lavutil
+*/
