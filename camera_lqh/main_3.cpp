@@ -1,4 +1,4 @@
-#include <iostream>
+#include <iostream>  // 用来获取一帧照片
 #include <string>
 
 // 必须包含 FFmpeg 库的头文件
