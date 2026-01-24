@@ -1,8 +1,9 @@
-#include <iostream>
+#include <iostream>     //可以实现一个片段60秒的流畅的播放
 #include <string>
 
 extern "C" {
 #include <libavformat/avformat.h>
+#include <libavcodec/avcodec.h>
 #include <libavutil/avutil.h>
 }
 
@@ -14,20 +15,29 @@ int main() {
     int file_count = 0;
 
     const int SEGMENT_DURATION = 60; 
-    int64_t pts_offset = 0, dts_offset = 0;
-    int64_t last_dts = -1;           
-    bool is_first_packet_of_seg = true;
+    int64_t frame_count_in_seg = 0;   // 当前片段已录制的帧数
     bool is_stream_started = false;
 
     avformat_network_init();
 
-    if (avformat_open_input(&ifmt_ctx, in_url, nullptr, nullptr) < 0) return -1;
+    // 默认强制 TCP
+    AVDictionary* in_opts = nullptr;
+    av_dict_set(&in_opts, "rtsp_transport", "tcp", 0); 
+
+    if (avformat_open_input(&ifmt_ctx, in_url, nullptr, &in_opts) < 0) return -1;
     if (avformat_find_stream_info(ifmt_ctx, nullptr) < 0) return -1;
 
     for (unsigned int i = 0; i < ifmt_ctx->nb_streams; i++) {
         if (ifmt_ctx->streams[i]->codecpar->codec_type == AVMEDIA_TYPE_VIDEO) {
             video_idx = i; break;
         }
+    }
+
+    // 假设帧率为 25 (如果你的摄像头是 30 帧，就把 25 改成 30)
+    double frame_rate = 25.0; 
+    AVStream *in_stream = ifmt_ctx->streams[video_idx];
+    if (in_stream->avg_frame_rate.den != 0 && in_stream->avg_frame_rate.num != 0) {
+        frame_rate = av_q2d(in_stream->avg_frame_rate);
     }
 
     auto create_new_segment = [&](int index) {
@@ -37,7 +47,7 @@ int main() {
             avformat_free_context(ofmt_ctx);
             ofmt_ctx = nullptr;
         }
-        last_dts = -1; 
+        frame_count_in_seg = 0; // 重置帧计数
         std::string filename = "video_60s_" + std::to_string(index) + ".mp4";
         avformat_alloc_output_context2(&ofmt_ctx, nullptr, nullptr, filename.c_str());
         
@@ -46,64 +56,57 @@ int main() {
         out_stream->codecpar->codec_tag = 0;
 
         if (avio_open(&ofmt_ctx->pb, filename.c_str(), AVIO_FLAG_WRITE) < 0) return;
+
+        // 负责人要求的“边写边看”参数
+        AVDictionary* out_opts = nullptr;
+        av_dict_set(&out_opts, "movflags", "frag_keyframe+empty_moov+default_base_moof", 0);
         
-        avformat_write_header(ofmt_ctx, nullptr);
-        std::cout << "[任务执行] 开启新片段: " << filename << std::endl;
+        avformat_write_header(ofmt_ctx, &out_opts);
+        std::cout << "\n[任务执行] 开启新片段: " << filename << std::endl;
+        av_dict_free(&out_opts);
     };
 
     while (av_read_frame(ifmt_ctx, &pkt) >= 0) {
         if (pkt.stream_index == video_idx) {
-            
-            if (pkt.pts == AV_NOPTS_VALUE) pkt.pts = pkt.dts;
-            if (pkt.dts == AV_NOPTS_VALUE) pkt.dts = pkt.pts;
-
             bool is_keyframe = (pkt.flags & AV_PKT_FLAG_KEY);
 
+            // 1. 等待第一个关键帧启动
             if (!is_stream_started) {
                 if (!is_keyframe) {
                     av_packet_unref(&pkt);
-                    continue;
+                    continue; 
                 }
                 is_stream_started = true;
                 create_new_segment(file_count++);
             }
 
-            AVStream *in_s = ifmt_ctx->streams[video_idx];
-            // 计算当前包在原始流中的相对秒数
-            double current_sec = (pkt.pts - pts_offset) * av_q2d(in_s->time_base);
-
+            // 2. 切片逻辑：根据已录制的秒数切片
+            double current_sec = frame_count_in_seg / frame_rate;
             if (current_sec >= SEGMENT_DURATION && is_keyframe) {
                 create_new_segment(file_count++);
-                is_first_packet_of_seg = true; 
+                current_sec = 0;
             }
 
-            if (is_first_packet_of_seg) {
-                pts_offset = pkt.pts;
-                dts_offset = pkt.dts;
-                is_first_packet_of_seg = false;
-            }
-
-            // 时间戳偏移计算
-            pkt.pts -= pts_offset;
-            pkt.dts -= dts_offset;
-
-            // --- 关键修正：使用标准的 av_rescale_q ---
+            // 3. 【核心修复】：手动构造单调递增的时间戳
+            // 忽略摄像头的 PTS，我们自己数数：0, 1, 2, 3...
             AVStream *out_s = ofmt_ctx->streams[0];
-            pkt.pts = av_rescale_q(pkt.pts, in_s->time_base, out_s->time_base);
-            pkt.dts = av_rescale_q(pkt.dts, in_s->time_base, out_s->time_base);
-            pkt.duration = av_rescale_q(pkt.duration, in_s->time_base, out_s->time_base);
+            
+            // 将“第几帧”转换为相对于 time_base 的数值
+            int64_t pts_value = (int64_t)(frame_count_in_seg * (out_s->time_base.den / (out_s->time_base.num * frame_rate)));
+            
+            pkt.pts = pts_value;
+            pkt.dts = pts_value;
+            pkt.duration = (int64_t)(out_s->time_base.den / (out_s->time_base.num * frame_rate));
             pkt.pos = -1;
             pkt.stream_index = 0;
 
-            // 强制 DTS 递增，解决报错
-            if (last_dts != -1 && pkt.dts <= last_dts) {
-                pkt.dts = last_dts + 1;
-            }
-            if (pkt.pts < pkt.dts) pkt.pts = pkt.dts;
-            last_dts = pkt.dts;
-
             if (ofmt_ctx) {
                 av_interleaved_write_frame(ofmt_ctx, &pkt);
+                frame_count_in_seg++;
+                printf("\r[录制中] %s: %.2f 秒 (PTS: %ld)", 
+                       ("video_60s_" + std::to_string(file_count-1) + ".mp4").c_str(), 
+                       current_sec, pts_value);
+                fflush(stdout);
             }
         }
         av_packet_unref(&pkt);
@@ -116,6 +119,7 @@ int main() {
 
 /*
 g++ main_4_pro.cpp -o main_4_pro -lavformat -lavcodec -lavutil
+./main_4_pro
 */
 
 // #include <iostream>   //可以正常的拿到视频，就是视频有时候可能会有点花
