@@ -1,4 +1,4 @@
-#include <iostream>
+#include <iostream>            //红外，测过，有效
 #include <fcntl.h>
 #include <unistd.h>
 #include <termios.h>
