@@ -1,0 +1,40 @@
+{
+  "topology": [
+    {
+      "nodeID": "COM_BUS_1",
+      "port": "/dev/ttyS4",
+      "baudRate": 9600,
+      "description": "板载RS485接口"
+    }
+  ],
+  "devices": [
+    {
+      "id": "Water_Level_01",
+      "type": "WaterLevel",
+      "nodeID": "COM_BUS_1",
+      "slaveAddr": 1,
+      "description": "水位报警器(X0)"
+    },
+    {
+      "id": "Smoke_Detector_01",
+      "type": "Smoke",
+      "nodeID": "COM_BUS_1",
+      "slaveAddr": 1,
+      "description": "烟雾报警器(X1)"
+    },
+    {
+      "id": "IR_Sensor_X2",
+      "type": "InfraredX2",
+      "nodeID": "COM_BUS_1",
+      "slaveAddr": 1,
+      "description": "红外传感器(X2接口)"
+    },
+    {
+      "id": "IR_Sensor_X3",
+      "type": "InfraredX3",
+      "nodeID": "COM_BUS_1",
+      "slaveAddr": 1,
+      "description": "红外传感器(X3接口)"
+    }
+  ]
+}
