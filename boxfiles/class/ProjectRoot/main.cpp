@@ -1,7 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include <thread>
-#include <nlohmann/json.hpp>
+// #include <nlohmann/json.hpp>
+#include "json.hpp"
 #include "Topology/LogicalNode.h"
 #include "DataAccess/ChannelManager.h"
 #include "Business/ComponentRegistry.h"
@@ -37,3 +38,13 @@ int main() {
     }
     return 0;
 }
+
+/*
+g++ -g *.cpp -o main_debug -I. -lpthread
+g++ -g *.cpp DataAccess/*.cpp -o main_debug -I. -I./DataAccess -lpthread
+已经改好了 tasks.json，你其实不需要手动敲命令了：
+
+打开 main.cpp（确保它是当前活动窗口）。
+按下键盘上的 F5。
+VS Code 会自动运行 tasks.json 里的那堆复杂的命令（它会去 DataAccess 下找所有 .cpp等等，文件夹下包含子文件件的所有的.cpp都编译好）。
+*/
