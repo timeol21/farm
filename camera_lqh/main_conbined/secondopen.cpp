@@ -1,4 +1,4 @@
-#include <iostream>
+#include <iostream>   //
 #include <string>
 #include <ctime>
 #include <thread>
@@ -186,7 +186,3 @@ int main() {
     av_packet_free(&pPkt);
     return 0;
 }
-
-/*
-g++ main_combined.cpp -o main_app -lavformat -lavcodec -lavutil -lpthread
-*/
