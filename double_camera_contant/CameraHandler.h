@@ -39,6 +39,9 @@ private:
 
     // 辅助函数：将解码后的AVFrame编码为JPEG文件
     bool saveFrameAsJpeg(AVFrame* frame, const std::string& path);
+    
+    // 生成时间戳字符串，格式YYYYMMDD_HHMMSS（如20260129_153000）
+    std::string getTimeStamp();
 
 private:
     // 配置参数
