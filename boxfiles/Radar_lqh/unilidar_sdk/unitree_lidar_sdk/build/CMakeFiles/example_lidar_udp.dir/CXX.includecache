@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/unitree_lidar_sdk.h
+stdint.h
+-
+iostream
+-
+unistd.h
+-
+deque
+-
+vector
+-
+memory
+-
+math.h
+-
+unitree_lidar_sdk_config.h
+../include/unitree_lidar_sdk_config.h
+
+../include/unitree_lidar_sdk_config.h
+
+/home/ztl/program/boxfiles/Radar_lqh/unilidar_sdk/unitree_lidar_sdk/examples/example_lidar_udp.cpp
+unitree_lidar_sdk.h
+/home/ztl/program/boxfiles/Radar_lqh/unilidar_sdk/unitree_lidar_sdk/examples/unitree_lidar_sdk.h
+
