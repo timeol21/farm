@@ -1,0 +1,8 @@
+prefix=/home/ztl/program/boxfiles/Radar_lqh/unilidar_sdk/unitree_lidar_ros/install
+
+Name: pcl_to_txt
+Description: Description of pcl_to_txt
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

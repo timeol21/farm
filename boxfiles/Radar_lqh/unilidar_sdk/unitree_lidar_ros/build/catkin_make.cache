@@ -1,0 +1,2 @@
+pcl_to_txt:unitree_lidar_ros
+-DCATKIN_DEVEL_PREFIX=/home/ztl/program/boxfiles/Radar_lqh/unilidar_sdk/unitree_lidar_ros/devel -DCMAKE_INSTALL_PREFIX=/home/ztl/program/boxfiles/Radar_lqh/unilidar_sdk/unitree_lidar_ros/install -G Unix Makefiles

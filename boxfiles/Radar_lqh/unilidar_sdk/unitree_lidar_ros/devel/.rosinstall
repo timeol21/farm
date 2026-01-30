@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/ztl/program/boxfiles/Radar_lqh/unilidar_sdk/unitree_lidar_ros/devel/setup.sh
