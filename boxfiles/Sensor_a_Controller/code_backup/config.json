@@ -1,0 +1,128 @@
+{
+  "device_config": {
+    "version": "1.0",
+    "description": "设备配置（含PLC直连/网关连接两种类型）",
+    "box": "2",
+    "devices": {
+      "camera": [
+        {
+          "id": "10",
+          "name": "camera1",
+          "url": "rtsp://admin:Wlkjaqxy411@10.9.255.21:554/Streaming/Channels/101"
+        },
+        {
+          "id": "2",
+          "name": "camera2",
+          "url": "rtsp://admin:Wlkjaqxy411@10.9.255.21:554/Streaming/Channels/201"
+        }
+      ],
+
+      "plc_list": [
+        {
+          "plc_id": "plc_01",
+          "name": "主控制PLC",
+          "slave_id": "0x01",
+          "connection_type": "direct",
+          "serial": {
+            "port": "/dev/ttyS4",
+            "baud_rate": 9600,
+            "parity": "none",
+            "stop_bits": 1
+          }
+        },
+        {
+          "plc_id": "plc_02",
+          "name": "网关PLC",
+          "slave_id": "0x01",
+          "connection_type": "gateway",
+          "gateway": {
+            "gateway_id": "gw_001",
+            "gateway_ip": "192.168.10.253",
+            "gateway_port": 31001
+          }
+        }
+      ],
+      "plc_device": [
+        {
+          "id": "plc_dev_001",
+          "plc_id": "plc_01",
+          "name": "电磁阀1",
+          "type": "solenoid_valve",
+          "register": "0x0504"
+        },
+        {
+          "id": "plc_dev_002",
+          "plc_id": "plc_02",
+          "name": "电磁阀2",
+          "type": "solenoid_valve",
+          "register": "0x0504"
+        }
+      ],
+
+
+      "sensor": [
+        {
+          "id": "sensor001",
+          "name": "车间温湿度传感器",
+          "type": "modbus",
+          "serial_config": {
+            "port": "/dev/ttyS5",
+            "baud_rate": 9600,
+            "parity": "none",
+            "stop_bits": 1
+          },
+          "modbus_addr": 1,
+          "reg_start": 0,
+          "reg_count": 2
+        },
+        {
+          "id": "sensor002",
+          "name": "机房水浸传感器",
+          "type": "gpio",
+          "serial_config": {
+            "port": "gpio18",
+            "baud_rate": 0,
+            "parity": "",
+            "stop_bits": 0
+          }
+        },
+        {
+          "id": "sensor003",
+          "name": "管道压力传感器",
+          "type": "custom",
+          "serial_config": {
+            "port": "/dev/ttyUSB2",
+            "baud_rate": 19200,
+            "parity": "even",
+            "stop_bits": 1
+          }
+        }
+      ],
+      "carcontrol": [
+        {
+        "id": "carcontrol001",
+        "name": "小车控制器",
+        "serial_config": {
+          "port": "/dev/ttyS4",
+          "baud_rate": 9600,
+          "parity": "none",
+          "stop_bits": 1
+          },
+        "send_window_ms": 600,
+        "send_interval_ms": 80,
+        "operate_timeout_ms": 1500
+        }
+      ],
+
+      "gateway": [
+        {
+          "id": "gw_001",
+          "name": "工业智能网关",
+          "ip": "192.168.10.253",
+          "protocol": "Modbus TCP", 
+          "status": "online" 
+        }
+      ]
+    }
+  }
+}

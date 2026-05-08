@@ -1,0 +1,73 @@
+{
+  "system_config": {
+    "serial_manager": {
+      "ports": [
+        {
+          "dev_path": "/dev/ttys4",
+          "connection_type": "RS485",
+          "is_used": false,
+          "baud_rate": 9600,
+          "read_timeout_ms": 200,
+          "max_retries": 3,
+          "description": "PLC_1 on RS485"
+        },
+        {
+          "dev_path": "/dev/ttys1",
+          "connection_type": "RS232",
+          "is_used": false,
+          "baud_rate": 9600,
+          "read_timeout_ms": 150,
+          "max_retries": 2,
+          "description": "PLC_2 on RS232"
+        }
+      ],
+      "network_nodes_reserved": [
+        {
+          "node_id": "future_plc_eth",
+          "connection_type": "TCP",
+          "ip": "192.168.1.10",
+          "port": 502
+        }
+      ]
+    }
+  },
+  "plc_inventory": {
+    "plc_node_1": {
+      "slave_addr": "0x01",
+      "bind_port": "/dev/ttys4",
+      "components": [
+        {
+          "comp_id": "solenoid_valve_01",
+          "poll_interval_ms": 0,
+          "commands": {
+            "open":  ["0x01", "0x05", "0x05", "0x00", "0xFF", "0x00", "0x8C", "0xF6"],
+            "query": ["0x01", "0x01", "0x05", "0x00", "0x00", "0x01", "0xFD", "0x06"]
+          }
+        }
+      ]
+    },
+    "plc_node_2": {
+      "slave_addr": "0x02",
+      "bind_port": "/dev/ttys1",
+      "components": [
+        {
+          "comp_id": "water_level_sensor_01",
+          "poll_interval_ms": 500,
+          "commands": {
+            "query": ["0x02", "0x01", "0x04", "0x00", "0x00", "0x01", "0xFC", "0xC9"]
+          }
+        }
+      ]
+    }
+  },
+  "host_direct_gpio": {
+    "devices": [
+      {
+        "device_id": "door_lock_01",
+        "gpio_num": 100,
+        "active_logic": "high",
+        "default_state": "low"
+      }
+    ]
+  }
+}

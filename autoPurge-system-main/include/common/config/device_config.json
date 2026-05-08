@@ -1,0 +1,41 @@
+{
+  "version": "2.0",
+  "description": "设备系统",
+
+  "host_nodes": [
+    {
+      "id": "box_001",
+      "name": "清堵盒子",
+      "hostType": "edge_box",
+      "ip": "192.168.31.208"
+    }
+  ],
+
+  "interfaces": [
+   {
+      "id": "/dev/ttyS4",
+      "type": "serial",
+      "hostNodeId": "box_001",
+      "config": {
+        "baud_rate": 9600,
+        "data_bits": 8,
+        "stop_bits": 1,
+        "parity": "none"
+      }
+    }
+  ],
+
+  "devices": [
+    {
+      "id": "camera_rtsp_001",
+      "name": "RTSP摄像头",
+      "deviceType": "camera",
+      "vendor": "rtsp",
+      "hostNodeId": "box_001",
+      "driverKey": "rtsp_camera",
+      "address": "rtsp://admin:Wlkjaqxy411@10.9.255.21:554/Streaming/Channels/101",
+      "metadata": {
+      }
+    }
+  ]
+}

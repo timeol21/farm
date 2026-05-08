@@ -1,0 +1,48 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "(gdb) 启动 C++ Debug", // 在调试下拉菜单中显示的名称
+            "type": "cppdbg",              // 配置类型，C++ 调试选这个
+            "request": "launch",           // 请求类型，可以是 launch (启动) 或 attach (附加到进程)
+            
+            // 【关键点 1】: program 必须指向 tasks.json 编译出来的那个文件
+            // 你的 tasks.json 里写的是 "${fileDirname}/${fileBasenameNoExtension}"
+            // "program": "${fileDirname}/${fileBasenameNoExtension}", 
+            "program": "${fileDirname}/${fileBasenameNoExtension}",// 指向 tasks.json 生成的可执行文件
+
+            "args": [],                    // 传给程序的命令行参数，比如 ["-v", "config.json"]
+            "stopAtEntry": false,          // 设置为 true 时，程序会停在 main 函数开头
+            
+            // 【关键点 2】: 决定了程序寻找 .json 文件的起始位置
+            // 如果你的 json 文件和代码在同一个文件夹，用 ${fileDirname}
+            // 如果在项目根目录，建议改用 ${workspaceFolder}
+            //${workspaceFolder}: 你在 VS Code 打开的那个大文件夹（项目根目录）。
+            //${file}: 你当前正在编辑的那个 .cpp 文件
+            //${fileDirname}: 当前编辑文件所在的文件夹。
+            //${fileBasenameNoExtension}: 当前文件的文件名（不带后缀）。比如 main.cpp 就会变成 main
+            "cwd": "/home/ztl/program/boxfiles/class/ProjectRoot", // 【关键修改】: 设置为 config.json 所在的绝对路径
+
+            "environment": [],             // 临时环境变量
+            "externalConsole": false,      // 是否显示独立的终端窗口，false 表示使用 VS Code 底部终端
+            "MIMode": "gdb",               // 使用的调试器工具
+            
+            // 【关键点 3】: 调试前自动执行编译任务
+            // 这里的字符串必须和 tasks.json 里的 "label" 完全一致
+            "preLaunchTask": "C/C++: g++ 生成活动文件 build active file",// 必须和 tasks.json 里的 label 一致
+
+            "setupCommands": [
+                {
+                    "description": "为 gdb 启用整齐打印",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "将反汇编风格设置为 Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        }
+    ]
+}

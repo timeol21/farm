@@ -1,0 +1,196 @@
+{
+  "version": "2.0",
+  "description": "设备系统",
+
+  "host_nodes": [
+    {
+      "id": "box_001",
+      "name": "清堵盒子",
+      "hostType": "edge_box",
+      "ip": "192.168.31.208"
+    }
+  ],
+
+  "interfaces": [
+    {
+      "id": "/dev/ttyS4",
+      "type": "serial",
+      "hostNodeId": "box_001",
+      "config": {
+        "baud_rate": 9600,
+        "data_bits": 8,
+        "stop_bits": 1,
+        "parity": "none"
+      }
+    },
+    {
+      "id": "/dev/ttyS3",
+      "type": "serial",
+      "hostNodeId": "box_001",
+      "config": {
+        "baud_rate": 9600
+      }
+    },
+    {
+      "id": "gpiochip0",
+      "type": "gpio",
+      "hostNodeId": "box_001"
+    },
+    {
+      "id": "eth0",
+      "type": "ethernet",
+      "hostNodeId": "box_001"
+    }
+  ],
+
+  "devices": [
+
+    
+    {
+      "id": "nvr_001",
+      "name": "NVR设备",
+      "deviceType": "nvr",
+      "vendor": "hikvision",
+      "hostNodeId": "box_001",
+      "driverKey": "hikvision_nvr",
+      "address": "192.168.31.102:8000",
+      "metadata": {
+        "username": "admin",
+        "password": "xxx"
+      }
+    },
+
+    {
+      "id": "camera_001",
+      "name": "摄像头通道1",
+      "deviceType": "camera",
+      "vendor": "hikvision",
+      "driverKey": "hikvision_channel",
+      "parentDeviceId": "nvr_001",
+      "address": "channel_1",
+      "metadata": {
+        "channel": "1"
+      }
+    },
+
+    {
+      "id": "camera_rtsp_001",
+      "name": "RTSP摄像头",
+      "deviceType": "camera",
+      "vendor": "rtsp",
+      "hostNodeId": "box_001",
+      "driverKey": "rtsp_camera",
+      "address": "rtsp://xxx",
+      "metadata": {
+        "username": "xxx",
+        "password": "xxx"
+      }
+    },
+
+    
+    {
+      "id": "plc_main",
+      "name": "主PLC",
+      "deviceType": "plc",
+      "vendor": "modbus",
+      "hostNodeId": "box_001",
+      "interfaceId": "/dev/ttyS4",
+      "driverKey": "modbus_rtu",
+      "bindingMode": "direct",
+      "address": "0x01"
+    },
+
+    {
+      "id": "plc_gateway",
+      "name": "网关PLC",
+      "deviceType": "plc",
+      "vendor": "modbus",
+      "hostNodeId": "box_001",
+      "driverKey": "modbus_tcp",
+      "bindingMode": "gateway",
+      "address": "192.168.10.253:31001",
+      "metadata": {
+        "slave_addr": "0x01"
+      }
+    },
+
+    
+    {
+      "id": "valve_in",
+      "name": "进料阀",
+      "deviceType": "plc_device",
+      "parentDeviceId": "plc_main",
+      "interfaceId": "/dev/ttyS4",
+      "driverKey": "modbus_rtu",
+      "address": "0x0504",
+      "metadata": {
+        "plc_port": "Y0"
+      }
+    },
+
+    {
+      "id": "valve_out",
+      "name": "出料阀",
+      "deviceType": "plc_device",
+      "parentDeviceId": "plc_gateway",
+      "driverKey": "modbus_tcp",
+      "address": "0x0505"
+    },
+
+    
+    {
+      "id": "sensor_temp",
+      "name": "温湿度",
+      "deviceType": "sensor",
+      "driverKey": "modbus_rtu",
+      "interfaceId": "/dev/ttyS3",
+      "address": "0x01",
+      "metadata": {
+        "reg_start": "0",
+        "reg_count": "2"
+      }
+    },
+
+    {
+      "id": "sensor_gpio_water",
+      "name": "水浸传感器",
+      "deviceType": "sensor",
+      "driverKey": "gpio",
+      "interfaceId": "gpiochip0",
+      "address": "pin18"
+    },
+
+    {
+      "id": "sensor_pressure",
+      "name": "压力传感器",
+      "deviceType": "sensor",
+      "driverKey": "custom",
+      "interfaceId": "/dev/ttyUSB2"
+    },
+
+    
+    {
+      "id": "door_lock_1",
+      "name": "门锁",
+      "deviceType": "gpio_device",
+      "driverKey": "gpio",
+      "interfaceId": "gpiochip0",
+      "address": "pin100",
+      "metadata": {
+        "direction": "out",
+        "active_logic": "high"
+      }
+    },
+
+    
+    {
+      "id": "radar_001",
+      "name": "料位雷达",
+      "deviceType": "radar",
+      "driverKey": "custom_radar",
+      "interfaceId": "/dev/ttyUSB10",
+      "address": "0x01"
+    }
+
+  ]
+}

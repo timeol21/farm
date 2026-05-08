@@ -1,0 +1,69 @@
+{
+  "version": "2.0",
+  "description": "盒子系统配置参数",
+
+  "system": {
+    "name": "auto_purge_system",
+    "mode": "production"
+  },
+
+  "services": {
+
+    "unclog_service": {
+      "enabled": true,
+      "check_interval_ms": 5000,
+      "auto_trigger": true,
+      "timeout_ms": 30000
+    },
+
+    "device_service": {
+      "enabled": true,
+      "polling_interval_ms": 1000,
+
+      "hardware": {
+        "gpio_chip": "gpiochip0"
+      },
+
+      "config": {
+        "device_config_path": "/home/ztl/workspace/autoPurge-system/include/common/config/device_config.json"
+      }
+    },
+
+    "detection_service": {
+      "ai":{
+        "enabled": true,
+        "model_path": "models/detection_model.onnx",
+        "confidence_threshold": 0.5,
+        "nms_threshold": 0.4
+      }
+    },
+
+    "web_service": {
+      "enabled": true,
+      "ip": "0.0.0.0",
+      "port": 8080,
+      "thread_pool_size": 4
+    },
+
+    "mqtt_service": {
+      "enabled": true,
+      "broker_ip": "127.0.0.1",
+      "port": 1883,
+      "client_id": "autoPurge_box_001",
+      "qos": 1
+    },
+
+    "database": {
+      "enabled": true,
+      "type": "sqlite",
+      "path": "./data/system.db"
+    }
+  },
+
+  "logging": {
+    "level": "INFO",
+    "path": "./logs/",
+    "max_size_mb": 50,
+    "max_files": 5
+  }
+}
