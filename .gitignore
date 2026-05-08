@@ -1,0 +1,21 @@
+*.mp4
+*.jpg
+*.png
+
+# 忽略所有编译生成的中间文件
+*.o
+*.a
+build/
+devel/
+bin/
+
+# 忽略所有压缩包
+*.zip
+*.tar.gz
+*.rar
+
+# 忽略巨大的文本结果文件
+*.txt
+*.pcd
+# 如果某些小的 txt 需要保留，可以改写为特定路径
+# 但像 result.txt 和 scans.txt 这种动态生成的必须忽略
