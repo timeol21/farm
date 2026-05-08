@@ -27,7 +27,7 @@ POINT_CLOUD_REGISTER_POINT_STRUCT (UnitreePoint,
 int main() {
     // std::string input_txt = "final_raw_points.txt";
     // 关键修改：添加 ../ 表示去运行目录的上一层查找 
-    std::string input_txt = "../final_raw_points.txt";
+    std::string input_txt = "../filtered_200_points.txt";
     std::string output_pcd = "restored_scans_pcl.pcd";
 
     std::ifstream infile(input_txt);

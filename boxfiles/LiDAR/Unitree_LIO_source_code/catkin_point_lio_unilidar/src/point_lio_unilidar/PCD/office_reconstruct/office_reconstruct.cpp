@@ -15,7 +15,7 @@ const float IDEAL_Z = 4.0f;
 int main(int argc, char** argv) {
     // 1. 加载并去噪
     pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>);
-    if (pcl::io::loadPCDFile<pcl::PointXYZ>("../scans.pcd", *cloud) == -1) return -1;
+    if (pcl::io::loadPCDFile<pcl::PointXYZ>("../restored_scans_pcl.pcd", *cloud) == -1) return -1;
 
     // 预处理：剔除那些精度大、乱跳的噪点，防止产生错误的“粘连”
     pcl::StatisticalOutlierRemoval<pcl::PointXYZ> sor;
