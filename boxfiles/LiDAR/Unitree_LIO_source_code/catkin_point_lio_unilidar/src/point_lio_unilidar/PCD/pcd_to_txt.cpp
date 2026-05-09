@@ -4,6 +4,8 @@
 #include <vector>
 #include <iomanip>
 
+//  g++ pcd_to_txt.cpp -o pcd_to_txt
+
 // 严格按照宇树科技文档定义的 32 字节对齐点结构 (Point-LIO 常用对齐)
 struct UnitreePoint {
     float x;
