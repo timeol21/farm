@@ -1,0 +1,25 @@
+﻿################################################################################
+# 此 .gitignore 文件已由 Microsoft(R) Visual Studio 自动创建。
+################################################################################
+
+/.vs
+/src/build
+/out
+/洗车机方案.docx
+/洗车机方案.md
+/盒子第一稿(3).docx
+/盒子第一稿(3).md
+
+build/
+bin/
+lib/
+*.o
+*.obj
+*.exe
+*.out
+
+# CMake 临时文件
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
