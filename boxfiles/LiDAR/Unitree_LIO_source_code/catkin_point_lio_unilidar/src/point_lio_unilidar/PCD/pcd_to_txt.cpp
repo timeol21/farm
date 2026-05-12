@@ -18,8 +18,8 @@ struct UnitreePoint {
 } __attribute__((packed));
 
 int main() {
-    std::string input_pcd = "/home/ztl/program/boxfiles/LiDAR/Unitree_LIO_source_code/catkin_point_lio_unilidar/src/point_lio_unilidar/PCD/scans.pcd";
-    std::string output_txt = "/home/ztl/program/boxfiles/LiDAR/Unitree_LIO_source_code/catkin_point_lio_unilidar/src/point_lio_unilidar/PCD/final_raw_points.txt";
+    std::string input_pcd = "/home/ztl/program/boxfiles/LiDAR/Unitree_LIO_source_code/catkin_point_lio_unilidar/src/point_lio_unilidar/PCD/scans_5.pcd";
+    std::string output_txt = "/home/ztl/program/boxfiles/LiDAR/Unitree_LIO_source_code/catkin_point_lio_unilidar/src/point_lio_unilidar/PCD/scans_5.txt";
 
     std::ifstream infile(input_pcd, std::ios::binary);
     if (!infile) { std::cerr << "无法打开文件！" << std::endl; return -1; }

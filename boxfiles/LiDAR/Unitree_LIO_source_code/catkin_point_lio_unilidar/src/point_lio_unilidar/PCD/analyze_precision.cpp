@@ -1,147 +1,147 @@
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <vector>
-#include <sstream>
-#include <algorithm>
-#include <cmath>
-#include <omp.h>
+// #include <iostream>
+// #include <fstream>
+// #include <string>
+// #include <vector>
+// #include <sstream>
+// #include <algorithm>
+// #include <cmath>
+// #include <omp.h>
 
-struct BestBox {
-    double min_x = 0, max_x = 0, min_y = 0, max_y = 0, min_z = 0, max_z = 0;
-    double density = 0;
-    int point_count = 0;
-};
+// struct BestBox {
+//     double min_x = 0, max_x = 0, min_y = 0, max_y = 0, min_z = 0, max_z = 0;
+//     double density = 0;
+//     int point_count = 0;
+// };
 
-// 保持你的 6 参数约束不变
-const double MIN_L = 10.0, MAX_L = 15.0;
-const double MIN_W = 8.0, MAX_W = 14.0;
-const double MIN_H = 0.1, MAX_H = 0.5;
-const double RES = 0.3;
+// // 保持你的 6 参数约束不变
+// const double MIN_L = 10.0, MAX_L = 15.0;
+// const double MIN_W = 8.0, MAX_W = 14.0;
+// const double MIN_H = 0.1, MAX_H = 0.5;
+// const double RES = 0.3;
 
-int main() {
-    // 1. 读取数据并确定边界
-    std::vector<std::vector<double>> pts;
-    double x_min = 1e9, x_max = -1e9, y_min = 1e9, y_max = -1e9, z_min = 1e9, z_max = -1e9;
+// int main() {
+//     // 1. 读取数据并确定边界
+//     std::vector<std::vector<double>> pts;
+//     double x_min = 1e9, x_max = -1e9, y_min = 1e9, y_max = -1e9, z_min = 1e9, z_max = -1e9;
     
-    std::ifstream infile("output.txt");
-    std::string line;
-    if (!infile) { std::cerr << "找不到 output.txt" << std::endl; return -1; }
+//     std::ifstream infile("output.txt");
+//     std::string line;
+//     if (!infile) { std::cerr << "找不到 output.txt" << std::endl; return -1; }
 
-    while (std::getline(infile, line)) {
-        std::replace(line.begin(), line.end(), ',', ' ');
-        std::stringstream ss(line);
-        double x, y, z;
-        if (ss >> x >> y >> z) {
-            pts.push_back({x, y, z});
-            x_min = std::min(x_min, x); x_max = std::max(x_max, x);
-            y_min = std::min(y_min, y); y_max = std::max(y_max, y);
-            z_min = std::min(z_min, z); z_max = std::max(z_max, z);
-        }
-    }
+//     while (std::getline(infile, line)) {
+//         std::replace(line.begin(), line.end(), ',', ' ');
+//         std::stringstream ss(line);
+//         double x, y, z;
+//         if (ss >> x >> y >> z) {
+//             pts.push_back({x, y, z});
+//             x_min = std::min(x_min, x); x_max = std::max(x_max, x);
+//             y_min = std::min(y_min, y); y_max = std::max(y_max, y);
+//             z_min = std::min(z_min, z); z_max = std::max(z_max, z);
+//         }
+//     }
 
-    // 2. 建立计数网格 (增加缓冲区防止溢出)
-    int NX = std::ceil((x_max - x_min) / RES) + 3;
-    int NY = std::ceil((y_max - y_min) / RES) + 3;
-    int NZ = std::ceil((z_max - z_min) / RES) + 3;
-    std::vector<int> grid(NX * NY * NZ, 0);
+//     // 2. 建立计数网格 (增加缓冲区防止溢出)
+//     int NX = std::ceil((x_max - x_min) / RES) + 3;
+//     int NY = std::ceil((y_max - y_min) / RES) + 3;
+//     int NZ = std::ceil((z_max - z_min) / RES) + 3;
+//     std::vector<int> grid(NX * NY * NZ, 0);
 
-    for (const auto& p : pts) {
-        int ix = (p[0] - x_min) / RES + 1;
-        int iy = (p[1] - y_min) / RES + 1;
-        int iz = (p[2] - z_min) / RES + 1;
-        grid[ix * NY * NZ + iy * NZ + iz]++;
-    }
+//     for (const auto& p : pts) {
+//         int ix = (p[0] - x_min) / RES + 1;
+//         int iy = (p[1] - y_min) / RES + 1;
+//         int iz = (p[2] - z_min) / RES + 1;
+//         grid[ix * NY * NZ + iy * NZ + iz]++;
+//     }
 
-    // 3. 计算 3D 积分图 (Summed-area Table)
-    std::vector<int> sum(NX * NY * NZ, 0);
-    for (int i = 1; i < NX; ++i) {
-        for (int j = 1; j < NY; ++j) {
-            for (int k = 1; k < NZ; ++k) {
-                int val = grid[i * NY * NZ + j * NZ + k];
-                sum[i * NY * NZ + j * NZ + k] = val 
-                    + sum[(i-1) * NY * NZ + j * NZ + k]
-                    + sum[i * NY * NZ + (j-1) * NZ + k]
-                    + sum[i * NY * NZ + j * NZ + (k-1)]
-                    - sum[(i-1) * NY * NZ + (j-1) * NZ + k]
-                    - sum[(i-1) * NY * NZ + j * NZ + (k-1)]
-                    - sum[i * NY * NZ + (j-1) * NZ + (k-1)]
-                    + sum[(i-1) * NY * NZ + (j-1) * NZ + (k-1)];
-            }
-        }
-    }
+//     // 3. 计算 3D 积分图 (Summed-area Table)
+//     std::vector<int> sum(NX * NY * NZ, 0);
+//     for (int i = 1; i < NX; ++i) {
+//         for (int j = 1; j < NY; ++j) {
+//             for (int k = 1; k < NZ; ++k) {
+//                 int val = grid[i * NY * NZ + j * NZ + k];
+//                 sum[i * NY * NZ + j * NZ + k] = val 
+//                     + sum[(i-1) * NY * NZ + j * NZ + k]
+//                     + sum[i * NY * NZ + (j-1) * NZ + k]
+//                     + sum[i * NY * NZ + j * NZ + (k-1)]
+//                     - sum[(i-1) * NY * NZ + (j-1) * NZ + k]
+//                     - sum[(i-1) * NY * NZ + j * NZ + (k-1)]
+//                     - sum[i * NY * NZ + (j-1) * NZ + (k-1)]
+//                     + sum[(i-1) * NY * NZ + (j-1) * NZ + (k-1)];
+//             }
+//         }
+//     }
 
-    BestBox final_best;
-    int sl_min = std::round(MIN_L / RES), sl_max = std::round(MAX_L / RES);
-    int sw_min = std::round(MIN_W / RES), sw_max = std::round(MAX_W / RES);
-    int sh_min = std::round(MIN_H / RES), sh_max = std::round(MAX_H / RES);
+//     BestBox final_best;
+//     int sl_min = std::round(MIN_L / RES), sl_max = std::round(MAX_L / RES);
+//     int sw_min = std::round(MIN_W / RES), sw_max = std::round(MAX_W / RES);
+//     int sh_min = std::round(MIN_H / RES), sh_max = std::round(MAX_H / RES);
 
-    // 4. 并行搜索
-    #pragma omp parallel
-    {
-        BestBox local_best;
-        // 使用 collapse 合并前三层循环，最大化利用多核性能[cite: 1]
-        #pragma omp for collapse(3)
-        for (int i = 1; i < NX - sl_max; ++i) {
-            for (int j = 1; j < NY - sw_max; ++j) {
-                for (int k = 1; k < NZ - sh_max; ++k) {
-                    for (int sl = sl_min; sl <= sl_max; ++sl) {
-                        for (int sw = sw_min; sw <= sw_max; ++sw) {
-                            for (int sh = sh_min; sh <= sh_max; ++sh) {
-                                int i2 = i + sl, j2 = j + sw, k2 = k + sh;
+//     // 4. 并行搜索
+//     #pragma omp parallel
+//     {
+//         BestBox local_best;
+//         // 使用 collapse 合并前三层循环，最大化利用多核性能[cite: 1]
+//         #pragma omp for collapse(3)
+//         for (int i = 1; i < NX - sl_max; ++i) {
+//             for (int j = 1; j < NY - sw_max; ++j) {
+//                 for (int k = 1; k < NZ - sh_max; ++k) {
+//                     for (int sl = sl_min; sl <= sl_max; ++sl) {
+//                         for (int sw = sw_min; sw <= sw_max; ++sw) {
+//                             for (int sh = sh_min; sh <= sh_max; ++sh) {
+//                                 int i2 = i + sl, j2 = j + sw, k2 = k + sh;
                                 
-                                // O(1) 快速体积求和公式[cite: 1]
-                                int count = sum[i2*NY*NZ + j2*NZ + k2]
-                                          - sum[i*NY*NZ + j2*NZ + k2]
-                                          - sum[i2*NY*NZ + j*NZ + k2]
-                                          - sum[i2*NY*NZ + j2*NZ + k]
-                                          + sum[i*NY*NZ + j*NZ + k2]
-                                          + sum[i*NY*NZ + j2*NZ + k]
-                                          + sum[i2*NY*NZ + j*NZ + k]
-                                          - sum[i*NY*NZ + j*NZ + k];
+//                                 // O(1) 快速体积求和公式[cite: 1]
+//                                 int count = sum[i2*NY*NZ + j2*NZ + k2]
+//                                           - sum[i*NY*NZ + j2*NZ + k2]
+//                                           - sum[i2*NY*NZ + j*NZ + k2]
+//                                           - sum[i2*NY*NZ + j2*NZ + k]
+//                                           + sum[i*NY*NZ + j*NZ + k2]
+//                                           + sum[i*NY*NZ + j2*NZ + k]
+//                                           + sum[i2*NY*NZ + j*NZ + k]
+//                                           - sum[i*NY*NZ + j*NZ + k];
 
-                                double vol = (sl * RES) * (sw * RES) * (sh * RES);
-                                double d = count / vol;
+//                                 double vol = (sl * RES) * (sw * RES) * (sh * RES);
+//                                 double d = count / vol;
 
-                                if (d > local_best.density) {
-                                    local_best.density = d;
-                                    local_best.point_count = count;
-                                    // 还原物理坐标
-                                    local_best.min_x = x_min + (i) * RES;
-                                    local_best.max_x = x_min + (i2) * RES;
-                                    local_best.min_y = y_min + (j) * RES;
-                                    local_best.max_y = y_min + (j2) * RES;
-                                    local_best.min_z = z_min + (k) * RES;
-                                    local_best.max_z = z_min + (k2) * RES;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        // 汇总各线程结果[cite: 1]
-        #pragma omp critical
-        if (local_best.density > final_best.density) {
-            final_best = local_best;
-        }
-    }
+//                                 if (d > local_best.density) {
+//                                     local_best.density = d;
+//                                     local_best.point_count = count;
+//                                     // 还原物理坐标
+//                                     local_best.min_x = x_min + (i) * RES;
+//                                     local_best.max_x = x_min + (i2) * RES;
+//                                     local_best.min_y = y_min + (j) * RES;
+//                                     local_best.max_y = y_min + (j2) * RES;
+//                                     local_best.min_z = z_min + (k) * RES;
+//                                     local_best.max_z = z_min + (k2) * RES;
+//                                 }
+//                             }
+//                         }
+//                     }
+//                 }
+//             }
+//         }
+//         // 汇总各线程结果[cite: 1]
+//         #pragma omp critical
+//         if (local_best.density > final_best.density) {
+//             final_best = local_best;
+//         }
+//     }
 
-    // 5. 输出结果
-    std::cout << "\n================ 发现最优立体框 (全加速版) ================" << std::endl;
-    std::cout << "找到的最优尺寸 (L x W x H): " 
-              << (final_best.max_x - final_best.min_x) << " x "
-              << (final_best.max_y - final_best.min_y) << " x "
-              << (final_best.max_z - final_best.min_z) << " m" << std::endl;
-    std::cout << "具体物理边界:" << std::endl;
-    std::cout << "  X轴: [" << final_best.min_x << " 至 " << final_best.max_x << "]" << std::endl;
-    std::cout << "  Y轴: [" << final_best.min_y << " 至 " << final_best.max_y << "]" << std::endl;
-    std::cout << "  Z轴: [" << final_best.min_z << " 至 " << final_best.max_z << "]" << std::endl;
-    std::cout << "框内点数: " << final_best.point_count << std::endl;
-    std::cout << "最大占有密度: " << final_best.density << " pts/m³" << std::endl;
+//     // 5. 输出结果
+//     std::cout << "\n================ 发现最优立体框 (全加速版) ================" << std::endl;
+//     std::cout << "找到的最优尺寸 (L x W x H): " 
+//               << (final_best.max_x - final_best.min_x) << " x "
+//               << (final_best.max_y - final_best.min_y) << " x "
+//               << (final_best.max_z - final_best.min_z) << " m" << std::endl;
+//     std::cout << "具体物理边界:" << std::endl;
+//     std::cout << "  X轴: [" << final_best.min_x << " 至 " << final_best.max_x << "]" << std::endl;
+//     std::cout << "  Y轴: [" << final_best.min_y << " 至 " << final_best.max_y << "]" << std::endl;
+//     std::cout << "  Z轴: [" << final_best.min_z << " 至 " << final_best.max_z << "]" << std::endl;
+//     std::cout << "框内点数: " << final_best.point_count << std::endl;
+//     std::cout << "最大占有密度: " << final_best.density << " pts/m³" << std::endl;
 
-    return 0;
-}
+//     return 0;
+// }
 
 // #include <iostream>
 // #include <fstream>

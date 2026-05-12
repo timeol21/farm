@@ -8,14 +8,14 @@
 #include <iostream>
 
 // 理想模型基准参数
-const float IDEAL_X = 15.0f;
-const float IDEAL_Y = 10.0f;
-const float IDEAL_Z = 3.0f;
+const float IDEAL_X = 12.2f;
+const float IDEAL_Y = 8.5f;
+const float IDEAL_Z = 2.8f;
 
 int main(int argc, char** argv) {
     // 1. 加载并去噪
     pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>);
-    if (pcl::io::loadPCDFile<pcl::PointXYZ>("../restored_output.pcd", *cloud) == -1) return -1;
+    if (pcl::io::loadPCDFile<pcl::PointXYZ>("../restored_output_qu.pcd", *cloud) == -1) return -1;
 
     // 预处理：剔除那些精度大、乱跳的噪点，防止产生错误的“粘连”
     pcl::StatisticalOutlierRemoval<pcl::PointXYZ> sor;
@@ -68,7 +68,7 @@ int main(int argc, char** argv) {
     std::cout << "==========================================\n" << std::endl;
 
     // 5. 保存结果
-    pcl::io::saveVTKFile("office_output.vtk", mesh);
+    pcl::io::saveVTKFile("office_output_qu.vtk", mesh);
     std::cout << "模型已生成。内部细节已根据接触关系自动粘合。" << std::endl;
 
     return 0;
