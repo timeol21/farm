@@ -1,0 +1,78 @@
+#include <iostream>                   
+#include <fcntl.h>
+#include <unistd.h>
+#include <termios.h>
+#include <cstring>
+#include <chrono>
+#include <thread>
+#include <sys/select.h>
+#include <stdio.h>
+#include <locale.h>
+
+#include "PLCDevice.h"
+
+PLCDevice::PLCDevice(
+    int id,
+    const std::string& deviceId,
+    const std::string& deviceState,
+    const std::string& portName,
+    int portState,
+    int plcId
+) : Device(id, deviceId, deviceState), portName_(portName), portState_(portState), plcId_(plcId) {}
+
+bool PLCDevice::ConfigSerial(int fd){
+    struct termios tty;
+    if (tcgetattr(fd, &tty) != 0) {
+        perror("Failed to get serial attributes (tcgetattr)");
+        return false;
+    }
+
+    cfsetospeed(&tty, B9600);
+    cfsetispeed(&tty, B9600);
+
+    tty.c_cflag &= ~PARENB;
+    tty.c_cflag &= ~CSTOPB;
+    tty.c_cflag &= ~CSIZE;
+    tty.c_cflag |= CS8;
+    tty.c_cflag &= ~CRTSCTS;
+    tty.c_cflag |= CREAD | CLOCAL;
+
+    tty.c_iflag &= ~(IXON | IXOFF | IXANY);
+    tty.c_iflag &= ~(IGNBRK | BRKINT | PARMRK | ISTRIP | INLCR | IGNCR | ICRNL);
+    tty.c_oflag = 0;
+    tty.c_lflag = 0;
+
+    tty.c_cc[VMIN] = 0;
+    tty.c_cc[VTIME] = 10;
+
+    if (tcsetattr(fd, TCSANOW, &tty) != 0) {
+        perror("Failed to set serial attributes (tcsetattr)");
+        return false;
+    }
+    return true;    
+}
+
+
+bool PLCDevice::InitSerial(const std::string& portName){
+    if (portState_ >= 0) {
+        std::cout << "Serial port is already initialized" << std::endl;
+        return true;
+    }
+
+    portState_ = open(portName.c_str(), O_RDWR | O_NOCTTY | O_SYNC);
+    if (portState_ < 0) {
+        perror("Failed to open serial port");
+        return false;
+    }
+
+    if (!PLCDevice::ConfigSerial(portState_)) {
+        close(portState_);
+        portState_ = -1;
+        return false;
+    }
+
+    std::cout << "Serial port initialized successfully (Device: " << portName << ")" << std::endl;
+    return true;
+}
+
+
