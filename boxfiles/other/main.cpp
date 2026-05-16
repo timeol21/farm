@@ -58,3 +58,5 @@ int main()
 
     return 0;
 }
+ 
+// g++ main.cpp Device.cpp PLCDevice.cpp Solenoid.cpp -o plc
