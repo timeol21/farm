@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <locale.h>
 
+
 Solenoid::Solenoid(
     int id,
     const std::string& deviceId,
@@ -22,16 +23,25 @@ Solenoid::Solenoid(
 ) : PLCDevice(id, deviceId, deviceState, portName, plcId, portState), solenoidName_(solenoidName), solenoidId_(solenoidId) {}
 
 
-bool Solenoid::OpenSolenoid(const std::vector<uint8_t>& sendCmd) {
+
+bool Solenoid::openSolenoid(const std::vector<uint8_t>& sendCmd) {
 
 
     // 电磁阀（Y1）开启指令（地址0x0501，校验码重新计算）
     // unsigned char sendBuf[] = {0x01, 0x05, 0x05, 0x01, 0xFF, 0x00, 0xDD, 0x36};
 
-    int fd = PLCDevice::getPortState();
+    int fd = getPortState();
+    // if (fd < 0) {
+    //     std::cerr << "Error: Serial port not initialized, please initialize first" << std::endl;
+    //     return false;
+    // }
     if (fd < 0) {
-        std::cerr << "Error: Serial port not initialized, please initialize first" << std::endl;
-        return false;
+        std::cout << "Initializing serial port...\n";
+        if(!plcInitSerial()){
+            std::cerr << "Serial port initialization failed!\n";
+            return false;
+        }
+        fd = getPortState();
     }
     ssize_t sent = write(fd, sendCmd.data(), sendCmd.size());
 
@@ -58,7 +68,7 @@ bool Solenoid::OpenSolenoid(const std::vector<uint8_t>& sendCmd) {
     return true;    
 }
 
-bool Solenoid::CloseSolenoid(const std::vector<uint8_t>& sendCmd){
+bool Solenoid::closeSolenoid(const std::vector<uint8_t>& sendCmd){
     int fd = PLCDevice::getPortState();
     if (fd < 0) {
         std::cerr << "Error: Serial port not initialized, please initialize first" << std::endl;
@@ -92,7 +102,7 @@ bool Solenoid::CloseSolenoid(const std::vector<uint8_t>& sendCmd){
     return true;    
 }
 
-bool Solenoid::QuerySolenoid(const std::vector<uint8_t>& sendCmd){
+bool Solenoid::querySolenoid(const std::vector<uint8_t>& sendCmd){
     int fd = PLCDevice::getPortState();
     if (fd < 0) {
         std::cerr << "Error: Serial port not initialized, please initialize first" << std::endl;
@@ -137,3 +147,18 @@ bool Solenoid::QuerySolenoid(const std::vector<uint8_t>& sendCmd){
 
     return true;    
 }
+
+void Solenoid::openCurrentSolenoid() {
+    std::vector<uint8_t> cmd = {0x01, 0x05, 0x05, 0x01, 0xFF, 0x00, 0xDD, 0x36};
+    openSolenoid(cmd);
+}
+void Solenoid::queryCurrentSolenoid() {
+    std::vector<uint8_t> cmd = {0x01, 0x05, 0x05, 0x01, 0x00, 0x00, 0x9C, 0xC6};
+    querySolenoid(cmd);
+}
+
+void Solenoid::closeCurrentSolenoid() {
+    std::vector<uint8_t> cmd = {0x01, 0x01, 0x05, 0x01, 0x00, 0x01, 0xAC, 0xC6};
+    closeSolenoid(cmd);
+}
+

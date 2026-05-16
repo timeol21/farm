@@ -9,7 +9,10 @@
 #include <stdio.h>
 #include <locale.h>
 
+#include "Solenoid.h"
 #include "PLCDevice.h"
+
+
 
 PLCDevice::PLCDevice(
     int id,
@@ -20,7 +23,8 @@ PLCDevice::PLCDevice(
     int plcId
 ) : Device(id, deviceId, deviceState), portName_(portName), portState_(portState), plcId_(plcId) {}
 
-bool PLCDevice::ConfigSerial(int fd){
+
+bool PLCDevice::configSerial(int fd){
     struct termios tty;
     if (tcgetattr(fd, &tty) != 0) {
         perror("Failed to get serial attributes (tcgetattr)");
@@ -52,8 +56,7 @@ bool PLCDevice::ConfigSerial(int fd){
     return true;    
 }
 
-
-bool PLCDevice::InitSerial(const std::string& portName){
+bool PLCDevice::initSerial(const std::string& portName){
     if (portState_ >= 0) {
         std::cout << "Serial port is already initialized" << std::endl;
         return true;
@@ -65,7 +68,7 @@ bool PLCDevice::InitSerial(const std::string& portName){
         return false;
     }
 
-    if (!PLCDevice::ConfigSerial(portState_)) {
+    if (!PLCDevice::configSerial(portState_)) {
         close(portState_);
         portState_ = -1;
         return false;
@@ -75,4 +78,34 @@ bool PLCDevice::InitSerial(const std::string& portName){
     return true;
 }
 
+bool PLCDevice::closeSerial() {
+    if (portState_ >= 0) {
+        close(portState_);
+        portState_ = -1;
+        std::cout << "串口已关闭" << std::endl;
+        return true;
+    }else {
+        return false;
+    }
+}
 
+bool PLCDevice::plcInitSerial(){
+    return initSerial(portName_);
+};
+
+bool PLCDevice::plcCloseSerial(){
+    return closeSerial();
+}
+
+void PLCDevice::addSolenoid(std::shared_ptr<Solenoid> solenoid){
+    int id = solenoid->getSolenoidId();
+    solenoidSet_[id] = solenoid;
+};
+
+std::shared_ptr<Solenoid> PLCDevice::getSolenoid(int solenoidId) {
+    auto it = solenoidSet_.find(solenoidId);
+    if (it != solenoidSet_.end()) {
+        return it->second;
+    }
+    return nullptr;
+}

@@ -1,4 +1,4 @@
-// #pragma once
+#pragma once
 #include <string>
 
 class Device{
@@ -9,6 +9,7 @@ class Device{
             const std::string& deviceState
 
         );
+        virtual ~Device() = default;
 
         int getId () const;
         std::string getDeviceId () const;
