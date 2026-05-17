@@ -50,8 +50,8 @@ bool ConfigureSerial(int fd) {
         return false;
     }
 
-    cfsetospeed(&tty, B9600);
-    cfsetispeed(&tty, B9600);
+    cfsetospeed(&tty, B19200);
+    cfsetispeed(&tty, B19200);
 
     tty.c_cflag &= ~PARENB;
     tty.c_cflag &= ~CSTOPB;
@@ -75,7 +75,7 @@ bool ConfigureSerial(int fd) {
     return true;
 }
 
-bool InitSerial(const char *portName = "/dev/ttyS4") {
+bool InitSerial(const char *portName = "/dev/ttyUSB1") {
     if (SerialPortStutas >= 0) {
         cout << "串口已处于初始化状态" << endl;
         return true;

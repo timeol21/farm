@@ -9,6 +9,7 @@
 #include <sys/select.h>
 #include <stdio.h>
 #include <locale.h>
+#include <string>
 
 Solenoid::Solenoid(
     DeviceConfig cfg,
@@ -16,224 +17,319 @@ Solenoid::Solenoid(
 ) : cfg_(cfg), baseState_(baseState) {}
 
 bool Solenoid::init() {
-    return initSerial(cfg_.channelConfig.port.c_str());
+    return initSerial();
 }
 
 bool Solenoid::update(){
-    return QuerySolenoidValveStatus();
+    return querySolenoidValveStatus();
 }
 
 void Solenoid::stop() {
-    CloseSerial();
+    closeSerial();
 }
 
 bool Solenoid::execute(const nlohmann::json& params) {
     std::string cmd = params.value("command", "");
     if(cmd == "open") {
-        return OpenSolenoidValve();
+        return openSolenoidValve();
     }else if(cmd == "close") {
-        return CloseSolenoidValve();
+        return closeSolenoidValve();
     }
     return false;
 }
 
-bool Solenoid::ConfigureSerial(int fd) {
-    // 当串口成功打开的时候，这个fd的值应该为3。
-    /*
-    fd = 3 → 代表这个串口的编号是 3
-    Linux 不叫 COM1、COM2，它用数字代表每个打开的设备：
-    fd = 0 → 键盘
-    fd = 1 → 屏幕输出
-    fd = 2 → 错误输出
-    fd = 3 → 你打开的 /dev/ttyS4 串口
-    */
+bool Solenoid::configureSerial(int fd, int baudRate, int dataBits, std::string parity, int stopBits)
+{
     struct termios tty;
-    if (tcgetattr(fd, &tty) != 0) {
-        perror("串口配置失败（tcgetattr）");
+
+    // Get current serial port attributes
+    if (tcgetattr(fd, &tty) != 0)
+    {
+        perror("Failed to get serial attributes (tcgetattr)");
         return false;
     }
 
-    cfsetospeed(&tty, B19200);
-    cfsetispeed(&tty, B19200);
-
-    tty.c_cflag &= ~PARENB;
-    tty.c_cflag &= ~CSTOPB;
-    tty.c_cflag &= ~CSIZE;
-    tty.c_cflag |= CS8;
+    //==================== Fixed core settings ====================
+    // Disable hardware flow control (RTS/CTS)
     tty.c_cflag &= ~CRTSCTS;
+    // Enable receiver & local mode, ignore modem control signals
     tty.c_cflag |= CREAD | CLOCAL;
 
+    // Disable software flow control (XON/XOFF)
     tty.c_iflag &= ~(IXON | IXOFF | IXANY);
+
+    // Disable all input character translation and special handling
     tty.c_iflag &= ~(IGNBRK | BRKINT | PARMRK | ISTRIP | INLCR | IGNCR | ICRNL);
+
+    // Raw output mode, no output processing
     tty.c_oflag = 0;
-    tty.c_lflag = 0;
 
-    tty.c_cc[VMIN] = 0;
-    tty.c_cc[VTIME] = 10;
+    // Disable canonical mode, echo, signal interrupt and extended functions
+    tty.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG | IEXTEN);
 
-    if (tcsetattr(fd, TCSANOW, &tty) != 0) {
-        perror("串口参数设置失败（tcsetattr）");
+    // Read timeout setting
+    tty.c_cc[VMIN] = 0;     // Minimum read bytes
+    tty.c_cc[VTIME] = 10;   // Read timeout: unit 0.1s, total 1s
+    //=============================================================
+
+    // Set baud rate
+    speed_t speed;
+    switch (baudRate)
+    {
+        case 4800:    speed = B4800;    break;
+        case 9600:    speed = B9600;    break;
+        case 19200:   speed = B19200;   break;
+        case 38400:   speed = B38400;   break;
+        case 115200:  speed = B115200;  break;
+        default:
+            fprintf(stderr, "Unsupported baud rate: %d\n", baudRate);
+            return false;
+    }
+    cfsetispeed(&tty, speed);
+    cfsetospeed(&tty, speed);
+
+    // Set data bits: 5/6/7/8
+    tty.c_cflag &= ~CSIZE; // Clear old data bit setting
+    switch (dataBits)
+    {
+        case 5: tty.c_cflag |= CS5; break;
+        case 6: tty.c_cflag |= CS6; break;
+        case 7: tty.c_cflag |= CS7; break;
+        case 8: tty.c_cflag |= CS8; break;
+        default:
+            fprintf(stderr, "Unsupported data bits: %d\n", dataBits);
+            return false;
+    }
+
+    // Set parity check mode
+    tty.c_cflag &= ~(PARENB | PARODD); // Clear old parity config
+    if (parity == "N" || parity == "n")
+    {
+        // 无校验
+    }
+    else if (parity == "E" || parity == "e")
+    {
+        // 偶校验
+        tty.c_cflag |= PARENB;
+        tty.c_cflag &= ~PARODD;
+    }
+    else if (parity == "O" || parity == "o")
+    {
+        // 奇校验
+        tty.c_cflag |= PARENB;
+        tty.c_cflag |= PARODD;
+    }
+    else
+    {
+        fprintf(stderr, "Unsupported parity type: %s\n", parity.c_str());
         return false;
     }
+
+    // Set stop bits: 1 or 2
+    if (stopBits == 1)
+    {
+        tty.c_cflag &= ~CSTOPB; // 1 stop bit
+    }
+    else if (stopBits == 2)
+    {
+        tty.c_cflag |= CSTOPB;  // 2 stop bits
+    }
+    else
+    {
+        fprintf(stderr, "Unsupported stop bits: %d\n", stopBits);
+        return false;
+    }
+
+    // Apply new serial port settings immediately
+    if (tcsetattr(fd, TCSANOW, &tty) != 0)
+    {
+        perror("Failed to set serial attributes (tcsetattr)");
+        return false;
+    }
+
     return true;
 }
 
-bool Solenoid::initSerial(const char *portName) {
-    if(portName == nullptr || strlen(portName) == 0){
-        std::cout<<"portName is null"<<std::endl;
-        return false;
-    }
+bool Solenoid::initSerial() {
+    // If already opened
     if (fd_ >= 0) {
-        std::cout << "串口已处于初始化状态" << std::endl;
+        std::cout << "Serial port is already initialized" << std::endl;
         return true;
     }
     
-    std::cout<<portName<<std::endl;
+    // std::cout<< portName <<std::endl;
 
-    fd_ = open(portName, O_RDWR | O_NOCTTY | O_SYNC);
-    // 只要打开成功，fd_ 就等于 3
-    /*
-    因为 Linux 系统有固定规则：程序启动时，系统自动占用 3 个文件描述符：
-    0 = 标准输入（键盘）
-    1 = 标准输出（屏幕）
-    2 = 标准错误（报错信息）
-    这三个是系统天生就占用的，你没打开任何文件，它们也存在。
-    所以：你自己打开的第一个文件 / 串口 → 系统必须从 3 开始分配
-    */
+    fd_ = open(cfg_.channelConfig.port.c_str(), O_RDWR | O_NOCTTY | O_SYNC);
     if (fd_ < 0) {
-        perror("串口打开失败");
+        perror("Failed to open serial port");
         return false;
     }
 
     std::cout<<" ---------------------1--------------------"<<std::endl;
-    if (!ConfigureSerial(fd_)) {
+    if (!configureSerial(fd_,cfg_.channelConfig.baudrate,cfg_.channelConfig.dataBits,cfg_.channelConfig.parity,cfg_.channelConfig.stopBits)) {
         std::cout<<"wrong"<<std::endl;
         close(fd_);
         fd_ = -1;
         return false;
     }
     
-    std::cout << "串口初始化成功（设备：" << portName << "）" << std::endl;
+    std::cout << "Serial port initialized successfully (Device: " << cfg_.channelConfig.port << ")" << std::endl;
     return true;
 }
 
-void Solenoid::CloseSerial() {
+void Solenoid::closeSerial() {
     if (fd_ >= 0) {
         close(fd_);
         fd_ = -1;
-        std::cout << "串口已关闭" << std::endl;
+        std::cout << "Serial port closed" << std::endl;
     }
 }
 
 // -------------------------- 电磁阀（Y1）控制函数 --------------------------
-bool Solenoid::OpenSolenoidValve() {
+bool Solenoid::openSolenoidValve() {
+    // 硬编码：打开电磁阀指令
+    std::vector<uint8_t> sendCmd = {0x01, 0x05, 0x05, 0x01, 0xFF, 0x00, 0xDD, 0x36};
+
+    // Check if serial port is ready
     if (fd_ < 0) {
-        std::cerr << "错误：串口未初始化，请先返回主菜单初始化串口" << std::endl;
+        std::cerr << "Error: Serial port not initialized, please initialize first" << std::endl;
         return false;
     }
 
-    // 电磁阀（Y1）开启指令（地址0x0501，校验码重新计算）
-    unsigned char sendBuf[] = {0x01, 0x05, 0x05, 0x01, 0xFF, 0x00, 0xDD, 0x36};
-    ssize_t sent = write(fd_, sendBuf, sizeof(sendBuf));
+    // 清空缓冲区
+    tcflush(fd_, TCIOFLUSH);
 
-    if (sent != (ssize_t)sizeof(sendBuf)) {
-        perror("电磁阀开启指令发送失败");
+    // Send data
+    ssize_t sent = write(fd_, sendCmd.data(), sendCmd.size());
+    if (sent != (ssize_t)sendCmd.size()) {
+        perror("Failed to send command");
         return false;
     }
 
-    std::cout << "电磁阀开启指令已发送：";
-    for (size_t i = 0; i < sizeof(sendBuf); ++i)
-        printf("%02X ", sendBuf[i]);
+    // Print sent data
+    std::cout << "Command sent: ";
+    for (uint8_t byte : sendCmd) {
+        printf("%02X ", byte);
+    }
     std::cout << std::endl;
 
-    unsigned char recvBuf[256];
+    // std::this_thread::sleep_for(std::chrono::milliseconds(100));
+
+    // Read response
+    uint8_t recvBuf[256];
     ssize_t len = read(fd_, recvBuf, sizeof(recvBuf));
     if (len > 0) {
-        std::cout << "接收响应（" << len << "字节）：";
-        for (ssize_t i = 0; i < len; ++i)
+        std::cout << "Response received (" << len << " bytes): ";
+        for (ssize_t i = 0; i < len; ++i) {
             printf("%02X ", recvBuf[i]);
+        }
         std::cout << std::endl;
+    }else {
+        std::cerr << "Warning: Serial port connected, but no response from solenoid valve!" << std::endl;
     }
-
-    std::cout << "电磁阀状态：已开启" << std::endl;
+    // this_thread::sleep_for(chrono::milliseconds(100));
     return true;
 }
 
-bool Solenoid::CloseSolenoidValve() {
+bool Solenoid::closeSolenoidValve() {
+    // 硬编码：关闭电磁阀指令
+    std::vector<uint8_t> sendCmd = {0x01, 0x05, 0x05, 0x01, 0x00, 0x00, 0x9C, 0xC6};
+
+    // Check if serial port is initialized
     if (fd_ < 0) {
-        std::cerr << "错误：串口未初始化，请先返回主菜单初始化串口" << std::endl;
+        std::cerr << "Error: Serial port not initialized, please initialize first" << std::endl;
         return false;
     }
 
-    // 电磁阀（Y1）关闭指令（地址0x0501，校验码重新计算）
-    unsigned char sendBuf[] = {0x01, 0x05, 0x05, 0x01, 0x00, 0x00, 0x9C, 0xC6};
-    ssize_t sent = write(fd_, sendBuf, sizeof(sendBuf));
+    // 清空缓冲区
+    tcflush(fd_, TCIOFLUSH);
 
-    if (sent != (ssize_t)sizeof(sendBuf)) {
-        perror("电磁阀关闭指令发送失败");
+    // Send command data
+    ssize_t sent = write(fd_, sendCmd.data(), sendCmd.size());
+    if (sent != (ssize_t)sendCmd.size()) {
+        perror("Failed to send close command");
         return false;
     }
 
-    std::cout << "电磁阀关闭指令已发送：";
-    for (size_t i = 0; i < sizeof(sendBuf); ++i)
-        printf("%02X ", sendBuf[i]);
+    // Print sent command
+    std::cout << "Close command sent: ";
+    for (uint8_t byte : sendCmd) {
+        printf("%02X ", byte);
+    }
     std::cout << std::endl;
 
-    unsigned char recvBuf[256];
+    // std::this_thread::sleep_for(std::chrono::milliseconds(100));
+
+    // Read response from serial port
+    uint8_t recvBuf[256];
     ssize_t len = read(fd_, recvBuf, sizeof(recvBuf));
     if (len > 0) {
-        std::cout << "接收响应（" << len << "字节）：";
-        for (ssize_t i = 0; i < len; ++i)
+        std::cout << "Response received (" << len << " bytes): ";
+        for (ssize_t i = 0; i < len; ++i) {
             printf("%02X ", recvBuf[i]);
+        }
         std::cout << std::endl;
+    }else {
+        std::cerr << "Warning: Serial port connected, but no response received for close command!" << std::endl;
     }
-
-    std::cout << "电磁阀状态：已关闭" << std::endl;
+    // this_thread::sleep_for(chrono::milliseconds(100));
     return true;
 }
 
 // 电磁阀（Y1）状态查询
-bool Solenoid::QuerySolenoidValveStatus() {
+bool Solenoid::querySolenoidValveStatus() {
+    // 硬编码：查询状态指令
+    std::vector<uint8_t> sendCmd = {0x01, 0x01, 0x05, 0x01, 0x00, 0x01, 0xAC, 0xC6};
+
+    // Check if serial port is initialized
     if (fd_ < 0) {
-        std::cerr << "错误：串口未初始化，请先返回主菜单初始化串口" << std::endl;
+        std::cerr << "Error: Serial port not initialized, please initialize first" << std::endl;
         return false;
     }
 
-    // 电磁阀（Y1）查询指令（功能码0x01，查询Y1线圈状态，地址0x0501）
-    unsigned char sendBuf[] = {0x01, 0x01, 0x05, 0x01, 0x00, 0x01, 0xAC, 0xC6};
-    ssize_t sent = write(fd_, sendBuf, sizeof(sendBuf));
+    // 清空缓冲区
+    tcflush(fd_, TCIOFLUSH);
 
-    if (sent != (ssize_t)sizeof(sendBuf)) {
-        perror("电磁阀状态查询指令发送失败");
+    // Send command data
+    ssize_t sent = write(fd_, sendCmd.data(), sendCmd.size());
+    if (sent != (ssize_t)sendCmd.size()) {
+        perror("Failed to send status query command");
         return false;
     }
 
-    std::cout << "电磁阀状态查询指令已发送：";
-    for (size_t i = 0; i < sizeof(sendBuf); ++i)
-        printf("%02X ", sendBuf[i]);
+    // Print sent command
+    std::cout << "Status query command sent: ";
+    for (uint8_t byte : sendCmd) {
+        printf("%02X ", byte);
+    }
     std::cout << std::endl;
 
-    unsigned char recvBuf[256];
+    // std::this_thread::sleep_for(std::chrono::milliseconds(100));
+
+    // Read response from serial port
+    uint8_t recvBuf[256];
     ssize_t len = read(fd_, recvBuf, sizeof(recvBuf));
     if (len > 0) {
-        std::cout << "接收响应（" << len << "字节）：";
-        for (ssize_t i = 0; i < len; ++i)
+        std::cout << "Response received (" << len << " bytes): ";
+        for (ssize_t i = 0; i < len; ++i) {
             printf("%02X ", recvBuf[i]);
+        }
         std::cout << std::endl;
 
-        // 解析响应：第3字节为数据长度，第4字节bit0表示状态（1=开启，0=关闭）
+        // Parse status from response
         if (len >= 4) {
             if (recvBuf[3] & 0x01) {
-                std::cout << "电磁阀当前状态：开启" << std::endl;
+                std::cout << "Current status: Opened" << std::endl;
             } else {
-                std::cout << "电磁阀当前状态：关闭" << std::endl;
+                std::cout << "Current status: Closed" << std::endl;
             }
         } else {
-            std::cout << "电磁阀状态查询响应无效" << std::endl;
+            std::cout << "Invalid status response" << std::endl;
         }
     } else {
-        std::cout << "未接收到电磁阀状态响应" << std::endl;
+        std::cout << "No status response received" << std::endl;
     }
-
+    
+    // this_thread::sleep_for(chrono::milliseconds(100));
     return true;
 }

@@ -16,12 +16,12 @@ class Solenoid : public IActuator {
         bool execute(const nlohmann::json& params) override;
 
     private:
-        bool initSerial(const char *portName);
-        bool ConfigureSerial(int fd);
-        bool OpenSolenoidValve();
-        bool CloseSolenoidValve();
-        bool QuerySolenoidValveStatus();
-        void CloseSerial();
+        bool initSerial();
+        bool configureSerial(int fd, int baudRate, int dataBits, std::string parity, int stopBits);
+        bool openSolenoidValve();
+        bool closeSolenoidValve();
+        bool querySolenoidValveStatus();
+        void closeSerial();
 
         int fd_ = -1;
         DeviceConfig cfg_;
