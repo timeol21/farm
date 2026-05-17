@@ -1,0 +1,273 @@
+[2026-05-16 22:04:34][ERROR] [TaskService] Allowed command has no external handler: reboot
+[2026-05-16 22:04:34][ERROR] [TaskService] Allowed command has no external handler: setConfig
+[2026-05-16 22:04:34][INFO] [HallService] Initialized
+[2026-05-16 22:04:35][INFO] [MQTT] Connected callback: connect onSuccess called
+[2026-05-16 22:04:35][INFO] [MQTT] Connected callback: connect onSuccess called
+[2026-05-16 22:04:35][INFO] [MQTT] Connected to tcp://broker.emqx.io:1883 with client ID: farming_client_001
+[2026-05-16 22:04:35][INFO] [MQTT] Subscribed to topic: farming/sensors with QoS: 1
+[2026-05-16 22:04:36][INFO] [MQTT] Subscribed to topic: farming/actuators with QoS: 1
+[2026-05-16 22:04:36][INFO] [DeviceService] Starting inirialization...
+[2026-05-16 22:04:36][ERROR] [DeviceFactory] Unsupported device type: sensor model:temp
+[2026-05-16 22:04:36][ERROR] [DeviceService] Create device failed: TEMP_001
+[2026-05-16 22:04:36][ERROR] [DeviceFactory] Unsupported device type: position model:uwb
+[2026-05-16 22:04:36][ERROR] [DeviceService] Create device failed: UWB_TAG_001
+[2026-05-16 22:04:36][ERROR] [DeviceFactory] Unsupported device type: actuator model:valve
+[2026-05-16 22:04:36][ERROR] [DeviceService] Create device failed: VALVE_001
+[2026-05-16 22:04:36][ERROR] [DeviceFactory] Unsupported device type: actuator model:valve
+[2026-05-16 22:04:36][ERROR] [DeviceService] Create device failed: VALVE_002
+[2026-05-16 22:04:36][ERROR] [DeviceFactory] Unsupported device type: camera model:network
+[2026-05-16 22:04:36][ERROR] [DeviceService] Create device failed: camera_01
+[2026-05-16 22:04:36][WARNING] [DeviceService] Some devices failed to initialize
+[2026-05-16 22:04:36][INFO] [DeviceService] initialization finished
+[2026-05-16 22:04:36][INFO] [DeviceService] DeviceService started
+[2026-05-16 22:04:36][INFO] [Scheduler] Started
+[2026-05-16 22:04:36][INFO] [InternalEngine] Started
+[2026-05-16 22:04:36][INFO] [InternalEngine] Started
+[2026-05-16 22:04:36][ERROR] [InternalEngine] Internal task failed: collect_VALVE_002: Collect device snapshot failed: VALVE_002
+[2026-05-16 22:04:36][INFO] [TaskService] Started
+[2026-05-16 22:04:36][ERROR] [InternalEngine] Internal task failed: collect_VALVE_001: Collect device snapshot failed: VALVE_001
+[2026-05-16 22:04:36][ERROR] [InternalEngine] Internal task failed: collect_TEMP_001: Collect device snapshot failed: TEMP_001
+[2026-05-16 22:04:38][ERROR] [InternalEngine] Internal task failed: collect_VALVE_002: Collect device snapshot failed: VALVE_002
+[2026-05-16 22:04:38][ERROR] [InternalEngine] Internal task failed: collect_VALVE_001: Collect device snapshot failed: VALVE_001
+[2026-05-16 22:04:38][ERROR] [InternalEngine] Internal task failed: collect_TEMP_001: Collect device snapshot failed: TEMP_001
+[2026-05-16 22:04:42][ERROR] [InternalEngine] Internal task failed: collect_VALVE_002: Collect device snapshot failed: VALVE_002
+[2026-05-16 22:04:42][ERROR] [InternalEngine] Internal task failed: collect_VALVE_001: Collect device snapshot failed: VALVE_001
+[2026-05-16 22:04:42][ERROR] [InternalEngine] Internal task failed: collect_TEMP_001: Collect device snapshot failed: TEMP_001
+[2026-05-17 12:25:48][ERROR] [Farming] Failed to load config: /home/ztl/workspace/Farming/include/config/config.json
+[2026-05-17 12:28:24][ERROR] [TaskService] Allowed command has no external handler: reboot
+[2026-05-17 12:28:24][ERROR] [TaskService] Allowed command has no external handler: setConfig
+[2026-05-17 12:28:24][INFO] [HallService] Initialized
+[2026-05-17 12:28:24][ERROR] [MQTT] Connection failed: MQTT error [-1]: TCP connect completion failure
+[2026-05-17 12:28:24][INFO] [DeviceService] Starting inirialization...
+[2026-05-17 12:28:24][ERROR] [DeviceFactory] Unsupported device type: sensor model:temp
+[2026-05-17 12:28:24][ERROR] [DeviceService] Create device failed: TEMP_001
+[2026-05-17 12:28:24][ERROR] [DeviceFactory] Unsupported device type: position model:uwb
+[2026-05-17 12:28:24][ERROR] [DeviceService] Create device failed: UWB_TAG_001
+[2026-05-17 12:28:25][ERROR] [DeviceService] Device init failed: VALVE_001
+[2026-05-17 12:28:25][ERROR] [DeviceService] Device init failed: VALVE_002
+[2026-05-17 12:28:25][WARNING] [DeviceService] Some devices failed to initialize
+[2026-05-17 12:28:25][INFO] [DeviceService] initialization finished
+[2026-05-17 12:28:25][INFO] [DeviceService] DeviceService started
+[2026-05-17 12:28:25][INFO] [Scheduler] Started
+[2026-05-17 12:28:25][INFO] [InternalEngine] Started
+[2026-05-17 12:28:25][INFO] [TaskService] Started
+[2026-05-17 12:28:25][ERROR] [InternalEngine] Internal task failed: collect_VALVE_002: Collect device snapshot failed: VALVE_002
+[2026-05-17 12:28:25][ERROR] [InternalEngine] Internal task failed: collect_VALVE_001: Collect device snapshot failed: VALVE_001
+[2026-05-17 12:28:25][ERROR] [InternalEngine] Internal task failed: collect_TEMP_001: Collect device snapshot failed: TEMP_001
+[2026-05-17 12:28:27][ERROR] [InternalEngine] Internal task failed: collect_VALVE_002: Collect device snapshot failed: VALVE_002
+[2026-05-17 12:28:27][ERROR] [InternalEngine] Internal task failed: collect_VALVE_001: Collect device snapshot failed: VALVE_001
+[2026-05-17 12:28:27][ERROR] [InternalEngine] Internal task failed: collect_TEMP_001: Collect device snapshot failed: TEMP_001
+[2026-05-17 12:28:31][ERROR] [InternalEngine] Internal task failed: collect_VALVE_002: Collect device snapshot failed: VALVE_002
+[2026-05-17 12:28:31][ERROR] [InternalEngine] Internal task failed: collect_VALVE_001: Collect device snapshot failed: VALVE_001
+[2026-05-17 12:28:31][ERROR] [InternalEngine] Internal task failed: collect_TEMP_001: Collect device snapshot failed: TEMP_001
+[2026-05-17 12:28:39][ERROR] [InternalEngine] Internal task failed: collect_VALVE_002: Collect device snapshot failed: VALVE_002
+[2026-05-17 12:28:39][ERROR] [InternalEngine] Internal task failed: collect_VALVE_001: Collect device snapshot failed: VALVE_001
+[2026-05-17 12:28:39][ERROR] [InternalEngine] Internal task failed: collect_TEMP_001: Collect device snapshot failed: TEMP_001
+[2026-05-17 12:28:47][ERROR] [TaskService] Allowed command has no external handler: reboot
+[2026-05-17 12:28:47][ERROR] [TaskService] Allowed command has no external handler: setConfig
+[2026-05-17 12:28:47][INFO] [HallService] Initialized
+[2026-05-17 12:28:48][ERROR] [MQTT] Connection failed: MQTT error [-1]: TCP connect completion failure
+[2026-05-17 12:28:48][INFO] [DeviceService] Starting inirialization...
+[2026-05-17 12:28:48][ERROR] [DeviceFactory] Unsupported device type: sensor model:temp
+[2026-05-17 12:28:48][ERROR] [DeviceService] Create device failed: TEMP_001
+[2026-05-17 12:28:48][ERROR] [DeviceFactory] Unsupported device type: position model:uwb
+[2026-05-17 12:28:48][ERROR] [DeviceService] Create device failed: UWB_TAG_001
+[2026-05-17 12:28:48][ERROR] [DeviceService] Device init failed: VALVE_001
+[2026-05-17 12:28:48][ERROR] [DeviceService] Device init failed: VALVE_002
+[2026-05-17 12:28:48][WARNING] [DeviceService] Some devices failed to initialize
+[2026-05-17 12:28:48][INFO] [DeviceService] initialization finished
+[2026-05-17 12:28:48][INFO] [DeviceService] DeviceService started
+[2026-05-17 12:28:48][INFO] [Scheduler] Started
+[2026-05-17 12:28:48][INFO] [InternalEngine] Started
+[2026-05-17 12:28:48][INFO] [TaskService] Started
+[2026-05-17 12:28:48][ERROR] [InternalEngine] Internal task failed: collect_VALVE_002: Collect device snapshot failed: VALVE_002
+[2026-05-17 12:28:48][ERROR] [InternalEngine] Internal task failed: collect_VALVE_001: Collect device snapshot failed: VALVE_001
+[2026-05-17 12:28:48][ERROR] [InternalEngine] Internal task failed: collect_TEMP_001: Collect device snapshot failed: TEMP_001
+[2026-05-17 12:28:50][ERROR] [InternalEngine] Internal task failed: collect_VALVE_002: Collect device snapshot failed: VALVE_002
+[2026-05-17 12:28:50][ERROR] [InternalEngine] Internal task failed: collect_VALVE_001: Collect device snapshot failed: VALVE_001
+[2026-05-17 12:28:50][ERROR] [InternalEngine] Internal task failed: collect_TEMP_001: Collect device snapshot failed: TEMP_001
+[2026-05-17 12:28:54][ERROR] [InternalEngine] Internal task failed: collect_VALVE_002: Collect device snapshot failed: VALVE_002
+[2026-05-17 12:28:54][ERROR] [InternalEngine] Internal task failed: collect_VALVE_001: Collect device snapshot failed: VALVE_001
+[2026-05-17 12:28:54][ERROR] [InternalEngine] Internal task failed: collect_TEMP_001: Collect device snapshot failed: TEMP_001
+[2026-05-17 12:29:02][ERROR] [InternalEngine] Internal task failed: collect_VALVE_002: Collect device snapshot failed: VALVE_002
+[2026-05-17 12:29:02][ERROR] [InternalEngine] Internal task failed: collect_VALVE_001: Collect device snapshot failed: VALVE_001
+[2026-05-17 12:29:02][ERROR] [InternalEngine] Internal task failed: collect_TEMP_001: Collect device snapshot failed: TEMP_001
+[2026-05-17 12:29:18][ERROR] [InternalEngine] Internal task failed: collect_VALVE_002: Collect device snapshot failed: VALVE_002
+[2026-05-17 12:29:18][ERROR] [InternalEngine] Internal task failed: collect_VALVE_001: Collect device snapshot failed: VALVE_001
+[2026-05-17 12:29:18][ERROR] [InternalEngine] Internal task failed: collect_TEMP_001: Collect device snapshot failed: TEMP_001
+[2026-05-17 12:32:58][ERROR] [TaskService] Allowed command has no external handler: reboot
+[2026-05-17 12:32:58][ERROR] [TaskService] Allowed command has no external handler: setConfig
+[2026-05-17 12:32:58][INFO] [HallService] Initialized
+[2026-05-17 12:32:58][ERROR] [MQTT] Connection failed: MQTT error [-6]: Invalid (NULL) parameter
+[2026-05-17 12:32:58][INFO] [DeviceService] Starting inirialization...
+[2026-05-17 12:32:58][ERROR] [DeviceFactory] Unsupported device type: sensor model:temp
+[2026-05-17 12:32:58][ERROR] [DeviceService] Create device failed: TEMP_001
+[2026-05-17 12:32:58][ERROR] [DeviceFactory] Unsupported device type: position model:uwb
+[2026-05-17 12:32:58][ERROR] [DeviceService] Create device failed: UWB_TAG_001
+[2026-05-17 12:32:58][ERROR] [DeviceService] Device init failed: VALVE_001
+[2026-05-17 12:32:58][ERROR] [DeviceService] Device init failed: VALVE_002
+[2026-05-17 12:32:58][WARNING] [DeviceService] Some devices failed to initialize
+[2026-05-17 12:32:58][INFO] [DeviceService] initialization finished
+[2026-05-17 12:32:58][INFO] [DeviceService] DeviceService started
+[2026-05-17 12:32:58][INFO] [Scheduler] Started
+[2026-05-17 12:32:58][INFO] [InternalEngine] Started
+[2026-05-17 12:32:58][INFO] [TaskService] Started
+[2026-05-17 12:32:59][ERROR] [InternalEngine] Internal task failed: collect_VALVE_002: Collect device snapshot failed: VALVE_002
+[2026-05-17 12:32:59][ERROR] [InternalEngine] Internal task failed: collect_VALVE_001: Collect device snapshot failed: VALVE_001
+[2026-05-17 12:32:59][ERROR] [InternalEngine] Internal task failed: collect_TEMP_001: Collect device snapshot failed: TEMP_001
+[2026-05-17 12:33:01][ERROR] [InternalEngine] Internal task failed: collect_VALVE_002: Collect device snapshot failed: VALVE_002
+[2026-05-17 12:33:01][ERROR] [InternalEngine] Internal task failed: collect_VALVE_001: Collect device snapshot failed: VALVE_001
+[2026-05-17 12:33:01][ERROR] [InternalEngine] Internal task failed: collect_TEMP_001: Collect device snapshot failed: TEMP_001
+[2026-05-17 12:33:05][ERROR] [InternalEngine] Internal task failed: collect_VALVE_002: Collect device snapshot failed: VALVE_002
+[2026-05-17 12:33:05][ERROR] [InternalEngine] Internal task failed: collect_VALVE_001: Collect device snapshot failed: VALVE_001
+[2026-05-17 12:33:05][ERROR] [InternalEngine] Internal task failed: collect_TEMP_001: Collect device snapshot failed: TEMP_001
+[2026-05-17 12:33:13][ERROR] [InternalEngine] Internal task failed: collect_VALVE_002: Collect device snapshot failed: VALVE_002
+[2026-05-17 12:33:13][ERROR] [InternalEngine] Internal task failed: collect_VALVE_001: Collect device snapshot failed: VALVE_001
+[2026-05-17 12:33:13][ERROR] [InternalEngine] Internal task failed: collect_TEMP_001: Collect device snapshot failed: TEMP_001
+[2026-05-17 12:39:05][ERROR] [TaskService] Allowed command has no external handler: reboot
+[2026-05-17 12:39:05][ERROR] [TaskService] Allowed command has no external handler: setConfig
+[2026-05-17 12:39:05][INFO] [HallService] Initialized
+[2026-05-17 12:39:05][ERROR] [MQTT] Connection failed: MQTT error [-6]: Invalid (NULL) parameter
+[2026-05-17 12:39:05][INFO] [DeviceService] Starting inirialization...
+[2026-05-17 12:39:05][ERROR] [DeviceFactory] Unsupported device type: sensor model:temp
+[2026-05-17 12:39:05][ERROR] [DeviceService] Create device failed: TEMP_001
+[2026-05-17 12:39:05][ERROR] [DeviceFactory] Unsupported device type: position model:uwb
+[2026-05-17 12:39:05][ERROR] [DeviceService] Create device failed: UWB_TAG_001
+[2026-05-17 12:39:05][ERROR] [DeviceService] Device init failed: VALVE_001
+[2026-05-17 12:39:05][ERROR] [DeviceService] Device init failed: VALVE_002
+[2026-05-17 12:39:05][WARNING] [DeviceService] Some devices failed to initialize
+[2026-05-17 12:39:05][INFO] [DeviceService] initialization finished
+[2026-05-17 12:39:05][INFO] [DeviceService] DeviceService started
+[2026-05-17 12:39:05][INFO] [Scheduler] Started
+[2026-05-17 12:39:05][INFO] [InternalEngine] Started
+[2026-05-17 12:39:05][INFO] [TaskService] Started
+[2026-05-17 12:39:06][ERROR] [InternalEngine] Internal task failed: collect_VALVE_002: Collect device snapshot failed: VALVE_002
+[2026-05-17 12:39:06][ERROR] [InternalEngine] Internal task failed: collect_VALVE_001: Collect device snapshot failed: VALVE_001
+[2026-05-17 12:39:06][ERROR] [InternalEngine] Internal task failed: collect_TEMP_001: Collect device snapshot failed: TEMP_001
+[2026-05-17 12:39:08][ERROR] [InternalEngine] Internal task failed: collect_VALVE_002: Collect device snapshot failed: VALVE_002
+[2026-05-17 12:39:08][ERROR] [InternalEngine] Internal task failed: collect_VALVE_001: Collect device snapshot failed: VALVE_001
+[2026-05-17 12:39:08][ERROR] [InternalEngine] Internal task failed: collect_TEMP_001: Collect device snapshot failed: TEMP_001
+[2026-05-17 12:39:12][ERROR] [InternalEngine] Internal task failed: collect_VALVE_002: Collect device snapshot failed: VALVE_002
+[2026-05-17 12:39:12][ERROR] [InternalEngine] Internal task failed: collect_VALVE_001: Collect device snapshot failed: VALVE_001
+[2026-05-17 12:39:12][ERROR] [InternalEngine] Internal task failed: collect_TEMP_001: Collect device snapshot failed: TEMP_001
+[2026-05-17 12:39:20][ERROR] [InternalEngine] Internal task failed: collect_VALVE_002: Collect device snapshot failed: VALVE_002
+[2026-05-17 12:39:20][ERROR] [InternalEngine] Internal task failed: collect_VALVE_001: Collect device snapshot failed: VALVE_001
+[2026-05-17 12:39:20][ERROR] [InternalEngine] Internal task failed: collect_TEMP_001: Collect device snapshot failed: TEMP_001
+[2026-05-17 12:42:25][ERROR] [TaskService] Allowed command has no external handler: reboot
+[2026-05-17 12:42:25][ERROR] [TaskService] Allowed command has no external handler: setConfig
+[2026-05-17 12:42:25][INFO] [HallService] Initialized
+[2026-05-17 12:42:25][ERROR] [MQTT] Connection failed: MQTT error [-6]: Invalid (NULL) parameter
+[2026-05-17 12:42:25][INFO] [DeviceService] Starting inirialization...
+[2026-05-17 12:42:25][ERROR] [DeviceFactory] Unsupported device type: sensor model:temp
+[2026-05-17 12:42:25][ERROR] [DeviceService] Create device failed: TEMP_001
+[2026-05-17 12:42:25][ERROR] [DeviceFactory] Unsupported device type: position model:uwb
+[2026-05-17 12:42:25][ERROR] [DeviceService] Create device failed: UWB_TAG_001
+[2026-05-17 12:42:25][ERROR] [DeviceService] Device init failed: VALVE_001
+[2026-05-17 12:42:25][ERROR] [DeviceService] Device init failed: VALVE_002
+[2026-05-17 12:42:25][WARNING] [DeviceService] Some devices failed to initialize
+[2026-05-17 12:42:25][INFO] [DeviceService] initialization finished
+[2026-05-17 12:42:25][INFO] [DeviceService] DeviceService started
+[2026-05-17 12:42:25][INFO] [Scheduler] Started
+[2026-05-17 12:42:25][INFO] [InternalEngine] Started
+[2026-05-17 12:42:25][INFO] [TaskService] Started
+[2026-05-17 12:42:26][ERROR] [InternalEngine] Internal task failed: collect_VALVE_002: Collect device snapshot failed: VALVE_002
+[2026-05-17 12:42:26][ERROR] [InternalEngine] Internal task failed: collect_VALVE_001: Collect device snapshot failed: VALVE_001
+[2026-05-17 12:42:26][ERROR] [InternalEngine] Internal task failed: collect_TEMP_001: Collect device snapshot failed: TEMP_001
+[2026-05-17 12:42:28][ERROR] [InternalEngine] Internal task failed: collect_VALVE_002: Collect device snapshot failed: VALVE_002
+[2026-05-17 12:42:28][ERROR] [InternalEngine] Internal task failed: collect_VALVE_001: Collect device snapshot failed: VALVE_001
+[2026-05-17 12:42:28][ERROR] [InternalEngine] Internal task failed: collect_TEMP_001: Collect device snapshot failed: TEMP_001
+[2026-05-17 12:46:59][ERROR] [TaskService] Allowed command has no external handler: reboot
+[2026-05-17 12:46:59][ERROR] [TaskService] Allowed command has no external handler: setConfig
+[2026-05-17 12:46:59][INFO] [HallService] Initialized
+[2026-05-17 12:46:59][ERROR] [MQTT] Connection failed: MQTT error [-6]: Invalid (NULL) parameter
+[2026-05-17 12:46:59][INFO] [DeviceService] Starting inirialization...
+[2026-05-17 12:46:59][ERROR] [DeviceFactory] Unsupported device type: sensor model:temp
+[2026-05-17 12:46:59][ERROR] [DeviceService] Create device failed: TEMP_001
+[2026-05-17 12:46:59][ERROR] [DeviceFactory] Unsupported device type: position model:uwb
+[2026-05-17 12:46:59][ERROR] [DeviceService] Create device failed: UWB_TAG_001
+[2026-05-17 12:46:59][INFO] [DeviceService] Device VALVE_001 added
+[2026-05-17 12:46:59][INFO] [DeviceService] Device ready: VALVE_001
+[2026-05-17 12:46:59][INFO] [DeviceService] Device VALVE_002 added
+[2026-05-17 12:46:59][INFO] [DeviceService] Device ready: VALVE_002
+[2026-05-17 12:46:59][WARNING] [DeviceService] Some devices failed to initialize
+[2026-05-17 12:46:59][INFO] [DeviceService] initialization finished
+[2026-05-17 12:46:59][INFO] [DeviceService] DeviceService started
+[2026-05-17 12:46:59][INFO] [Scheduler] Started
+[2026-05-17 12:46:59][INFO] [InternalEngine] Started
+[2026-05-17 12:46:59][INFO] [TaskService] Started
+[2026-05-17 12:47:01][ERROR] [InternalEngine] Internal task failed: collect_TEMP_001: Collect device snapshot failed: TEMP_001
+[2026-05-17 12:47:03][ERROR] [InternalEngine] Internal task failed: collect_TEMP_001: Collect device snapshot failed: TEMP_001
+[2026-05-17 12:47:07][ERROR] [InternalEngine] Internal task failed: collect_TEMP_001: Collect device snapshot failed: TEMP_001
+[2026-05-17 12:47:15][ERROR] [InternalEngine] Internal task failed: collect_TEMP_001: Collect device snapshot failed: TEMP_001
+[2026-05-17 12:47:31][ERROR] [InternalEngine] Internal task failed: collect_TEMP_001: Collect device snapshot failed: TEMP_001
+[2026-05-17 12:47:46][ERROR] [TaskService] Allowed command has no external handler: reboot
+[2026-05-17 12:47:46][ERROR] [TaskService] Allowed command has no external handler: setConfig
+[2026-05-17 12:47:46][INFO] [HallService] Initialized
+[2026-05-17 12:47:47][ERROR] [MQTT] Connection failed: MQTT error [-1]: TCP connect completion failure
+[2026-05-17 12:47:47][INFO] [DeviceService] Starting inirialization...
+[2026-05-17 12:47:47][ERROR] [DeviceFactory] Unsupported device type: sensor model:temp
+[2026-05-17 12:47:47][ERROR] [DeviceService] Create device failed: TEMP_001
+[2026-05-17 12:47:47][ERROR] [DeviceFactory] Unsupported device type: position model:uwb
+[2026-05-17 12:47:47][ERROR] [DeviceService] Create device failed: UWB_TAG_001
+[2026-05-17 12:47:47][INFO] [DeviceService] Device VALVE_001 added
+[2026-05-17 12:47:47][INFO] [DeviceService] Device ready: VALVE_001
+[2026-05-17 12:47:47][INFO] [DeviceService] Device VALVE_002 added
+[2026-05-17 12:47:47][INFO] [DeviceService] Device ready: VALVE_002
+[2026-05-17 12:47:47][WARNING] [DeviceService] Some devices failed to initialize
+[2026-05-17 12:47:47][INFO] [DeviceService] initialization finished
+[2026-05-17 12:47:47][INFO] [DeviceService] DeviceService started
+[2026-05-17 12:47:47][INFO] [Scheduler] Started
+[2026-05-17 12:47:47][INFO] [InternalEngine] Started
+[2026-05-17 12:47:47][INFO] [TaskService] Started
+[2026-05-17 12:47:48][ERROR] [InternalEngine] Internal task failed: collect_TEMP_001: Collect device snapshot failed: TEMP_001
+[2026-05-17 12:47:50][ERROR] [InternalEngine] Internal task failed: collect_TEMP_001: Collect device snapshot failed: TEMP_001
+[2026-05-17 12:49:59][ERROR] [TaskService] Allowed command has no external handler: reboot
+[2026-05-17 12:49:59][ERROR] [TaskService] Allowed command has no external handler: setConfig
+[2026-05-17 12:49:59][INFO] [HallService] Initialized
+[2026-05-17 12:49:59][ERROR] [MQTT] Connection failed: MQTT error [-1]: TCP connect completion failure
+[2026-05-17 12:49:59][INFO] [DeviceService] Starting inirialization...
+[2026-05-17 12:49:59][ERROR] [DeviceFactory] Unsupported device type: sensor model:temp
+[2026-05-17 12:49:59][ERROR] [DeviceService] Create device failed: TEMP_001
+[2026-05-17 12:49:59][ERROR] [DeviceFactory] Unsupported device type: position model:uwb
+[2026-05-17 12:49:59][ERROR] [DeviceService] Create device failed: UWB_TAG_001
+[2026-05-17 12:49:59][INFO] [DeviceService] Device VALVE_001 added
+[2026-05-17 12:49:59][INFO] [DeviceService] Device ready: VALVE_001
+[2026-05-17 12:49:59][INFO] [DeviceService] Device VALVE_002 added
+[2026-05-17 12:49:59][INFO] [DeviceService] Device ready: VALVE_002
+[2026-05-17 12:49:59][WARNING] [DeviceService] Some devices failed to initialize
+[2026-05-17 12:49:59][INFO] [DeviceService] initialization finished
+[2026-05-17 12:49:59][INFO] [DeviceService] DeviceService started
+[2026-05-17 12:49:59][INFO] [Scheduler] Started
+[2026-05-17 12:49:59][INFO] [InternalEngine] Started
+[2026-05-17 12:49:59][INFO] [TaskService] Started
+[2026-05-17 12:50:01][ERROR] [InternalEngine] Internal task failed: collect_TEMP_001: Collect device snapshot failed: TEMP_001
+[2026-05-17 12:50:03][ERROR] [InternalEngine] Internal task failed: collect_TEMP_001: Collect device snapshot failed: TEMP_001
+[2026-05-17 12:50:04][INFO] [MQTT] Connected callback: automatic reconnect
+[2026-05-17 12:50:07][ERROR] [InternalEngine] Internal task failed: collect_TEMP_001: Collect device snapshot failed: TEMP_001
+[2026-05-17 12:57:11][ERROR] [TaskService] Allowed command has no external handler: reboot
+[2026-05-17 12:57:11][ERROR] [TaskService] Allowed command has no external handler: setConfig
+[2026-05-17 12:57:11][INFO] [HallService] Initialized
+[2026-05-17 12:57:12][INFO] [MQTT] Connected callback: connect onSuccess called
+[2026-05-17 12:57:12][INFO] [MQTT] Connected callback: connect onSuccess called
+[2026-05-17 12:57:12][INFO] [MQTT] Connected to tcp://broker.emqx.io:1883 with client ID: farming_client_001
+[2026-05-17 12:57:12][INFO] [MQTT] Subscribed to topic: farming/sensors with QoS: 1
+[2026-05-17 12:57:12][INFO] [MQTT] Subscribed to topic: farming/actuators with QoS: 1
+[2026-05-17 12:57:12][INFO] [DeviceService] Starting inirialization...
+[2026-05-17 12:57:12][ERROR] [DeviceFactory] Unsupported device type: sensor model:temp
+[2026-05-17 12:57:12][ERROR] [DeviceService] Create device failed: TEMP_001
+[2026-05-17 12:57:12][ERROR] [DeviceFactory] Unsupported device type: position model:uwb
+[2026-05-17 12:57:12][ERROR] [DeviceService] Create device failed: UWB_TAG_001
+[2026-05-17 12:57:12][INFO] [DeviceService] Device VALVE_001 added
+[2026-05-17 12:57:12][INFO] [DeviceService] Device ready: VALVE_001
+[2026-05-17 12:57:12][INFO] [DeviceService] Device VALVE_002 added
+[2026-05-17 12:57:12][INFO] [DeviceService] Device ready: VALVE_002
+[2026-05-17 12:57:12][WARNING] [DeviceService] Some devices failed to initialize
+[2026-05-17 12:57:12][INFO] [DeviceService] initialization finished
+[2026-05-17 12:57:12][INFO] [DeviceService] DeviceService started
+[2026-05-17 12:57:12][INFO] [Scheduler] Started
+[2026-05-17 12:57:12][INFO] [InternalEngine] Started
+[2026-05-17 12:57:12][INFO] [TaskService] Started
+[2026-05-17 12:57:13][ERROR] [InternalEngine] Internal task failed: collect_TEMP_001: Collect device snapshot failed: TEMP_001
+[2026-05-17 12:57:15][ERROR] [InternalEngine] Internal task failed: collect_TEMP_001: Collect device snapshot failed: TEMP_001
+[2026-05-17 12:57:19][ERROR] [InternalEngine] Internal task failed: collect_TEMP_001: Collect device snapshot failed: TEMP_001
+[2026-05-17 12:57:27][ERROR] [InternalEngine] Internal task failed: collect_TEMP_001: Collect device snapshot failed: TEMP_001

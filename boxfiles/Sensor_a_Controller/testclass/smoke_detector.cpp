@@ -71,6 +71,9 @@ bool configureSerial(int fd,const json& portConfig)
     tty.c_cflag |= CREAD | CLOCAL;
 
     tty.c_iflag &= ~(IXON | IXOFF | IXANY);
+    // 红外加了这行还可不可以跑，更严格、更干净、更标准的串口原始模式
+    // 彻底关闭串口的所有输入处理，让串口工作在最原始、最透明的模式（原始模式）。
+    // tty.c_iflag &= ~(IGNBRK | BRKINT | PARMRK | ISTRIP | INLCR | IGNCR | ICRNL);
 
     tty.c_lflag = 0;
     tty.c_oflag = 0;

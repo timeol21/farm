@@ -1,0 +1,269 @@
+{
+  "devices": [
+    {
+      "id": "TEMP_001",
+      "type": "sensor",
+      "model": "temp",
+
+      "protocol": "modbus",
+      "channelId": "RS485_001",
+      "interval": 1000,
+      "modbus_slave_id": 1,
+
+      "parser": {
+        "type": "binary_frame_v1",
+        "source": "poll",
+        "frame": {
+          "min_length": 16
+        },
+        "fields":[
+          {
+            "key": "temperature",
+            "byte_offset": 0,
+            "bytes": 2,
+            "signed": true,
+            "endian": "big",
+            "ratio": 0.1,
+            "offset": 0,
+            "unit": "℃"
+          },
+          {
+            "key": "humidity",
+            "byte_offset": 1,
+            "bytes": 2,
+            "signed": true,
+            "endian": "big",
+            "ratio": 0.1,
+            "offset": 0,
+            "unit": "%"
+          },
+          {
+            "key": "ec_value",
+            "byte_offset": 2,
+            "bytes": 2,
+            "signed": true,
+            "endian": "big",
+            "ratio": 1.0,
+            "offset": 0,
+            "unit": "uS/cm"
+          },
+          {
+            "key": "salt_value",
+            "byte_offset": 3,
+            "bytes": 2,
+            "signed": true,
+            "endian": "big",
+            "ratio": 1.0,
+            "offset": 0,
+            "unit": "ppt"
+          },
+          {
+            "key": "nitrogen_value",
+            "byte_offset": 4,
+            "bytes": 2,
+            "signed": true,
+            "endian": "big",
+            "ratio": 1.0,
+            "offset": 0,
+            "unit": "mg/kg"
+          },
+          {
+            "key": "phosphorus_value",
+            "byte_offset": 5,
+            "bytes": 2,
+            "signed": true,
+            "endian": "big",
+            "ratio": 1.0,
+            "offset": 0,
+            "unit": "mg/kg"
+          },
+          {
+            "key": "potassium_value",
+            "byte_offset": 6,
+            "bytes": 2,
+            "signed": true,
+            "endian": "big",
+            "ratio": 1.0,
+            "offset": 0,
+            "unit": "mg/kg"
+          },
+          {
+            "key": "ph_value",
+            "byte_offset": 7,
+            "bytes": 2,
+            "signed": true,
+            "endian": "big",
+            "ratio": 0.1,
+            "offset": 0,
+            "unit": "pH"
+          }
+        ]
+      }
+    },
+    {
+      "id": "UWB_TAG_001",
+      "type": "position",
+      "model": "uwb",
+
+      "protocol": "modbus",
+      "channelId": "SERIAL_001",
+      "interval": 60000,
+      "modbus_slave_id": 1,
+
+      "parser": {
+        "type": "binary_frame_v1",
+        "source": "auto_report",
+        "frame": {
+          "min_length": 49
+        },
+        "fields": [
+          {
+            "key": "pos_x",
+            "byte_offset": 43,
+            "bytes": 2,
+            "signed": true,
+            "endian": "big",
+            "ratio": 0.001,
+            "offset": 0,
+            "unit": "cm"
+          },
+          {
+            "key": "pos_y",
+            "byte_offset": 45,
+            "bytes": 2,
+            "signed": true,
+            "endian": "big",
+            "ratio": 0.001,
+            "offset": 0,
+            "unit": "cm"
+          },
+          {
+            "key": "pos_z",
+            "byte_offset": 47,
+            "bytes": 2,
+            "signed": true,
+            "endian": "big",
+            "ratio": 0.001,
+            "offset": 0,
+            "unit": "cm"
+          }
+        ]
+      }
+    },
+    {
+      "id": "VALVE_001",
+      "type": "actuator",
+      "model": "valve",
+      "protocol": "modbus",
+      "channelId": "RS485_001",
+      "modbus_slave_id": 1,
+      "interval": 1000,
+      "control": {
+        "kind": "valve",
+        "commands": [
+           {
+            "name": "open",
+            "register_address": 1280,
+            "value": 1,
+            "function_code": 5
+          },
+          {
+            "name": "close",
+            "register_address": 1280,
+            "value": 0,
+            "function_code": 5
+          }
+        ],
+        "feedback": {
+          "register_address": 1280,
+          "function_code": 1
+        }
+      }
+    },
+    {
+      "id": "VALVE_002",
+      "type": "actuator",
+      "model": "valve",
+      "protocol": "modbus",
+      "channelId": "SERIAL_002",
+      "modbus_slave_id": 1,
+      "interval": 1000,
+      "control": {
+        "kind": "valve",
+        "commands": [
+           {
+            "name": "open",
+            "register_address": 1280,
+            "value": 1,
+            "function_code": 5
+          },
+          {
+            "name": "close",
+            "register_address": 1280,
+            "value": 0,
+            "function_code": 5
+          }
+        ],
+        "feedback": {
+          "register_address": 1280,
+          "function_code": 1
+        }
+      }
+    }
+  ],
+  "channels": [
+    {
+      "id": "RS485_001",
+      "type": "rs485",
+      "port": "/dev/ttyS3",
+      "baudrate": 9600,
+      "parity": "N",
+      "stopBits": 1,
+      "dataBits": 8
+    },
+    {
+      "id": "SERIAL_001",
+      "type": "serial",
+      "port": "/dev/ttyACM0",
+      "baudrate": 115200,
+      "parity": "N",
+      "stopBits": 1,
+      "dataBits": 8
+    },
+    {
+      "id": "SERIAL_002",
+      "type": "serial",
+      "port": "/dev/ttyUSB0",
+      "baudrate": 19200,
+      "parity": "N",
+      "stopBits": 1,
+      "dataBits": 8
+    }
+  ],
+  "mqtt": {
+    "broker": "tcp://broker.emqx.io:1883",
+    "client_id": "farming_client_001",
+    "status_report_topic": "farming/status/device",
+    "subscriptions": [
+      {
+        "topic": "farming/sensors",
+        "qos": 1
+      },
+      {
+        "topic": "farming/actuators",
+        "qos": 1
+      }
+    ]
+  },
+  "system": {
+    "auto_report_enabled": true,
+    "auto_report_interval_ms": 60000,
+    "allowed_commands": [
+      "queryDevice",
+      "queryDeviceList",
+      "operate_valve",
+      "reboot",
+      "setConfig"
+    ]
+  }
+}
