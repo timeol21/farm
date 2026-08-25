@@ -1,11 +1,12 @@
 #include "common/layer_buffer_queue/layer_buffer_queue.h"
 
-LayerBufferQueue& LayerBufferQueue::instance()
+LayerBufferQueue::LayerBufferQueue()
 {
 
-    static LayerBufferQueue instance;
+}
 
-    return instance;
+LayerBufferQueue::~LayerBufferQueue()
+{
 
 }
 

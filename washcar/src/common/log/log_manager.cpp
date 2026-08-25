@@ -117,7 +117,7 @@ void LogManager::write(LogLevel level,const std::string& message) {
 
     std::string log ="[" +ss.str() +"] [" +levelString +"] " +message;
     
-    std::cout<< log<< std::endl;
+    std::cout<< log << std::endl;
     
     if(initialized_ && logFile_.is_open())
     {

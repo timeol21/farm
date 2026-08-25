@@ -21,13 +21,16 @@ public:
 
     bool popPendingCommand(CommandMessage& message);
 
+
+    explicit CommandService(LayerBufferQueue& bufferQueue);
+
 private:
 
     void saveCommand(const CommandMessage& message);
 
     void enqueuePendingCommand(const CommandMessage& message);
-
-    LayerBufferQueue& bufferQueue_ = LayerBufferQueue::instance();
+    
+    LayerBufferQueue& bufferQueue_;
 
     std::queue<CommandMessage> pendingCommands_;
 

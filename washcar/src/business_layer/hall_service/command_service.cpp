@@ -2,6 +2,13 @@
 
 #include <iostream>
 
+CommandService::CommandService(LayerBufferQueue& bufferQueue)
+:
+bufferQueue_(bufferQueue)
+{
+
+}
+
 bool CommandService::initialize()
 {
 

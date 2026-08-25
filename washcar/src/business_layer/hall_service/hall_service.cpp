@@ -11,7 +11,9 @@
 #include "data_layer/device_manager/device_manager.h"
 
 
-HallService::HallService()
+HallService::HallService(LayerBufferQueue& bufferQueue)
+:
+bufferQueue_(bufferQueue)
 {
 
 }
@@ -57,7 +59,7 @@ bool HallService::initialize()
     washService_ = std::make_unique<WashService>(*carWashState_,*deviceManager_); 
 
 
-    commandService_ = std::make_unique<CommandService>();
+    commandService_ = std::make_unique<CommandService>(bufferQueue_);
 
 
     securityService_ = std::make_unique<SecurityService>();

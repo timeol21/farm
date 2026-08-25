@@ -10,21 +10,15 @@ class LayerBufferQueue
 
 public:
 
-    static LayerBufferQueue& instance();
+    LayerBufferQueue();
+
+    ~LayerBufferQueue();
 
     bool push(const CommandMessage& message);
 
     bool pop(CommandMessage& message);
 
 private:
-
-    LayerBufferQueue() = default;
-
-    ~LayerBufferQueue() = default;
-
-    LayerBufferQueue(const LayerBufferQueue&) = delete;
-
-    LayerBufferQueue& operator=(const LayerBufferQueue&) = delete;
 
     std::queue<CommandMessage> commandQueue_;
 

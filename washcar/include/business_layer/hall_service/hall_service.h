@@ -18,12 +18,14 @@ class BusinessTimer;
 
 class DeviceManager;
 
+class LayerBufferQueue;
+
 class HallService
 {
 
 public:
 
-    HallService();
+    explicit HallService(LayerBufferQueue& bufferQueue);
 
     ~HallService();
 
@@ -51,6 +53,8 @@ public:
 
 
 private:
+
+    LayerBufferQueue& bufferQueue_;
 
     std::unique_ptr<CarWashState> carWashState_;
 

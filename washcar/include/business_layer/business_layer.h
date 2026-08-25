@@ -3,12 +3,16 @@
 
 class HallService;
 
+class LayerBufferQueue;
+
 class BusinessLayer
 {
 
 public:
 
-    static BusinessLayer& instance();
+    explicit BusinessLayer(LayerBufferQueue& bufferQueue);
+
+    ~BusinessLayer();
 
     bool initialize();
 
@@ -17,8 +21,8 @@ public:
 
 private:
 
-    BusinessLayer() = default;
-
+    LayerBufferQueue& bufferQueue_;
+    
     std::unique_ptr<HallService> hallService_;
 
 };

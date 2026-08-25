@@ -14,12 +14,16 @@ class MqttParser;
 
 class UserInterfaceQueue;
 
+class LayerBufferQueue;
+
 class UserInterface
 {
 
 public:
 
-    static UserInterface& instance();
+    explicit UserInterface(LayerBufferQueue& layerBufferQueue);
+
+    ~UserInterface();
 
     bool initialize();
 
@@ -30,13 +34,8 @@ public:
     UserInterfaceQueue& userInterfaceQueue();
 
 private:
-    UserInterface() = default;
 
-    ~UserInterface() = default;
-
-    UserInterface(const UserInterface&) = delete;
-
-    UserInterface& operator=(const UserInterface&) = delete;
+    LayerBufferQueue& layerBufferQueue_;
 
     UserInterfaceQueue* userInterfaceQueue_ = nullptr;
 

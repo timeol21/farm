@@ -9,13 +9,17 @@
 #include "userinterface_layer/rtsp/rtsp_client.h"
 
 
-UserInterface& UserInterface::instance()
+UserInterface::UserInterface(LayerBufferQueue& layerBufferQueue)
+:
+layerBufferQueue_(layerBufferQueue)
 {
-    static UserInterface instance;
 
-    return instance;
 }
 
+UserInterface::~UserInterface()
+{
+
+}
 
 bool UserInterface::initialize()
 {
@@ -26,7 +30,10 @@ bool UserInterface::initialize()
 
     mqttClient_ = std::make_unique<MqttClient>();
 
-    mqttParser_ = std::make_unique<MqttParser>(*userInterfaceQueue_,LayerBufferQueue::instance());
+    mqttParser_ =std::make_unique<MqttParser>(
+        *userInterfaceQueue_,
+        layerBufferQueue_
+    );
 
     tcpServer_ = std::make_unique<TcpServer>();
 
