@@ -14,6 +14,7 @@ void save_frame_as_jpg(AVFrame* pFrame, const std::string& filename);
 
 int main() {
     const char* url = "rtsp://krdn:ph4ctc@192.168.31.208:554/Streaming/Channels/101";
+    // const char* url = "rtsp://krdn:ph4ctc@192.168.31.208:554/Streaming/Channels/101";
     
     avformat_network_init();
 

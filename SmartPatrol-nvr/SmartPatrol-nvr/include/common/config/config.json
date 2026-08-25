@@ -1,0 +1,92 @@
+{
+  "device_config": {
+    "version": "1.0",
+    "description": "设备配置（含PLC直连/网关连接两种类型）",
+    "boxId": "1",
+    "devices": {
+      "nvr": {
+        "nvrId": "nvr_001",
+        "brand": "Hikvision",
+        "ip": "192.168.1.101",
+        "username": "admin",
+        "password": "gzh13033676063",
+        "port": 8000
+      },
+      "camera": [
+        {
+          "cameraId": "1",
+          "name": "camera1",
+          "nvrId": "nvr_001",
+          "IPCIP": "192.168.1.102",
+          "port": 8000,
+          "IPCUSER": "admin",
+          "IPCPWD": "@3412536259"
+        },
+        {
+          "cameraId": "2",
+          "name": "camera2",
+          "nvrId": "nvr_001",
+          "IPCIP": "192.168.1.103",
+          "port": 8000,
+          "IPCUSER": "admin",
+          "IPCPWD": "@3412536259"
+        }
+      ],
+      
+      "gpio_sensor": [
+        {
+          "id": "infrared_01",
+          "name": "红外传感器",
+          "type": "infrared",
+          "gpio_pin": 99,
+          "description": "入侵检测，后台监听触发告警"
+        },
+        {
+          "id": "water_01",
+          "name": "水浸传感器",
+          "type": "water_immersion",
+          "gpio_pin": 98,
+          "description": "漏水检测，后台监听触发告警"
+        },
+        {
+          "id": "smoke_01",
+          "name": "烟感传感器",
+          "type": "smoke",
+          "gpio_pin": 88,
+          "description": "烟雾检测，后台监听触发告警"
+        }
+      ],
+      
+      "temp_humidity_sensor": {
+        "description": "温湿度传感器配置，传感器数量根据实际情况增减",
+        "serial_config": {
+          "port": "/dev/ttyS3",
+          "baud_rate": 9600,
+          "parity": "none",
+          "data_bits": 8,
+          "stop_bits": 1
+        },
+        "sensors": [
+          {
+            "id": "temp_humidity_01",
+            "name": "温湿度传感器1",
+            "modbus_addr": 1,
+            "temp_register": 0,
+            "humidity_register": 1,
+            "reg_count": 2
+          }
+        ]
+      },
+      
+      "door_lock": [
+        {
+          "id": "door_lock_01",
+          "name": "门锁控制器",
+          "type": "gpio",
+          "gpio_pin": 75,
+          "description": "门锁控制，仅支持开锁操作"
+        }
+      ]
+    }
+  }
+}

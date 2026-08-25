@@ -1,0 +1,30 @@
+{
+  "device_config": {
+    "version": "1.0",
+    "description": "设备配置（含PLC直连/网关连接两种类型）",
+    "nvr": [
+        {
+        "id": "5",
+        "brand": "Hikvision",
+        "ip": "10.9.255.21",
+        "username": "admin",
+        "password": "Wlkjaqxy411",
+        "port": "8000"
+        }
+    ],
+    "devices": {
+      "camera": [
+        {
+          "id": "10",
+          "name": "camera1",
+          "nvrId": "5"
+        },
+        {
+          "id": "2",
+          "name": "camera2",
+          "nvrId": "5"
+        }
+      ]
+    }
+    } 
+}

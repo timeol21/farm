@@ -1,0 +1,140 @@
+{
+    "box":
+    {
+        "id":"box_001"
+
+    },
+
+
+    "machines":
+    [
+        {
+            "id":"wash_machine_001",
+            "devices":
+            [
+
+                {
+                    "id":"camera_001",
+
+                    "type":"camera",
+
+                    "model":"icsee",
+
+
+                    "parameters":
+                    {
+                        "ip":"192.168.1.101",
+
+                        "port":554,
+
+                        "username":"admin",
+
+                        "password":"123456",
+
+                        "channel":1
+                    }
+
+                },
+
+
+                {
+                    "id":"camera_002",
+
+                    "type":"camera",
+
+                    "model":"icsee",
+
+
+                    "parameters":
+                    {
+                        "ip":"192.168.1.102",
+
+                        "port":554,
+
+                        "username":"admin",
+
+                        "password":"123456",
+
+                        "channel":1
+                    }
+
+                },
+
+
+                {
+                    "id":"plc_001",
+
+                    "type":"plc",
+
+                    "model":"fx3u",
+
+
+                    "parameters":
+                    {
+                        "port" : "/dev/ttyS4",
+                        "baudRate":"9600",
+                        "parity":"odd",     
+                        "dataBits":"7",
+                        "stopBits":"1"
+                    }
+
+                }
+
+            ]
+        },
+
+
+        {
+            "id":"wash_machine_002",
+
+            "devices":
+            [
+                {
+                    "id":"camera_003",
+
+                    "type":"camera",
+
+                    "model":"icsee",
+
+
+                    "parameters":
+                    {
+                        "ip":"192.168.1.103",
+
+                        "port":554,
+
+                        "username":"admin",
+
+                        "password":"123456",
+
+                        "channel":1
+                    }
+
+                },
+
+
+                {
+                    "id":"plc_002",
+
+                    "type":"plc",
+
+                    "model":"fx3u",
+
+
+                    "parameters":
+                    {
+                        "port" : "/dev/ttyUSB10",
+                        "baudRate":"9600",
+                        "parity":"odd",     
+                        "dataBits":"7",
+                        "stopBits":"1"
+                    }
+
+                }
+            ]
+
+        }
+
+    ]
+
+}
