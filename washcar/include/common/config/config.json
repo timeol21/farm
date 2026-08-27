@@ -23,15 +23,31 @@
 
                     "parameters":
                     {
-                        "ip":"192.168.1.101",
+                        "protocol":"rtsp",
+                    
+                        "ip":"10.9.255.21",
 
                         "port":554,
 
                         "username":"admin",
 
-                        "password":"123456",
+                        "password":"Wlkjaqxy411",
 
-                        "channel":1
+                        "channel":201,
+                        
+                        "stream":
+                        {
+                            "keyFrameInterval":5,
+                
+                            "record":
+                            {
+                                "enable":true,
+                
+                                "path":"./record/camera_001",
+                
+                                "segmentTime":60
+                            }
+                        }
                     }
 
                 },
@@ -47,6 +63,8 @@
 
                     "parameters":
                     {
+                        "protocol":"rtsp",
+                    
                         "ip":"192.168.1.102",
 
                         "port":554,
@@ -72,10 +90,10 @@
                     "parameters":
                     {
                         "port" : "/dev/ttyS4",
-                        "baudRate":"9600",
+                        "baudRate":9600,
                         "parity":"odd",     
-                        "dataBits":"7",
-                        "stopBits":"1"
+                        "dataBits":7,
+                        "stopBits":1
                     }
 
                 }
@@ -99,6 +117,8 @@
 
                     "parameters":
                     {
+                        "protocol":"rtsp",
+                          
                         "ip":"192.168.1.103",
 
                         "port":554,
@@ -124,10 +144,10 @@
                     "parameters":
                     {
                         "port" : "/dev/ttyUSB10",
-                        "baudRate":"9600",
+                        "baudRate":9600,
                         "parity":"odd",     
-                        "dataBits":"7",
-                        "stopBits":"1"
+                        "dataBits":7,
+                        "stopBits":1
                     }
 
                 }

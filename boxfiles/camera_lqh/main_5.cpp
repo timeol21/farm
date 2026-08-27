@@ -8,7 +8,10 @@ extern "C" {
 }
 
 int main() {
-    const char* in_url = "rtsp://krdn:ph4ctc@192.168.31.208:554/Streaming/Channels/101";
+    const char* in_url = "rtsp://krdn:ph4ctc@192.168.31.208:554/Streaming/Channels/101";    //  MAC地址: 5C:4E:EE:82:C2:03
+    
+    // "rtsp://rrtj:73whah@192.168.31.145:554/Streaming/Channels/101"
+    // MAC地址: 2C:D8:DE:33:D2:E1
     AVFormatContext *ifmt_ctx = nullptr, *ofmt_ctx = nullptr;
     AVCodecContext *pDecCtx = nullptr; // 解码器上下文
     AVPacket pkt;

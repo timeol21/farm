@@ -1,3 +1,4 @@
+#include "common/log/log_manager.h"
 #include "data_layer/camera/icsee_camera/icsee_camera.h"
 
 #include "userinterface_layer/rtsp/rtsp_client.h"
@@ -17,17 +18,90 @@ extern "C"
 }
 
 IcSeeCamera::IcSeeCamera(
-    const std::string& rtspUrl,
-    const std::string& cameraId,
-    int keyFrameIntervalSec
+    const DeviceConfig& config
 )
-:
-cameraId_(cameraId),
-rtspUrl_(rtspUrl),
-keyFrameIntervalSec_(keyFrameIntervalSec)
 {
 
-    rtspClient_ = std::make_unique<RtspClient>();
+    cameraId_ = config.id;
+
+
+    auto& params = config.parameters;
+
+
+
+    std::string protocol =
+        params.at("protocol").get<std::string>();
+
+
+    std::string ip =
+        params.at("ip").get<std::string>();
+
+
+    int port = params.at("port").get<int>();
+
+
+    std::string username =
+        params.at("username").get<std::string>();
+
+
+    std::string password =
+        params.at("password").get<std::string>();
+
+
+    int channel = params.at("channel").get<int>();
+
+    rtspUrl_ = protocol+"://"+username+":"+password+"@"+ip+":"+std::to_string(port)+"/Streaming/Channels/"+std::to_string(channel);
+
+    keyFrameIntervalSec_ = 5;
+    
+    recordEnable_ = false;
+
+    recordSegmentTime_ = 60;
+
+    if(params.contains("stream"))
+    {
+
+        auto stream =
+            params.at("stream");
+
+
+        if(stream.contains("keyFrameInterval"))
+        {
+            keyFrameIntervalSec_ =
+    stream.at("keyFrameInterval").get<int>();
+        }
+
+        if(stream.contains("record"))
+        {
+
+            auto record = stream.at("record");
+
+            recordEnable_ = record.at("enable").get<bool>();
+
+            recordPath_ = record.at("path").get<std::string>();
+
+            recordSegmentTime_ = record.at("segmentTime").get<int>();
+
+        }
+
+    }
+
+
+    rtspClient_ =
+        std::make_unique<RtspClient>();
+
+
+
+    if(recordEnable_)
+    {
+    
+        recorder_ =
+            std::make_unique<RtspMp4Recorder>(
+                recordPath_,
+                recordSegmentTime_
+            );
+    
+    }
 
 }
 
@@ -73,12 +147,18 @@ bool IcSeeCamera::initialize()
 
     if(!rtspClient_->initialize())
     {
+        Logger::error("[System] rtspClient initialize failed");
         return false;
+    }else{
+        Logger::info("[System] rtspClient initialize successful");
     }
 
     if(!rtspClient_->open(rtspUrl_))
     {
+        Logger::error("[System] rtspClient open failed");
         return false;
+    }else{
+        Logger::info("[System] rtspClient open successful");
     }
 
     frame_ = av_frame_alloc();
@@ -88,11 +168,10 @@ bool IcSeeCamera::initialize()
 
     if(frame_ == nullptr || latestKeyFrame_ == nullptr)
     {
+        Logger::error("[System] frame or latestKeyFrame is nullptr");
         return false;
     }
     
-    
-
     return openStream();
 
 }
@@ -115,9 +194,39 @@ bool IcSeeCamera::start()
 
     if(!rtspClient_->start())
     {
+        Logger::error("[System] rtspClient start failed");
         return false;
+    }else{
+        Logger::info("[System] rtspClient start successful");
     }
-
+    
+    if(recordEnable_)
+    {
+    
+        if(!recorder_)
+        {
+            return false;
+        }
+    
+    
+        if(!recorder_->initialize(
+            rtspClient_->getVideoCodecParameters(),
+            rtspClient_->getVideoTimeBase()
+        ))
+        {
+            return false;
+        }
+    
+    
+        if(!recorder_->start())
+        {
+            Logger::error("[System] recorder start failed");
+            return false;
+        }else{
+            Logger::info("[System] recorder start successful");
+        }
+    
+    }
 
     running_ = true;
 
@@ -253,44 +362,20 @@ void IcSeeCamera::captureLoop()
 bool IcSeeCamera::openStream()
 {
 
-
-    /*
-        初始化decoder
-
-        packet
-
-          |
-
-          v
-
-        decoder
-
-          |
-
-          v
-
-        frame
-
-    */
+     AVCodecParameters* codecParameters =
+        rtspClient_->getVideoCodecParameters();
 
 
-
-    /*
-        这里需要RtspClient提供codec参数
-
-        AVCodecParameters
-
-        当前先按照H264处理
-
-    */
-
+    if(codecParameters == nullptr)
+    {
+        return false;
+    }
 
 
     const AVCodec* codec =
         avcodec_find_decoder(
-            AV_CODEC_ID_H264
+            codecParameters->codec_id
         );
-
 
 
     if(codec == nullptr)
@@ -299,36 +384,36 @@ bool IcSeeCamera::openStream()
     }
 
 
-
-
     codecContext_ =
-        avcodec_alloc_context3(
-            codec
-        );
+        avcodec_alloc_context3(codec);
 
 
 
-    if(codecContext_ == nullptr)
+    if(!codecContext_)
     {
         return false;
     }
 
 
+
+    if(avcodec_parameters_to_context(
+            codecContext_,
+            codecParameters
+        ) < 0)
+    {
+        return false;
+    }
 
 
 
     if(avcodec_open2(
-        codecContext_,
-        codec,
-        nullptr
-    ) < 0)
+            codecContext_,
+            codec,
+            nullptr
+        ) < 0)
     {
-
         return false;
-
     }
-
-
 
 
     return true;

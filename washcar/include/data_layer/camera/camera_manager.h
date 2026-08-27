@@ -1,4 +1,6 @@
 #pragma once
+
+#include "data_layer/camera/camera.h"
 #include <vector>
 #include <memory>
 class Camera;
@@ -13,6 +15,8 @@ public:
 
 
     bool initialize();
+    
+    void addCamera(std::unique_ptr<Camera> camera);
 
     bool start();
 

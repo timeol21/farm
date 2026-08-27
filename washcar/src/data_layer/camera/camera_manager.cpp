@@ -1,5 +1,7 @@
-#include "data_layer/camera/camera_manager.h"
+#include "common/log/log_manager.h"
 #include "data_layer/camera/camera.h"
+#include "data_layer/camera/camera_manager.h"
+
 
 CameraManager::CameraManager()
 {
@@ -8,24 +10,29 @@ CameraManager::CameraManager()
 
 CameraManager::~CameraManager()
 {
-
+    stop();
 }
 
 bool CameraManager::initialize()
 {
+    
 
     for(auto& camera : cameras_)
     {
-
+        
         if(camera == nullptr)
         {
+            Logger::error("[System] initialize failed");
             continue;
         }
 
 
         if(!camera->initialize())
         {
+            Logger::error("[System] camera initialize failed");
             return false;
+        }else{
+            Logger::info("[System] camera initialize successful");
         }
 
     }
@@ -34,6 +41,26 @@ bool CameraManager::initialize()
 
 }
 
+void CameraManager::addCamera(
+    std::unique_ptr<Camera> camera
+)
+{
+
+    if(!camera)
+    {
+        Logger::error(
+            "[CameraManager] add null camera"
+        );
+
+        return;
+    }
+
+
+    cameras_.push_back(
+        std::move(camera)
+    );
+
+}
 
 bool CameraManager::start()
 {
@@ -70,29 +97,6 @@ bool CameraManager::stop()
         }
 
         camera->stop();
-
-    }
-
-    return true;
-
-}
-
-
-bool CameraManager::capture()
-{
-
-    for(auto& camera : cameras_)
-    {
-
-        if(camera == nullptr)
-        {
-            continue;
-        }
-
-        if(!camera->capture())
-        {
-            return false;
-        }
 
     }
 

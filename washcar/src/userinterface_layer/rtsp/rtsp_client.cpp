@@ -1,3 +1,4 @@
+#include "common/log/log_manager.h"
 #include "userinterface_layer/rtsp/rtsp_client.h"
 
 #include <iostream>
@@ -121,6 +122,47 @@ bool RtspClient::getPacket(
 
 }
 
+AVCodecParameters* RtspClient::getVideoCodecParameters()
+{
+
+    if(!formatContext_)
+    {
+        return nullptr;
+    }
+
+
+    if(videoStreamIndex_ < 0)
+    {
+        return nullptr;
+    }
+
+
+    return formatContext_
+        ->streams[videoStreamIndex_]
+        ->codecpar;
+
+}
+
+AVRational RtspClient::getVideoTimeBase()
+{
+
+    if(!formatContext_)
+    {
+        return AVRational{0,1};
+    }
+
+
+    if(videoStreamIndex_ < 0)
+    {
+        return AVRational{0,1};
+    }
+
+
+    return formatContext_
+        ->streams[videoStreamIndex_]
+        ->time_base;
+
+}
 
 
 void RtspClient::receiveLoop()
@@ -143,12 +185,9 @@ void RtspClient::receiveLoop()
             < 0
         )
         {
-
             continue;
 
         }
-
-
 
         if(
             packet->stream_index
@@ -157,12 +196,9 @@ void RtspClient::receiveLoop()
         )
         {
 
-
             std::lock_guard<std::mutex> lock(
                 packetMutex_
             );
-
-
 
             if(latestPacket_)
             {
@@ -175,13 +211,9 @@ void RtspClient::receiveLoop()
             else
             {
 
-                latestPacket_
-                    =
-                    av_packet_alloc();
+                latestPacket_ = av_packet_alloc();
 
             }
-
-
 
             av_packet_ref(
                 latestPacket_,
@@ -191,8 +223,6 @@ void RtspClient::receiveLoop()
 
         }
 
-
-
         av_packet_unref(
             packet
         );
@@ -200,24 +230,16 @@ void RtspClient::receiveLoop()
 
     }
 
-
-
     av_packet_free(
         &packet
     );
 
 }
 
-
-
 bool RtspClient::openStream()
 {
 
-
-    AVDictionary* options =
-        nullptr;
-
-
+    AVDictionary* options = nullptr;
 
     av_dict_set(
         &options,
@@ -225,8 +247,6 @@ bool RtspClient::openStream()
         "tcp",
         0
     );
-
-
 
     if(
         avformat_open_input(
@@ -243,8 +263,6 @@ bool RtspClient::openStream()
 
     }
 
-
-
     if(
         avformat_find_stream_info(
             formatContext_,
@@ -258,8 +276,6 @@ bool RtspClient::openStream()
 
     }
 
-
-
     videoStreamIndex_
         =
         av_find_best_stream(
@@ -271,22 +287,16 @@ bool RtspClient::openStream()
             0
         );
 
-
-
     return videoStreamIndex_ >=0;
 
 }
 
-
-
 void RtspClient::closeStream()
 {
-
 
     std::lock_guard<std::mutex> lock(
         packetMutex_
     );
-
 
 
     if(latestPacket_)
@@ -298,8 +308,6 @@ void RtspClient::closeStream()
 
     }
 
-
-
     if(formatContext_)
     {
 
@@ -308,7 +316,5 @@ void RtspClient::closeStream()
         );
 
     }
-
-
 
 }

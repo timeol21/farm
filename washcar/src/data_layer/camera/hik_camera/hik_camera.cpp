@@ -29,17 +29,3 @@ void HikCamera::stop()
 
 
 }
-
-
-
-bool HikCamera::capture()
-{
-
-    if(!connected_)
-    {
-        return false;
-    }
-
-    return true;
-
-}

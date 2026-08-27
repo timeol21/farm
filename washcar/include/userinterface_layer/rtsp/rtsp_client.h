@@ -29,6 +29,10 @@ public:
     void stop();
 
     bool getPacket(AVPacket*& packet);
+    
+    AVCodecParameters* getVideoCodecParameters();
+    
+    AVRational getVideoTimeBase();
 
 
 private:
@@ -38,6 +42,8 @@ private:
     bool openStream();
 
     void closeStream();
+    
+    
 
     std::string rtspUrl_;
 

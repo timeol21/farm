@@ -1,7 +1,10 @@
 #pragma once
+
+#include <vector>
 #include <memory>
 
-class FxPlc;
+#include "data_layer/plc/plc.h"
+
 
 class PlcManager
 {
@@ -12,17 +15,25 @@ public:
 
     ~PlcManager();
 
+
     bool initialize();
 
-    bool startMotor();
+    bool start();
 
-    bool stopMotor();
+    void stop();
 
-    bool readStatus();
+
+
+    void addPlc(
+        std::unique_ptr<Plc> plc
+    );
 
 
 private:
 
-    std::unique_ptr<FxPlc> plc_;
+    std::vector<
+        std::unique_ptr<Plc>
+    > plcs_;
+
 
 };

@@ -1,120 +1,243 @@
+#include "common/log/log_manager.h"
 #include "data_layer/plc/fx_plc/fx_plc.h"
 
 #include <iostream>
 
-
-bool FxPlc::connect(const std::string& ip)
+FxPlc::FxPlc(
+    const std::string& port,
+    int baudRate,
+    const std::string& parity,
+    int dataBits,
+    int stopBits
+)
+:
+port_(port),
+baudRate_(baudRate),
+parity_(parity),
+dataBits_(dataBits),
+stopBits_(stopBits)
 {
-    if (connected_)
+
+
+}
+
+FxPlc::~FxPlc()
+{
+
+    stop();
+
+}
+
+bool FxPlc::initialize()
+{
+
+    Logger::info(
+        "[PLC] initialize"
+    );
+
+
+    if(port_.empty())
+    {
+
+        Logger::error(
+            "[PLC] port empty"
+        );
+
+
+        return false;
+
+    }
+
+
+
+    if(baudRate_ <= 0)
+    {
+
+        Logger::error(
+            "[PLC] invalid baudRate"
+        );
+
+
+        return false;
+
+    }
+
+
+
+    return true;
+
+}
+
+bool FxPlc::start()
+{
+
+
+    if(connected_)
     {
         return true;
     }
 
+    Logger::info(
+        "[PLC] starting"
+    );
+
+    Logger::info(
+        "[PLC] port:" + port_
+    );
+
+
+    Logger::info(
+        "[PLC] baudRate:" 
+        + std::to_string(baudRate_)
+    );
 
     /*
-        TODO:
-        这里添加真实PLC通信初始化
-
-        例如：
-        1. 创建TCP socket
-        2. 设置PLC IP
-        3. 建立MC协议连接
-        4. 初始化通信参数
+    
+        这里以后是真实PLC通信
 
 
-        当前先模拟连接成功
+        例如:
+
+        open("/dev/ttyS4")
+
+        设置:
+
+        baudRate
+        parity
+        dataBits
+        stopBits
+
+
+        初始化MC协议
+
+
     */
 
-
-    if (ip.empty())
-    {
-        return false;
-    }
 
 
     connected_ = true;
 
 
+
+    Logger::info(
+        "[PLC] start successful"
+    );
+
+
+
     return true;
+
 }
 
-
-
-void FxPlc::disconnect()
+void FxPlc::stop()
 {
-    if (!connected_)
+
+    if(!connected_)
     {
         return;
     }
 
 
-    /*
-        TODO:
-        这里关闭PLC连接
 
-        例如：
-        close(socket);
+    Logger::info(
+        "[PLC] stopping"
+    );
+
+
+
+    /*
+    
+        以后:
+
+        close serial port
+
+        release resource
+
 
     */
 
 
-    connected_ = false;
+
+    connected_=false;
+
+
+
+    Logger::info(
+        "[PLC] stopped"
+    );
+
 }
 
 
-
-bool FxPlc::write(int address, int value)
+bool FxPlc::write(
+    int address,
+    int value
+)
 {
-    if (!connected_)
+
+
+    if(!connected_)
     {
+
+        Logger::error(
+            "[PLC] not connected"
+        );
+
         return false;
+
     }
 
 
+
     /*
+    
         TODO:
-        PLC写入
+
+        MC协议写入
+
 
         address:
-            PLC寄存器地址
+            D100
+
 
         value:
-            写入值
+            1
 
-
-        例如:
-        D100 = 1
 
     */
 
 
     return true;
+
 }
 
 
-
-int FxPlc::read(int address)
+int FxPlc::read(
+    int address
+)
 {
-    if (!connected_)
+
+
+    if(!connected_)
     {
+
         return -1;
+
     }
 
 
+
     /*
+    
         TODO:
+
         PLC读取
 
-
-        当前模拟返回
 
     */
 
 
     return 0;
+
 }
 
-bool FxPlc::isConnected() const
-{
-    return connected_;
-}

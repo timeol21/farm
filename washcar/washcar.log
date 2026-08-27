@@ -6,3 +6,117 @@
 [2026-08-25 20:01:59] [INFO] [System] user interface initialize successful
 [2026-08-25 20:01:59] [INFO] [System] user interface start successful
 [2026-08-25 20:01:59] [INFO] [System] running
+[2026-08-26 09:21:29] [INFO] [System] starting
+[2026-08-26 09:21:29] [INFO] [System] cameraManager initialize successful
+[2026-08-26 09:21:29] [INFO] [System] plcManager initialize successful
+[2026-08-26 09:21:29] [INFO] [System] deviceManager initialize successful
+[2026-08-26 09:21:29] [INFO] [System] databaseManager initialize successful
+[2026-08-26 09:21:29] [INFO] [System] data layer initialize successful
+[2026-08-26 09:21:29] [INFO] [System] business layer initialize successful
+[2026-08-26 09:21:29] [INFO] [System] user interface initialize successful
+[2026-08-26 09:21:29] [INFO] [System] user interface start successful
+[2026-08-26 09:21:29] [INFO] [System] running
+[2026-08-26 10:23:58] [INFO] [System] starting
+[2026-08-26 10:23:58] [INFO] [System] cameraManager initialize successful
+[2026-08-26 10:23:58] [INFO] [System] plcManager initialize successful
+[2026-08-26 10:23:58] [INFO] [System] deviceManager initialize successful
+[2026-08-26 10:23:58] [INFO] [System] databaseManager initialize successful
+[2026-08-26 10:23:58] [INFO] [System] data layer initialize successful
+[2026-08-26 10:23:58] [INFO] [System] business layer initialize successful
+[2026-08-26 10:23:58] [INFO] [System] user interface initialize successful
+[2026-08-26 10:23:58] [INFO] [System] user interface start successful
+[2026-08-26 10:23:58] [INFO] [System] running
+[2026-08-26 13:51:30] [INFO] [System] starting
+[2026-08-26 13:51:30] [INFO] [System] cameraManager initialize successful
+[2026-08-26 13:51:30] [INFO] [System] plcManager initialize successful
+[2026-08-26 13:51:30] [INFO] [System] deviceManager initialize successful
+[2026-08-26 13:51:30] [INFO] [System] databaseManager initialize successful
+[2026-08-26 13:51:30] [INFO] [System] data layer initialize successful
+[2026-08-26 13:51:30] [INFO] [System] business layer initialize successful
+[2026-08-26 13:51:30] [INFO] [System] user interface initialize successful
+[2026-08-26 13:51:30] [INFO] [System] user interface start successful
+[2026-08-26 13:51:30] [INFO] [System] running
+[2026-08-26 13:58:11] [INFO] [System] starting
+[2026-08-26 13:58:11] [INFO] [System] cameraManager initialize successful
+[2026-08-26 13:58:11] [INFO] [System] plcManager initialize successful
+[2026-08-26 13:58:11] [INFO] [System] deviceManager initialize successful
+[2026-08-26 13:58:11] [INFO] [System] databaseManager initialize successful
+[2026-08-26 13:58:11] [INFO] [System] data layer initialize successful
+[2026-08-26 13:58:11] [INFO] [System] business layer initialize successful
+[2026-08-26 13:58:11] [INFO] [System] user interface initialize successful
+[2026-08-26 13:58:11] [INFO] [System] user interface start successful
+[2026-08-26 13:58:11] [INFO] [System] running
+[2026-08-26 13:59:37] [INFO] [System] starting
+[2026-08-26 13:59:37] [INFO] [System] CameraManager initialize start
+[2026-08-26 13:59:37] [INFO] [System] cameraManager initialize successful
+[2026-08-26 13:59:37] [INFO] [System] plcManager initialize successful
+[2026-08-26 13:59:37] [INFO] [System] deviceManager initialize successful
+[2026-08-26 13:59:37] [INFO] [System] databaseManager initialize successful
+[2026-08-26 13:59:37] [INFO] [System] data layer initialize successful
+[2026-08-26 13:59:37] [INFO] [System] business layer initialize successful
+[2026-08-26 13:59:37] [INFO] [System] user interface initialize successful
+[2026-08-26 13:59:38] [INFO] [System] user interface start successful
+[2026-08-26 13:59:38] [INFO] [System] running
+[2026-08-26 14:00:46] [INFO] [System] starting
+[2026-08-26 14:00:46] [INFO] [System] cameraManager initialize successful
+[2026-08-26 14:00:46] [INFO] [System] plcManager initialize successful
+[2026-08-26 14:00:46] [INFO] [System] deviceManager initialize successful
+[2026-08-26 14:00:46] [INFO] [System] databaseManager initialize successful
+[2026-08-26 14:00:46] [INFO] [System] data layer initialize successful
+[2026-08-26 14:00:46] [INFO] [System] business layer initialize successful
+[2026-08-26 14:00:46] [INFO] [System] user interface initialize successful
+[2026-08-26 14:00:46] [INFO] [System] user interface start successful
+[2026-08-26 14:00:46] [INFO] [System] running
+[2026-08-26 14:01:49] [INFO] [System] starting
+[2026-08-26 14:01:49] [INFO] [System] 111
+[2026-08-26 14:01:49] [INFO] [System] cameraManager initialize successful
+[2026-08-26 14:01:49] [INFO] [System] plcManager initialize successful
+[2026-08-26 14:01:49] [INFO] [System] deviceManager initialize successful
+[2026-08-26 14:01:49] [INFO] [System] databaseManager initialize successful
+[2026-08-26 14:01:49] [INFO] [System] data layer initialize successful
+[2026-08-26 14:01:49] [INFO] [System] business layer initialize successful
+[2026-08-26 14:01:49] [INFO] [System] user interface initialize successful
+[2026-08-26 14:01:49] [INFO] [System] user interface start successful
+[2026-08-26 14:01:49] [INFO] [System] running
+[2026-08-26 22:41:33] [INFO] [System] starting
+[2026-08-26 22:41:33] [ERROR] [Config] open config file failed
+[2026-08-26 22:41:33] [ERROR] [DeviceManager] load config failed
+[2026-08-26 22:41:33] [ERROR] [System] data layer initialize failed
+[2026-08-26 22:44:44] [INFO] [System] starting
+[2026-08-26 22:44:44] [INFO] [Config] load successful
+[2026-08-26 22:44:44] [INFO] [Factory] create icsee camera
+[2026-08-26 22:44:44] [INFO] [Factory] create icsee camera
+[2026-08-26 22:47:41] [INFO] [System] starting
+[2026-08-26 22:47:41] [INFO] [Config] load successful
+[2026-08-26 22:47:41] [INFO] [Factory] create icsee camera
+[2026-08-26 22:47:41] [INFO] [Factory] create icsee camera
+[2026-08-26 22:50:51] [INFO] [System] starting
+[2026-08-26 22:50:51] [INFO] [Config] load successful
+[2026-08-26 22:50:51] [INFO] [Factory] create icsee camera
+[2026-08-26 22:50:51] [INFO] [Factory] create icsee camera
+[2026-08-26 22:50:51] [INFO] [Factory] create icsee camera
+[2026-08-26 22:50:51] [INFO] [System] rtspClient initialize successful
+[2026-08-26 22:50:51] [INFO] [System] rtspClient open successful
+[2026-08-26 22:50:51] [ERROR] [System] camera initialize failed
+[2026-08-26 22:50:51] [ERROR] [System] cameraManager initialize failed
+[2026-08-26 22:50:51] [ERROR] [System] data layer initialize failed
+[2026-08-27 09:11:12] [INFO] [System] starting
+[2026-08-27 09:11:12] [INFO] [Config] load successful
+[2026-08-27 09:11:12] [INFO] [Factory] create icsee camera
+[2026-08-27 09:11:12] [INFO] [Factory] create icsee camera
+[2026-08-27 09:11:12] [INFO] [Factory] create icsee camera
+[2026-08-27 09:11:12] [INFO] [System] rtspClient initialize successful
+[2026-08-27 09:11:12] [INFO] [System] rtspClient open successful
+[2026-08-27 09:11:12] [ERROR] [System] camera initialize failed
+[2026-08-27 09:11:12] [ERROR] [System] cameraManager initialize failed
+[2026-08-27 09:11:12] [ERROR] [System] data layer initialize failed
+[2026-08-27 10:42:17] [INFO] [System] starting
+[2026-08-27 10:42:17] [INFO] [Config] load successful
+[2026-08-27 10:42:17] [INFO] [Factory] create icsee camera
+[2026-08-27 10:42:17] [INFO] [Factory] create icsee camera
+[2026-08-27 10:42:17] [INFO] [Factory] create icsee camera
+[2026-08-27 10:42:17] [INFO] [System] rtspClient initialize successful
+[2026-08-27 10:42:17] [INFO] [System] rtspClient open successful
+[2026-08-27 10:42:17] [ERROR] [System] camera initialize failed
+[2026-08-27 10:42:17] [ERROR] [System] cameraManager initialize failed
+[2026-08-27 10:42:17] [ERROR] [System] data layer initialize failed

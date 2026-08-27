@@ -1,7 +1,5 @@
 #include "data_layer/plc/plc_manager.h"
-
-#include "data_layer/plc/fx_plc/fx_plc.h"
-
+#include "common/log/log_manager.h"
 #include <memory>
 
 
@@ -9,129 +7,112 @@ PlcManager::PlcManager()
 {
 }
 
-PlcManager::~PlcManager() = default;
+PlcManager::~PlcManager()
+{
+
+    stop();
+
+}
+
+void PlcManager::addPlc(
+    std::unique_ptr<Plc> plc
+)
+{
+
+    if(!plc)
+    {
+        Logger::error(
+            "[PLC] add plc failed"
+        );
+
+        return;
+    }
+
+
+    plcs_.push_back(
+        std::move(plc)
+    );
+
+}
+
 
 bool PlcManager::initialize()
 {
-    if (plc_)
+
+    for(auto& plc : plcs_)
     {
-        return true;
-    }
 
-
-    plc_ = std::make_unique<FxPlc>();
-
-
-    /*
-        PLC连接参数
-
-        后续应该来自:
-        
-        config.json
-
-        例如:
-
+        if(!plc)
         {
-            "plc":
-            {
-                "type":"fx",
-                "ip":"192.168.1.10"
-            }
+            continue;
         }
 
-    */
 
+        if(!plc->initialize())
+        {
 
-    if (!plc_->connect("192.168.1.10"))
-    {
-        plc_.reset();
+            Logger::error(
+                "[PLC] initialize failed"
+            );
 
-        return false;
+            return false;
+
+        }
+
     }
 
 
     return true;
+
 }
 
 
 
-bool PlcManager::startMotor()
+bool PlcManager::start()
 {
-    if (!plc_)
+
+    for(auto& plc : plcs_)
     {
-        return false;
-    }
+
+        if(!plc)
+        {
+            continue;
+        }
 
 
-    /*
-        这里不要直接操作PLC协议
+        if(!plc->start())
+        {
 
+            Logger::error(
+                "[PLC] start failed"
+            );
 
-        例如:
+            return false;
 
-        M100 = 1
+        }
 
-        这种属于 FxPlc
-
-
-        PlcManager 只表达设备动作:
-
-        启动电机
-
-    */
-
-
-    return plc_->write(
-        100,
-        1
-    );
-}
-
-
-
-bool PlcManager::stopMotor()
-{
-    if (!plc_)
-    {
-        return false;
-    }
-
-
-    return plc_->write(
-        100,
-        0
-    );
-}
-
-
-
-bool PlcManager::readStatus()
-{
-    if (!plc_)
-    {
-        return false;
-    }
-
-
-    /*
-        假设:
-
-        D100:
-        0  停止
-        1  运行
-        2  故障
-
-    */
-
-
-    int status = plc_->read(100);
-
-
-    if (status < 0)
-    {
-        return false;
     }
 
 
     return true;
+
+}
+
+void PlcManager::stop()
+{
+
+    for(auto& plc : plcs_)
+    {
+
+        if(!plc)
+        {
+            continue;
+        }
+
+
+        plc->stop();
+
+    }
+
+
 }

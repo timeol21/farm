@@ -1,7 +1,9 @@
 #pragma once
 
 #include "data_layer/camera/camera.h"
-
+#include "userinterface_layer/rtsp/rtsp_client.h"
+#include "data_layer/camera/icsee_camera/rtsp_mp4_recorder.h"
+#include "common/config/device_config.h"
 #include <string>
 #include <thread>
 #include <mutex>
@@ -22,15 +24,15 @@ extern "C"
 
 class RtspClient;
 
+class RtspMp4Recorder;
+
 class IcSeeCamera : public Camera
 {
 
 public:
 
-    IcSeeCamera(
-        const std::string& rtspUrl,
-        const std::string& cameraId,
-        int keyFrameIntervalSec = 5
+    explicit IcSeeCamera(
+        const DeviceConfig& config
     );
 
     ~IcSeeCamera() override;
@@ -46,6 +48,8 @@ public:
 
 private:
 
+    bool buildRtspUrl();
+
     void captureLoop();
 
     bool openStream();
@@ -55,10 +59,18 @@ private:
     void processFrame(AVFrame* frame);
 
     bool saveFrameAsJpeg(AVFrame* frame,const std::string& path);
+    
+    bool startRecord();
+
+    void stopRecord();
+
+    bool writePacket(AVPacket* packet);
 
     std::unique_ptr<RtspClient> rtspClient_;
     
     AVCodecContext* codecContext_ = nullptr;
+    
+    AVFormatContext* outputContext_;
 
     AVFrame* frame_ = nullptr;
 
@@ -70,18 +82,21 @@ private:
 
     std::thread captureThread_;
 
+    std::string recordPath_;
+
     bool running_ = false;
-
-    AVFormatContext* formatContext_ = nullptr;
-
-    int videoStreamIndex_ = -1;
+    
+    bool recordEnable_;
 
     std::mutex frameMutex_;
 
-    int keyFrameIntervalSec_ = 5;
+    int keyFrameIntervalSec_;
+    
+    int recordSegmentTime_;
 
     int64_t lastSaveTime_ = 0;
 
+    std::unique_ptr<RtspMp4Recorder> recorder_;
 
 
 };

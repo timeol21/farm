@@ -1,16 +1,28 @@
 #pragma once
 
-class Camera
+
+class Plc
 {
 
 public:
 
-    virtual ~Camera() = default;
+
+    virtual ~Plc() = default;
+
+
+
+public:
+
 
     virtual bool initialize() = 0;
 
+
+
     virtual bool start() = 0;
 
+
+
     virtual void stop() = 0;
+
 
 };

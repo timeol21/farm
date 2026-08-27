@@ -17,8 +17,6 @@ public:
 
     void stop() override;
 
-    bool capture() override;
-
 
 private:
 

@@ -1,5 +1,5 @@
+#include "common/log/log_manager.h"
 #include "data_layer/data_layer.h"
-
 #include "data_layer/device_manager/device_manager.h"
 #include "data_layer/database/database_manager.h"
 
@@ -24,11 +24,15 @@ bool DataLayer::initialize()
     if(!deviceManager_->initialize())
     {
         return false;
+    }else{
+        Logger::info("[System] deviceManager initialize successful");
     }
 
     if(!databaseManager_->initialize())
     {
         return false;
+    }else{
+        Logger::info("[System] databaseManager initialize successful");
     }
 
     return true;
