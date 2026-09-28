@@ -1,0 +1,849 @@
+#include <stdint.h>
+#include <stdio.h>
+#include <string.h>
+#include <pthread.h>
+#include <fcntl.h>              // open   
+#include <sys/types.h>          // pid_t   
+#include <sys/select.h>
+#include <termios.h>          //termios, tcgetattr(), tcsetattr()   
+#include <unistd.h>   
+#include <sys/ioctl.h>          // ioctl  
+
+#include <stddef.h>
+
+// #define TTY_DEV "/dev/ttyUSB" 
+// #define TTY_DEV "/dev/ttyCH341USB"
+#define TTY_DEV "/dev/ttyACM" 
+// #define TTY_DEV "/dev/ttyS" 
+
+#define SERDBG  printf 
+
+#include <stdio.h>
+#include <stdint.h>
+#include <string.h>
+#include <stdlib.h>
+#include <sys/stat.h>  //stat
+#include <sys/ioctl.h>
+#include <fcntl.h>
+#include <unistd.h>  //O_RDWR
+#include <time.h>
+#include <sys/time.h>
+
+#define SWAP16(x) (((x >> 8) & 0xff) | ((x & 0xff ) << 8))   /*高低字节交换*/
+
+#define SWAP32(x)		((((x) & 0x000000ff) << 24) | \
+				 (((x) & 0x0000ff00) <<  8) | \
+				 (((x) & 0x00ff0000) >>  8) | \
+				 (((x) & 0xff000000) >> 24)) 
+
+#define BIG_ENDIAN_UINT32(x) \
+((uint32_t)(x)[0]<<24 | \
+(uint32_t)(x)[1]<<16 | \
+(uint32_t)(x)[2]<<8  | \
+(uint32_t)(x)[3])
+
+#define BIG_ENDIAN_UINT16(x) \
+((uint16_t)((uint16_t)(x)[0]<<8 | (x)[1]))
+
+
+typedef struct{
+ char prompt;  //prompt after reciving data
+ int  baudrate;  //baudrate
+ char databit;  //data bits, 5, 6, 7, 8
+ char  debug;  //debug mode, 0: none, 1: debug
+ char  echo;   //echo mode, 0: none, 1: echo
+ char fctl;   //flow control, 0: none, 1: hardware, 2: software
+ char  tty;   //tty: 0, 1, 2, 3, 4, 5, 6, 7
+ char parity;  //parity 0: none, 1: odd, 2: even
+ char stopbit;  //stop bits, 1, 2
+ const int reserved; //reserved, must be zero
+ int Tx_count;
+}portinfo_t;
+typedef portinfo_t * pportinfo_t;
+
+portinfo_t sPortInfo =
+{  
+		'0',                            // print prompt after receiving   
+		921600,                         // baudrate: 115200   
+		'8',                            // databit: 8   
+		'0',                            // debug: off   
+		'0',                            // echo: off   
+		'0',                            // flow control: software   
+		'0',                            // default tty: COM0   
+		'0',                            // parity: none   
+		'1',                            // stopbit: 1   
+		 0 ,                         // reserved   
+		1024                              //串口一次往设备节点写入的长度，波特率越小，值应越小
+};
+
+int cdcFd = 0;
+
+#pragma pack(1)
+
+typedef struct 
+{
+    uint8_t     bEnable;
+    uint8_t     u8Line;
+    uint8_t     u8FontType;
+
+    uint16_t    u16x;
+    uint16_t    u16y;
+
+    uint16_t    u16Color;
+    uint16_t    u16BkColor;
+
+    uint8_t     u8Length;
+    uint8_t     u8Data[256];
+
+}OsdConf_t;
+
+
+#pragma pack()
+
+OsdConf_t _sOsdConf[4] =
+{
+    {
+        1,              // bEnable
+        0,              // u8Line
+        0,              // u8FontType
+        0,              // u16x
+        0,              // u16y
+        0x007c,         // u16Color
+        0xfffe,         // u16BkColor
+        24,             // u8Length
+        "0123456789ABCDEFGabcdefg"
+    },
+
+
+    {
+        1,
+        1,
+        1,
+        0,
+        20,
+        0x7c00,
+        0xffff,
+        24,
+        "0123456789ABCDEFGabcdefg"
+    },
+
+
+    {
+        1,
+        2,
+        2,
+        0,
+        48,
+        0x43f0,
+        0xffff,
+        19,
+        "2024/12/11 20:00:30"
+    },
+
+
+    {
+        1,
+        3,
+        2,
+        0,
+        80,
+        0x007c,
+        0xffff,
+        0,
+        ""
+    }
+
+};
+
+uint8_t cByteGetVersion[] = {
+	0x56,
+	0x00,
+	0x11,
+	0x00
+};
+
+/*返回 76 00 11 00 0B PTC1M3 1.00*/
+/*PTC1M3 1.01 ->版本变更*/
+uint8_t cByteRetVersion[50] = {
+	0x76,
+	0x00,
+	0x11,
+	0x00,
+	0x0B,/*ret version length*/
+	// 0x50,
+	// 0x54,
+	// 0x43,
+	// 0x31,
+	// 0x4D,
+	// 0x33,
+	// 0x20,
+	// 0x31,
+	// 0x2E,
+	// 0x30,
+	// 0x31
+};
+
+uint8_t cByteImageSize2560x1440[] =
+{
+    0x56,
+    0x00,
+    0x31,
+    0x05,
+    0x05,
+    0x01,
+    0x00,
+    0x19,
+    0x99
+};
+
+uint8_t cByteOSDCtrl[512] = 
+{
+	0x56,//帧头
+	0x00,//序号
+	0x86,//命令
+	0x16,//命令长度
+	0x01,//显示开关
+	0x00,//第N行,(0-3)
+	0x01,//字体
+	0x00,0x00,//x坐标
+	0x00,0x00,//y坐标
+	0x00,0x7C,//字体颜色，蓝色 RGB555 顺序
+	0xff,0xff,//背景颜色，白色 
+	0x0A,//文字长度
+	0x30,0x31,0x32,0x33,0x34,0x35,0x36,0x37,0x38,0x39,//文字内容
+};
+
+uint8_t cBytePTC2MRetImageSize[5] = 
+{
+	0x76,
+	0x00,
+	0x31,
+	0x01,
+	0x00
+};
+
+uint8_t cByteRetReadLength[9] = 
+{
+	0x76,
+	0x00,
+	0x34,
+	0x00,
+	0x04,
+	0x00, //??×??ú
+	0x00, //
+	0x00, //
+	0x00  //μí×??ú
+};
+
+//读Buf  --- 56 00 32 0C 00 0A 00 00 MM MM 00 00 KK KK XX XX 
+//返回   --- 76 00 34 00 04 xx xx xx xx
+uint8_t cByteReadBuf[] = 
+{
+	  0x56,
+	  0x00,
+	  0x32,
+	  0x0C,
+	  0x00,
+	  0x0A,
+    0x00,0x00,0x00,0x00,  //custom postion
+    0x00,0x00,0x00,0x00,  //read length
+    0x00,
+    0xFF,
+}; 
+
+uint8_t cByteRetReadBuf[]=
+{   0x76,
+    0x00,
+    0x32,
+    0x00,
+    0x00
+};
+
+//?á3¤?è --- 56 00 34 01 00 
+//返回   --- 76 00 34 00 04 xx xx xx xx
+uint8_t cByteReadLength[] = 
+{
+	0x56,
+	0x00,
+	0x34,
+	0x01,
+	0x00
+}; 
+
+uint8_t cByteRetOSDCtrl[] = {
+	0x76,
+	0x00,
+	0x86,
+	0x01,
+	0x00,  //第N行
+};
+
+uint8_t cByteRetPhoto[5] = 
+{
+	0x76,
+	0x00,
+	0x36,
+	0x00,
+	0x00
+}; 
+
+uint8_t cBytePhoto[] = 
+{
+	0x56,
+	0x00,
+	0x36,
+	0x01,
+	0x00 //JPG格式
+}; 
+
+const char *get_ptty(pportinfo_t pportinfo)
+{  
+    char *ptty;  
+    
+    switch(pportinfo->tty){  
+        case '0':{  
+            ptty = TTY_DEV"0";  
+        }break;
+        case '1':{  
+            ptty = TTY_DEV"1";  
+        }break;  
+        case '2':{  
+            ptty = TTY_DEV"2";  
+        }break;  
+        case '3':{  
+            ptty = TTY_DEV"3";  
+        }break; 
+        case '4':{  
+            ptty = TTY_DEV"4";  
+        }break; 
+    }  
+    return(ptty);  
+}  
+
+int convbaud(unsigned long int baudrate)  
+{  
+    switch(baudrate){  
+        case 2400:  
+            return B2400;
+        case 4800:  
+            return B4800;
+        case 9600:  
+            return B9600;
+        case 19200:  
+            return B19200;
+        case 38400:  
+            return B38400;
+        case 57600:  
+            return B57600;
+        case 115200:  
+            return B115200;  
+        case 230400:
+            return B230400;
+        case 460800:
+            return B460800;
+        case 921600:
+            return B921600;
+        case 1000000:
+            return B1000000;
+        case 1500000:
+            return B1500000;    
+        case 2000000:
+            return B2000000;            
+        default:  
+            return B115200;
+    }
+} 
+
+int PortSend(uint8_t *data, int datalen)  
+{  
+    int j = 0;
+    int len = 0;  
+    int fdcom = cdcFd;
+    // lseek(fdcom,0,SEEK_SET);
+    len = write(fdcom, data, datalen);  //实际写入的长度   
+    //printf("len:%d,0x%x\n",len,len);
+    #if 1 /*打印测试*/
+    printf("Tx:%d\n",len);
+    for(j = 0; j < len; j++) {
+        printf("%02x ",data[j]);
+    }
+    printf("\n");
+    #endif
+    if(len == datalen){  
+        return (len);  
+    }  
+    else{  
+        tcflush(fdcom, TCOFLUSH);  
+        return -1;  
+    }  
+}  
+
+int PortSet(int fdcom, const pportinfo_t pportinfo)  
+{  
+    #if 1
+    struct termios termios_old, termios_new;  
+    int     baudrate, tmp;  
+    char    databit, stopbit, parity, fctl;  
+    
+    bzero(&termios_old, sizeof(termios_old));  
+    bzero(&termios_new, sizeof(termios_new));  
+    cfmakeraw(&termios_new);  
+    tcgetattr(fdcom, &termios_old);         //get the serial port attributions   
+    /*------------设置端口属性----------------*/  
+    //baudrates   
+    baudrate = convbaud(pportinfo -> baudrate);  
+    cfsetispeed(&termios_new, baudrate);        //填入串口输入端的波特率   
+    cfsetospeed(&termios_new, baudrate);        //填入串口输出端的波特率   
+    termios_new.c_cflag |= CLOCAL;          //控制模式，保证程序不会成为端口的占有者   
+    termios_new.c_cflag |= CREAD;           //控制模式，使能端口读取输入的数据   
+    
+    // 控制模式，flow control   
+    fctl = pportinfo-> fctl;  
+    switch(fctl){  
+        case '0':{  
+            termios_new.c_cflag &= ~CRTSCTS;        //no flow control   
+        }break;  
+        case '1':{  
+            termios_new.c_cflag |= CRTSCTS;         //hardware flow control   
+        }break;  
+        case '2':{  
+            termios_new.c_iflag |= IXON | IXOFF |IXANY; //software flow control   
+        }break;  
+    }  
+    
+    //控制模式，data bits   
+    termios_new.c_cflag &= ~CSIZE;      //控制模式，屏蔽字符大小位   
+    databit = pportinfo -> databit;  
+    switch(databit){  
+        case '5':  
+            termios_new.c_cflag |= CS5;
+            break;  
+        case '6':  
+            termios_new.c_cflag |= CS6;
+            break;  
+        case '7':  
+            termios_new.c_cflag |= CS7;
+            break;  
+        default:  
+            termios_new.c_cflag |= CS8;
+            break;  
+    }  
+    
+    //控制模式 parity check   
+    parity = pportinfo -> parity;  
+    switch(parity){  
+        case '0':{  
+            termios_new.c_cflag &= ~PARENB;     //no parity check   
+        }break;  
+        case '1':{  
+            termios_new.c_cflag |= PARENB;      //odd check   
+            termios_new.c_cflag &= ~PARODD;  
+        }break;  
+        case '2':{  
+            termios_new.c_cflag |= PARENB;      //even check   
+            termios_new.c_cflag |= PARODD;  
+        }break;  
+    }  
+    
+    //控制模式，stop bits   
+    stopbit = pportinfo -> stopbit;  
+    if(stopbit == '2'){  
+        termios_new.c_cflag |= CSTOPB;  //2 stop bits   
+    }  
+    else{  
+        termios_new.c_cflag &= ~CSTOPB; //1 stop bits   
+    }  
+    
+    //other attributions default   
+    termios_new.c_oflag &= ~OPOST;          //输出模式，原始数据输出   
+    termios_new.c_lflag &= ~ICANON;         //立即输出
+    /*
+    c_cc[VMIN] = 0 时，调用read 才不会阻塞
+    */
+    termios_new.c_cc[VMIN]  = 0;//1;            //控制字符, 所要读取字符的最小数量   
+    termios_new.c_cc[VTIME] = 0;//1;            //控制字符, 读取第一个字符的等待时间    unit: (1/10)second   
+    
+    tcflush(fdcom, TCIFLUSH);               //溢出的数据可以接收，但不读   
+    tmp = tcsetattr(fdcom, TCSANOW, &termios_new);  //设置新属性，TCSANOW：所有改变立即生效    tcgetattr(fdcom, &termios_old);   
+    return(tmp);
+    #endif
+    return 0;  
+}  
+
+int PortOpen(pportinfo_t pportinfo)  
+{  
+    int fdcom;  //串口文件描述符   
+    const char *ptty;
+    int BaudBak = 0;
+    
+    //HalUartx_Init(UART2_REG_BASE,pportinfo->baudrate); /*l-硬件初始化*/ 
+    ptty = get_ptty(pportinfo);  
+
+    // fdcom = open(ptty, O_RDWR | O_NOCTTY | O_NONBLOCK);
+    fdcom = open(ptty, O_RDWR | O_NOCTTY | O_NONBLOCK); 
+    if(fdcom > 0){
+        BaudBak = pportinfo->baudrate; //备份存储的波特率
+        // pportinfo->baudrate = 115200; //设置默认波特率
+        PortSet(fdcom,pportinfo);
+        pportinfo->baudrate = BaudBak; //还原原始波特率
+        // ioctl(fdcom, 0x101, pportinfo->baudrate); //配置波特率，其他默认
+        // ioctl(fdcom, 0x101, 115200);
+        // ioctl(fdcom, 0x102, 1); //rx dma  /*使用中断方式在数据接收数据量大时，内核会直接崩溃，改用DMA方式*/
+        // ioctl(fdcom, 0x104, 0); //no block
+        //ioctl(fdcom, 0x103,1);  // tx dma
+    }
+    
+    return (fdcom);  
+}  
+
+int printf_time(void)
+{
+	char buf[32] = {0};
+	struct timeval tv;
+	struct tm      tm;
+	
+	memset(&tv, 0, sizeof(tv));
+	memset(&tm, 0, sizeof(tm));
+	gettimeofday(&tv, NULL);
+	localtime_r(&tv.tv_sec, &tm);
+	strftime(buf, sizeof(buf), "%Y-%m-%d %H:%M:%S", &tm);
+	sprintf(buf + strlen(buf), ".%03d", (int)(tv.tv_usec/1000));
+	printf("%s\n", buf);
+	
+	return 0;
+}
+
+int PortRecv(uint8_t *outdata)  
+{
+    int TimesCnt = 0;
+    int readlen = 0, readlenbak = 0,fs_sel = 0;
+    int ReadCnt = 0;
+    uint8_t buffer[32] = "";
+    fd_set  fs_read;  
+    struct timeval tv_timeout;  
+    int u16bytes = 0;
+    int fd_com = cdcFd;
+
+    
+    /*注意超时时间，设置太长相应会变慢，波特率越高，超时要短点*/
+
+    tv_timeout.tv_sec = 1;
+    tv_timeout.tv_usec = 0; //1ms
+    
+    while(1)
+    {
+        FD_ZERO(&fs_read);  
+        FD_SET(fd_com, &fs_read);  
+        
+        fs_sel = select(fd_com+1, &fs_read, NULL, NULL, &tv_timeout);
+        if(fs_sel && FD_ISSET(fd_com, &fs_read)){ 
+            
+            ReadCnt = read(fd_com, outdata + readlen, sizeof(buffer));  //一次读32字节 
+            tv_timeout.tv_sec = 0;
+            tv_timeout.tv_usec = 0;
+            
+            // memcpy(outdata + readlen,buffer,ReadCnt);
+            readlen += ReadCnt;
+            
+            #if 0 /*打印测试*/
+            printf("Rx:%d\n",ReadCnt);
+            for(j = 0; j < ReadCnt; j++) {
+                printf("%02x ",buffer[j]);
+            }
+            printf("\n");
+            #endif
+        }  
+        else{  
+            // printf("sel:%d\n",fs_sel);
+            // break;
+            if(readlen != readlenbak) { /*长度有变化，数据还没接收完，超时重新开始*/
+                readlenbak = readlen;
+                TimesCnt = 0;
+                tv_timeout.tv_sec = 0;
+                tv_timeout.tv_usec = 0;
+            }
+            else { /*长度没在变化设置100ms超时退出*/
+                tv_timeout.tv_sec = 0;
+                tv_timeout.tv_usec = 1000;
+                if(++TimesCnt >= 10) { /*10ms溢出*/
+                    printf("readlen:%d\n",readlen);
+                    break;
+                }
+            }
+            continue;
+        } 
+    }
+    
+    return (readlen);  
+}
+
+int recv_compare(uint8_t * pSrc,uint8_t *pDst)
+{
+    int len = 0,ret = -1;
+    int i = 0;
+    len = PortRecv(pDst);
+    if(len > 0) 
+    {
+        ret = memcmp(pDst,pSrc,3); /*只比较前3个字节*/
+    }
+    else {
+        printf("Recv timeout!\n");
+    }
+
+    return (ret == 0) ? len : 0;
+}
+
+uint8_t GetVersionFun(void)
+{   uint8_t recv_buf[50] = "";
+    int  ret = 0;
+
+    PortSend(cByteGetVersion,sizeof(cByteGetVersion));
+    ret = recv_compare(cByteRetVersion,recv_buf);
+    if(ret > 0) {
+        printf("CAMVER:%s\n",&recv_buf[5]); //第5字节开始是版本名称
+    }
+
+    return (ret > 0) ? 1 : 0;
+}
+
+int SetOSDText(OsdConf_t * pOsd)
+{
+    int ret  = 0;
+    uint8_t _CmdLen = 0;
+    uint8_t recv_buf[50] = "";
+  
+    /*16位需交换一下字节序*/
+	  pOsd->u16Color = SWAP16(pOsd->u16Color);      /*字体颜色*/
+	  pOsd->u16BkColor = SWAP16(pOsd->u16BkColor);  /*背景颜色*/
+	  pOsd->u16x = SWAP16(pOsd->u16x);
+	  pOsd->u16y = SWAP16(pOsd->u16y);
+	
+	  _CmdLen = pOsd->u8Length + 12;
+	  cByteOSDCtrl[3] = (uint8_t)((_CmdLen > 255) ? 255 : _CmdLen);//整条命令长度
+	  memcpy((uint8_t *)&cByteOSDCtrl[4],(uint8_t *)pOsd,sizeof(OsdConf_t));
+    
+    PortSend(cByteOSDCtrl, pOsd->u8Length + 16);
+    ret = recv_compare(cByteRetOSDCtrl,recv_buf);
+
+    return (uint32_t)ret;
+}
+
+
+uint8_t SetResolutionFun(uint8_t *pResCmd)
+{
+    uint8_t recv_buf[50] = "";
+    int ret = 0;
+    PortSend(pResCmd,9);
+    ret = recv_compare(cBytePTC2MRetImageSize,recv_buf);
+    printf("%s %s\n",__func__,((ret > 0) ? "success" : "fail"));
+    return (ret > 0) ? 1 : 0;
+}
+
+int getPhotoFileName(char *filePath, int bufSize)
+{
+	  struct timeval tv;
+	  struct tm tm;
+
+	  gettimeofday(&tv, NULL);
+	  localtime_r(&tv.tv_sec, &tm);
+
+	  snprintf(filePath, bufSize,
+		"./%04d%02d%02d_%02d%02d%02d_%03d.jpg",
+		tm.tm_year + 1900,
+		tm.tm_mon + 1,
+		tm.tm_mday,
+		tm.tm_hour,
+		tm.tm_min,
+		tm.tm_sec,
+		(int)(tv.tv_usec / 1000));
+
+	return 0;
+}
+
+uint32_t GetPhotoLengthFun(void)
+{
+    uint8_t recv_buf[50] = "";
+    int  ret = 0;
+    uint32_t length = 0;
+    
+    PortSend(cByteReadLength,sizeof(cByteReadLength));
+    ret = recv_compare(cByteRetReadLength,recv_buf);
+    length = BIG_ENDIAN_UINT32(&recv_buf[5]);
+
+    printf("%s %s\n",__func__,((ret > 0) ? "success" : "fail"));
+    if(ret > 0) printf("length:%u\n",(unsigned int)length);
+
+    return length;
+}
+
+uint32_t ReadPhotoData(uint32_t Addr,uint32_t Nbytes,uint8_t * pJPGData)
+{
+    struct sCmd_t{
+        uint32_t AddrOff;
+        uint32_t OnceByte;
+    }__attribute__((packed));
+
+    struct sCmd_t sCmd;
+    int ret  = 0;
+    
+    sCmd.AddrOff = SWAP32(Addr);
+    sCmd.OnceByte = SWAP32(Nbytes);
+    memcpy((uint8_t *)&cByteReadBuf[6],(uint8_t *)&sCmd,sizeof(sCmd));
+    
+    PortSend(cByteReadBuf,sizeof(cByteReadBuf));
+    ret = recv_compare(cByteRetReadBuf,pJPGData);
+
+    return (uint32_t)ret;
+}
+
+struct tm * GetRtc_tm(void)
+{
+    struct timeval tv;
+    static struct tm tm;
+	
+    memset(&tv, 0, sizeof(tv));
+	  memset(&tm, 0, sizeof(tm));
+	  gettimeofday(&tv, NULL);
+	  localtime_r(&tv.tv_sec, &tm);
+    
+    return &tm;
+}
+
+/*返回值：0-失败 1-成功*/
+uint8_t TakephotoFun(void)
+{
+    uint8_t recv_buf[50] = "";
+    int  ret = 0;
+
+    PortSend(cBytePhoto,sizeof(cBytePhoto));
+    ret = recv_compare(cByteRetPhoto,recv_buf);
+    
+    printf("%s %s\n",__func__,((ret > 0) ? "success" : "fail"));
+    return (ret > 0) ? 1 : 0;
+}
+
+void CameraDemoApp(void)
+{
+    uint32_t length = 0;
+    uint32_t AddrOff = 0, NByte = 20480, NTimes = 0, LastByte = 0;
+    uint8_t  bCompleteRead = 1;
+    uint8_t  bUseOsd = 1;
+    uint8_t *pMemJPG = NULL;
+    uint32_t rxcount = 0, total_size = 0;
+    uint32_t i = 0;
+    int fd = 0;
+    int wret = 0;
+    char time_buf[30] = "";
+    char pFilepath[50];
+
+    //=====生成时间戳文件名=====
+    getPhotoFileName(pFilepath, sizeof(pFilepath));
+    printf_time();
+    printf("save image to file：%s\n", pFilepath);
+
+    if(!GetVersionFun()) /*发一条命令确认通讯正常*/
+    {
+        return ;
+    }
+    
+    SetResolutionFun(cByteImageSize2560x1440);
+    
+    if(bUseOsd) /*使用OSD叠加字符时，需在拍照前设置文本*/
+    {
+        uint8_t idx = 0;
+        strftime(time_buf, sizeof(time_buf), "%Y%m%d %H%M%S", GetRtc_tm());
+        _sOsdConf[3].u8Length = strlen(time_buf);
+				strcpy((char *)_sOsdConf[3].u8Data,time_buf);
+        for(idx = 0; idx < 4; idx++)
+        {
+            SetOSDText(&_sOsdConf[idx]);
+        }
+    }
+    if(!TakephotoFun()) 
+    {
+        return ;
+    }
+
+    //====关键延时！拍照后等待相机编码JPG（新增）====
+    usleep(600000);   //600ms，不够就加到 800000
+    
+    //usleep(3000000); //3秒，给1080P足够编码时间
+
+    length = GetPhotoLengthFun();
+    if(!length)
+    {
+        return ;   
+    }
+    if(bCompleteRead) /*一次性读取*/
+    {
+        NByte    = length;
+        LastByte = length;
+        AddrOff  = 0;
+        NTimes   = 1;
+    }
+    else /*分次读取*/
+    {
+        NTimes = length / NByte;
+        LastByte = length % NByte;
+        NTimes += (LastByte > 0) ? 1 : 0;
+    }
+
+    pMemJPG = (uint8_t *)malloc(length + 10);
+    fd = open(pFilepath,O_RDWR|O_CREAT,0777);
+    if(pMemJPG && fd > 0)
+    {
+        for(i = 0; i < NTimes; )
+        {
+            if((i + 1) == NTimes) {NByte = LastByte;}
+            rxcount = ReadPhotoData(AddrOff,NByte,pMemJPG);
+            printf("rxcount:%d\n",rxcount);
+			if(!rxcount)
+			{
+                //接收失败，释放资源，直接return！！不再执行后面代码
+                close(fd);
+                free(pMemJPG);
+                pMemJPG = NULL;
+                close(fd);
+                remove(pFilepath); //删除残缺文件
+                printf("图片接收超时失败！\n");
+                return;    //<<<<重点！跳出整个函数，而不是break
+			}
+            else if(rxcount > 0 && rxcount < NByte)
+            {
+                printf("miss data : length: %d\n",rxcount);
+                continue;
+            }
+            else
+            {
+                wret = write(fd,pMemJPG + 5,NByte);
+                total_size += wret;
+                AddrOff += NByte;
+                i++;
+            }
+        }
+        
+        close(fd);
+        free(pMemJPG);
+        pMemJPG = NULL;
+    }
+    printf("NTimes:%d\n",NTimes);
+    printf("JPEG length: %d\n",length);
+    printf("file total_size:%d,camera demo finish\n",total_size);
+}
+
+int main(void)
+{
+  printf("This is camera usb cdc test demo!\n");
+
+
+#if 1 
+  cdcFd = PortOpen(&sPortInfo);
+
+  SERDBG("cdcFd:%d\n",cdcFd);
+
+//   PortSend(u8GetVerCmd,sizeof(u8GetVerCmd));
+//   PortRecv(u8RxBuffer/*,sizeof(u8RxBuffer)*/);
+  CameraDemoApp();
+    
+#endif  
+}

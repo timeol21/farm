@@ -1,0 +1,31 @@
+root = true
+
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+
+
+[*.vue]
+charset = utf-8
+
+
+[*.ts]
+charset = utf-8
+
+
+[*.js]
+charset = utf-8
+
+
+[*.json]
+charset = utf-8
+
+
+[*.cpp]
+charset = utf-8
+
+
+[*.h]
+charset = utf-8

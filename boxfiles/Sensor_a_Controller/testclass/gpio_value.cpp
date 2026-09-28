@@ -1,12 +1,15 @@
 #include <iostream>            //尽量只用于3588，用来查看对应的gpio口默认是0还是1
-#include <fstream>
+#include <fstream>             //实测可以用来控制3568的初始为gpio_u的端口，实现u和d的转换
 #include <string>
 #include <unistd.h>
 
 using namespace std;
 
 // ====================== 你只需要修改这里 ======================
-#define TARGET_GPIO  107      // 可选GPIO: 96(IO1),107(IO2),106(IO3),62(IO4)
+#define TARGET_GPIO  33      // 对于3588 可选GPIO: 96(IO1),107(IO2),106(IO3),62(IO4)
+
+// 3568: IO1 = GPIO1_A1_u → 组号1，引脚1 → 物理编号=1×32+1=33,  若接IO3(GPIO1_A0_u)，修改为：GPIO_GROUP=1, GPIO_PIN=0 → 物理编号32
+
 #define GPIO_DIR     "out"   // 方向: in(输入) 或 out(输出)
 // ==============================================================
 
@@ -105,7 +108,7 @@ int main() {
 
     // ====================== 功能2：改写值 ======================
     cout << endl << "【2】改写GPIO值" << endl;
-    int new_value = 1;          // 在这里修改要写入的值：0 或 1
+    int new_value = 0;          // 在这里修改要写入的值：0 或 1
 
     // 执行写入（in模式会报错，但不影响后续读取）
     gpio_write_value(TARGET_GPIO, new_value);

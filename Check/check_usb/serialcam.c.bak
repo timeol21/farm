@@ -1,0 +1,377 @@
+#include <stdint.h>
+#include <stdio.h>
+#include <string.h>
+#include <pthread.h>
+#include <fcntl.h>              // open   
+#include <sys/types.h>          // pid_t   
+#include <sys/select.h>
+#include <termios.h>          //termios, tcgetattr(), tcsetattr()   
+#include <unistd.h>   
+#include <sys/ioctl.h>          // ioctl   
+
+#include "camera_cmd.h"
+
+// #define TTY_DEV "/dev/ttyUSB" 
+// #define TTY_DEV "/dev/ttyCH341USB"
+#define TTY_DEV "/dev/ttyACM" 
+// #define TTY_DEV "/dev/ttyS" 
+
+#define SERDBG  printf
+
+/*
+#进入新目录
+cd /home/ztl/program/Check/check_person
+#清理残留（防止意外）
+make clean
+#重新编译
+make
+#运行程序
+./camcdc
+*/
+
+typedef struct{
+ char prompt;  //prompt after reciving data
+ int  baudrate;  //baudrate
+ char databit;  //data bits, 5, 6, 7, 8
+ char  debug;  //debug mode, 0: none, 1: debug
+ char  echo;   //echo mode, 0: none, 1: echo
+ char fctl;   //flow control, 0: none, 1: hardware, 2: software
+ char  tty;   //tty: 0, 1, 2, 3, 4, 5, 6, 7
+ char parity;  //parity 0: none, 1: odd, 2: even
+ char stopbit;  //stop bits, 1, 2
+ const int reserved; //reserved, must be zero
+ int Tx_count;
+}portinfo_t;
+typedef portinfo_t * pportinfo_t;
+
+portinfo_t sPortInfo =
+{  
+		'0',                            // print prompt after receiving   
+		921600,                         // baudrate: 115200   
+		'8',                            // databit: 8   
+		'0',                            // debug: off   
+		'0',                            // echo: off   
+		'0',                            // flow control: software   
+		'0',                            // default tty: COM0   
+		'0',                            // parity: none   
+		'1',                            // stopbit: 1   
+		 0 ,                         // reserved   
+		1024                              //串口一次往设备节点写入的长度，波特率越小，值应越小
+};
+
+int cdcFd = 0;
+
+
+/******************************************* 
+ *  获得端口名称 
+********************************************/  
+char *get_ptty(pportinfo_t pportinfo)  
+{  
+    char *ptty;  
+    
+    switch(pportinfo->tty){  
+        case '0':{  
+            ptty = TTY_DEV"0";  
+        }break;
+        case '1':{  
+            ptty = TTY_DEV"1";  
+        }break;  
+        case '2':{  
+            ptty = TTY_DEV"2";  
+        }break;  
+        case '3':{  
+            ptty = TTY_DEV"3";  
+        }break; 
+        case '4':{  
+            ptty = TTY_DEV"4";  
+        }break; 
+    }  
+    return(ptty);  
+}  
+    
+/******************************************* 
+ *  波特率转换函数（请确认是否正确） 
+********************************************/  
+int convbaud(unsigned long int baudrate)  
+{  
+    switch(baudrate){  
+        case 2400:  
+            return B2400;
+        case 4800:  
+            return B4800;
+        case 9600:  
+            return B9600;
+        case 19200:  
+            return B19200;
+        case 38400:  
+            return B38400;
+        case 57600:  
+            return B57600;
+        case 115200:  
+            return B115200;  
+        case 230400:
+            return B230400;
+        case 460800:
+            return B460800;
+        case 921600:
+            return B921600;
+        case 1000000:
+            return B1000000;
+        case 1500000:
+            return B1500000;    
+        case 2000000:
+            return B2000000;            
+        default:  
+            return B115200;
+    }
+} 
+ 
+
+int PortSet(int fdcom, const pportinfo_t pportinfo)  
+{  
+    #if 1
+    struct termios termios_old, termios_new;  
+    int     baudrate, tmp;  
+    char    databit, stopbit, parity, fctl;  
+    
+    bzero(&termios_old, sizeof(termios_old));  
+    bzero(&termios_new, sizeof(termios_new));  
+    cfmakeraw(&termios_new);  
+    tcgetattr(fdcom, &termios_old);         //get the serial port attributions   
+    /*------------设置端口属性----------------*/  
+    //baudrates   
+    baudrate = convbaud(pportinfo -> baudrate);  
+    cfsetispeed(&termios_new, baudrate);        //填入串口输入端的波特率   
+    cfsetospeed(&termios_new, baudrate);        //填入串口输出端的波特率   
+    termios_new.c_cflag |= CLOCAL;          //控制模式，保证程序不会成为端口的占有者   
+    termios_new.c_cflag |= CREAD;           //控制模式，使能端口读取输入的数据   
+    
+    // 控制模式，flow control   
+    fctl = pportinfo-> fctl;  
+    switch(fctl){  
+        case '0':{  
+            termios_new.c_cflag &= ~CRTSCTS;        //no flow control   
+        }break;  
+        case '1':{  
+            termios_new.c_cflag |= CRTSCTS;         //hardware flow control   
+        }break;  
+        case '2':{  
+            termios_new.c_iflag |= IXON | IXOFF |IXANY; //software flow control   
+        }break;  
+    }  
+    
+    //控制模式，data bits   
+    termios_new.c_cflag &= ~CSIZE;      //控制模式，屏蔽字符大小位   
+    databit = pportinfo -> databit;  
+    switch(databit){  
+        case '5':  
+            termios_new.c_cflag |= CS5;  
+        case '6':  
+            termios_new.c_cflag |= CS6;  
+        case '7':  
+            termios_new.c_cflag |= CS7;  
+        default:  
+            termios_new.c_cflag |= CS8;  
+    }  
+    
+    //控制模式 parity check   
+    parity = pportinfo -> parity;  
+    switch(parity){  
+        case '0':{  
+            termios_new.c_cflag &= ~PARENB;     //no parity check   
+        }break;  
+        case '1':{  
+            termios_new.c_cflag |= PARENB;      //odd check   
+            termios_new.c_cflag &= ~PARODD;  
+        }break;  
+        case '2':{  
+            termios_new.c_cflag |= PARENB;      //even check   
+            termios_new.c_cflag |= PARODD;  
+        }break;  
+    }  
+    
+    //控制模式，stop bits   
+    stopbit = pportinfo -> stopbit;  
+    if(stopbit == '2'){  
+        termios_new.c_cflag |= CSTOPB;  //2 stop bits   
+    }  
+    else{  
+        termios_new.c_cflag &= ~CSTOPB; //1 stop bits   
+    }  
+    
+    //other attributions default   
+    termios_new.c_oflag &= ~OPOST;          //输出模式，原始数据输出   
+    termios_new.c_lflag &= ~ICANON;         //立即输出
+    /*
+    c_cc[VMIN] = 0 时，调用read 才不会阻塞
+    */
+    termios_new.c_cc[VMIN]  = 0;//1;            //控制字符, 所要读取字符的最小数量   
+    termios_new.c_cc[VTIME] = 0;//1;            //控制字符, 读取第一个字符的等待时间    unit: (1/10)second   
+    
+    tcflush(fdcom, TCIFLUSH);               //溢出的数据可以接收，但不读   
+    tmp = tcsetattr(fdcom, TCSANOW, &termios_new);  //设置新属性，TCSANOW：所有改变立即生效    tcgetattr(fdcom, &termios_old);   
+    return(tmp);
+    #endif
+    return 0;  
+}  
+
+/******************************************* 
+ *  Open serial port 
+ *  tty: 端口号 ttyS0, ttyS1, .... 
+ *  返回值为串口文件描述符 
+********************************************/  
+int PortOpen(pportinfo_t pportinfo)  
+{  
+    int fdcom;  //串口文件描述符   
+    char *ptty;
+    int BaudBak = 0;
+    
+    //HalUartx_Init(UART2_REG_BASE,pportinfo->baudrate); /*l-硬件初始化*/ 
+    ptty = get_ptty(pportinfo);  
+
+    // fdcom = open(ptty, O_RDWR | O_NOCTTY | O_NONBLOCK);
+    fdcom = open(ptty, O_RDWR | O_NOCTTY | O_NONBLOCK); 
+    if(fdcom > 0){
+        BaudBak = pportinfo->baudrate; //备份存储的波特率
+        // pportinfo->baudrate = 115200; //设置默认波特率
+        PortSet(fdcom,pportinfo);
+        pportinfo->baudrate = BaudBak; //还原原始波特率
+        // ioctl(fdcom, 0x101, pportinfo->baudrate); //配置波特率，其他默认
+        // ioctl(fdcom, 0x101, 115200);
+        // ioctl(fdcom, 0x102, 1); //rx dma  /*使用中断方式在数据接收数据量大时，内核会直接崩溃，改用DMA方式*/
+        // ioctl(fdcom, 0x104, 0); //no block
+        //ioctl(fdcom, 0x103,1);  // tx dma
+    }
+    
+    return (fdcom);  
+}  
+    
+/******************************************* 
+ *  Close serial port 
+********************************************/  
+void PortClose(int fdcom)  
+{  
+    close(fdcom);  
+}  
+    
+/******************************************** 
+ *  send data 
+ *  fdcom: 串口描述符，data: 待发送数据，datalen: 数据长度 
+ *  返回实际发送长度 
+*********************************************/  
+int PortSend(uint8_t *data, int datalen)  
+{  
+    int j = 0;
+    int len = 0;  
+    int fdcom = cdcFd;
+    // lseek(fdcom,0,SEEK_SET);
+    len = write(fdcom, data, datalen);  //实际写入的长度   
+    //printf("len:%d,0x%x\n",len,len);
+    #if 1 /*打印测试*/
+    printf("Tx:%d\n",len);
+    for(j = 0; j < len; j++) {
+        printf("%02x ",data[j]);
+    }
+    printf("\n");
+    #endif
+    if(len == datalen){  
+        return (len);  
+    }  
+    else{  
+        tcflush(fdcom, TCOFLUSH);  
+        return -1;  
+    }  
+}  
+
+
+int PortRecv(uint8_t *outdata)  
+{
+    int TimesCnt = 0,i = 0, j = 0;
+    int readlen = 0, readlenbak = 0,fs_sel = 0;
+    int ReadCnt = 0;
+    uint16_t _CmdLen = 0;
+    uint8_t buffer[32] = "";
+    fd_set  fs_read;  
+    struct timeval tv_timeout;  
+    int u16bytes = 0;
+    int fd_com = cdcFd;
+
+    
+    /*注意超时时间，设置太长相应会变慢，波特率越高，超时要短点*/
+
+    tv_timeout.tv_sec = 1;
+    tv_timeout.tv_usec = 0; //1ms
+    
+    while(1)
+    {
+        FD_ZERO(&fs_read);  
+        FD_SET(fd_com, &fs_read);  
+        
+        fs_sel = select(fd_com+1, &fs_read, NULL, NULL, &tv_timeout);
+        if(fs_sel && FD_ISSET(fd_com, &fs_read)){ 
+            
+            ReadCnt = read(fd_com, outdata + readlen, sizeof(buffer));  //一次读32字节 
+            tv_timeout.tv_sec = 0;
+            tv_timeout.tv_usec = 0;
+            
+            // memcpy(outdata + readlen,buffer,ReadCnt);
+            readlen += ReadCnt;
+            
+            #if 0 /*打印测试*/
+            printf("Rx:%d\n",ReadCnt);
+            for(j = 0; j < ReadCnt; j++) {
+                printf("%02x ",buffer[j]);
+            }
+            printf("\n");
+            #endif
+        }  
+        else{  
+            // printf("sel:%d\n",fs_sel);
+            // break;
+            if(readlen != readlenbak) { /*长度有变化，数据还没接收完，超时重新开始*/
+                readlenbak = readlen;
+                TimesCnt = 0;
+                tv_timeout.tv_sec = 0;
+                tv_timeout.tv_usec = 0;
+            }
+            else { /*长度没在变化设置100ms超时退出*/
+                tv_timeout.tv_sec = 0;
+                tv_timeout.tv_usec = 1000;
+                if(++TimesCnt >= 10) { /*10ms溢出*/
+                    printf("readlen:%d\n",readlen);
+                    break;
+                }
+            }
+            continue;
+        } 
+    }
+    
+    return (readlen);  
+}
+
+uint8_t u8GetVerCmd[] = {0x56,0x00,0x11,0x00};
+uint8_t u8RxBuffer[1024] = "";
+
+uint8_t u8TakephotoCmd[] = {0x56,0x00,0x36,0x01,0x00};
+uint8_t u8RetTakephotoCmd[] = {0x76,0x00,0x36,0x00,0x00};
+
+
+
+uint8_t lenbuf[] = {0x76,0x00,0x34,0x04,0x01,0x02,0x03,0x04};
+
+int main(void)
+{
+  printf("This is camera usb cdc test demo!\n");
+
+
+#if 1 
+  cdcFd = PortOpen(&sPortInfo);
+
+  SERDBG("cdcFd:%d\n",cdcFd);
+
+//   PortSend(u8GetVerCmd,sizeof(u8GetVerCmd));
+//   PortRecv(u8RxBuffer/*,sizeof(u8RxBuffer)*/);
+  CameraDemoApp();
+    
+#endif  
+}

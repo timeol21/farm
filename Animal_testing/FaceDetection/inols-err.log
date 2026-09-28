@@ -1,0 +1,1460 @@
+
+
+
+
+
+
+
+Started logging.
+18:49:55.022151 Language server launched with arguments:
+18:49:55.022151   arg[0] = c:\Users\zhulin\AppData\Local\Programs\Arduino IDE\resources\app\lib\backend\resources\arduino-language-server.exe
+18:49:55.022151   arg[1] = -clangd
+18:49:55.022151   arg[2] = c:\Users\zhulin\AppData\Local\Programs\Arduino IDE\resources\app\lib\backend\resources\clangd.exe
+18:49:55.022151   arg[3] = -cli-daemon-addr
+18:49:55.022151   arg[4] = localhost:53632
+18:49:55.022151   arg[5] = -cli-daemon-instance
+18:49:55.022151   arg[6] = 1
+18:49:55.022654   arg[7] = -fqbn
+18:49:55.022654   arg[8] = esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default
+18:49:55.022721   arg[9] = -skip-libraries-discovery-on-rebuild
+18:49:55.022721   arg[10] = -board-name
+18:49:55.022721   arg[11] = ESP32S3 Dev Module
+18:49:55.022721   arg[12] = -no-real-time-diagnostics
+18:49:55.022721   arg[13] = -log
+18:49:55.022721   arg[14] = -logpath
+18:49:55.022721   arg[15] = l:\BaiduNetdiskDownload\ESP32S3-Cam视觉模块\6.软件工具&程序合辑\4.固件及程序合辑\ESP32S3\人脸识别例程\FaceDetection
+18:49:55.041110 logging to l:\BaiduNetdiskDownload\ESP32S3-Cam视觉模块\6.软件工具&程序合辑\4.固件及程序合辑\ESP32S3\人脸识别例程\FaceDetection\inols.log
+18:49:55.042881 [97mLS: : Initial board configuration: esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default[0m
+18:49:55.042881 [97mLS: : arduino-language-server.exe Version: 0.0.0-git Commit:  Date: [0m
+18:49:55.042881 [97mLS: : Language server temp directory: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server995569922[0m
+18:49:55.042881 [97mLS: : Language server build path: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server995569922\build[0m
+18:49:55.042881 [97mLS: : Language server build sketch root: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server995569922\build\sketch[0m
+18:49:55.042881 [97mLS: : Language server FULL build path: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server995569922\fullbuild[0m
+18:49:55.043412 IN Elapsed: 531.1µs
+18:49:55.043412 [92mIDE --> LS REQU initialize 0[0m
+18:49:55.044455 [92m                initialize 0: [93mwrite-locked[0m[0m
+18:49:55.045100 [92m                initialize 0: [93mwrite-unlocked[0m[0m
+18:49:55.045100 [96mINIT --- : initializing workbench: file:///l%3A/BaiduNetdiskDownload/ESP32S3-Cam%E8%A7%86%E8%A7%89%E6%A8%A1%E5%9D%97/6.%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7%26%E7%A8%8B%E5%BA%8F%E5%90%88%E8%BE%91/4.%E5%9B%BA%E4%BB%B6%E5%8F%8A%E7%A8%8B%E5%BA%8F%E5%90%88%E8%BE%91/ESP32S3/%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E4%BE%8B%E7%A8%8B/FaceDetection[0m
+18:49:55.045616 [96mINIT --- : [93mread-locked[0m[0m
+18:49:55.045616 [96mINIT --- : [93mread-unlocked[0m[0m
+18:49:55.045616 [92m                initialize 0: initialization parameters: {"capabilities":{"textDocumentSync":{"openClose":true,"change":2,"save":{"includeText":true}},"completionProvider":{"triggerCharacters":[".","\u003c","\u003e",":","\"","/"],"allCommitCharacters":[" ","\t","(",")","[","]","{","}","\u003c","\u003e",":",";",",","+","-","/","*","%","^","\u0026","#","?",".","=","\"","'","|"],"completionItem":{}},"hoverProvider":{},"signatureHelpProvider":{"triggerCharacters":["(",","]},"definitionProvider":{},"documentHighlightProvider":{},"documentSymbolProvider":{},"codeActionProvider":{"codeActionKinds":["quickfix","refactor","info"]},"documentFormattingProvider":{},"documentRangeFormattingProvider":{},"documentOnTypeFormattingProvider":{"firstTriggerCharacter":"\n"},"renameProvider":{},"executeCommandProvider":{"commands":["clangd.applyFix","clangd.applyTweak"]},"workspaceSymbolProvider":{}},"serverInfo":{"name":"arduino-language-server","version":"0.0.0-git"}}[0m
+18:49:55.045616 [32mIDE <-- LS RESP initialize 0[0m
+18:49:55.045616 OUT Elapsed: 0s
+18:49:55.049927 [96mINIT --- : Running build with: {
+  "instance": {
+    "id": 1
+  },
+  "fqbn": "esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default",
+  "sketch_path": "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具\u0026程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection",
+  "build_path": "C:\\Users\\zhulin\\AppData\\Local\\Temp\\arduino-language-server995569922\\fullbuild",
+  "verbose": true,
+  "create_compilation_database_only": true
+}[0m
+18:49:55.053079 IN Elapsed: 7.4626ms
+18:49:55.053079 [92mIDE --> LS NOTIF initialized[0m
+18:49:55.053079 [92m                 initialized: Notification is not propagated to clangd[0m
+18:49:55.053079 IN Elapsed: 0s
+18:49:55.053079 [92mIDE --> LS NOTIF textDocument/didOpen[0m
+18:49:55.053079 [92m                 textDocument/didOpen: [93mwrite-locked[0m[0m
+18:49:55.053079 [92m                 textDocument/didOpen: (throttled: waiting for clangd)[0m
+18:49:55.053079 [92m                 textDocument/didOpen: [93munlocked (waiting clangd)[0m[0m
+18:49:55.798929 [96mINIT --- : build stdout:[0m
+18:49:55.798929 [96mINIT --- : FQBN: esp32:esp32:esp32s3
+Using board 'esp32s3' from platform in folder: C:\Users\zhulin\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.3.2
+Using core 'esp32' from platform in folder: C:\Users\zhulin\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.3.2
+
+cmd /c if exist "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具&程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection\\partitions.csv" COPY /y "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具&程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection\\partitions.csv" "C:\\Users\\zhulin\\AppData\\Local\\Temp\\arduino-language-server995569922\\fullbuild\\partitions.csv"
+[0m
+18:49:55.798929 [96mINIT --- : build stderr:[0m
+18:49:55.798929 [96mINIT --- : ��ʱ��Ӧ�� &��
+[0m
+18:49:55.798929 [96mINIT --- : error starting clang: error running compile: rpc error: code = Internal desc = exit status 1[0m
+18:49:55.798929 [92m                 textDocument/didOpen: [93mlocked (waiting clangd)[0m[0m
+18:49:55.798929 [92m                 textDocument/didOpen: clangd startup failed: quitting Language server[0m
+
+
+
+
+
+
+
+Started logging.
+18:49:55.845110 Language server launched with arguments:
+18:49:55.845116   arg[0] = c:\Users\zhulin\AppData\Local\Programs\Arduino IDE\resources\app\lib\backend\resources\arduino-language-server.exe
+18:49:55.845116   arg[1] = -clangd
+18:49:55.845116   arg[2] = c:\Users\zhulin\AppData\Local\Programs\Arduino IDE\resources\app\lib\backend\resources\clangd.exe
+18:49:55.845116   arg[3] = -cli-daemon-addr
+18:49:55.845116   arg[4] = localhost:53632
+18:49:55.845116   arg[5] = -cli-daemon-instance
+18:49:55.845116   arg[6] = 1
+18:49:55.845116   arg[7] = -fqbn
+18:49:55.845116   arg[8] = esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default
+18:49:55.845116   arg[9] = -skip-libraries-discovery-on-rebuild
+18:49:55.845116   arg[10] = -board-name
+18:49:55.845116   arg[11] = ESP32S3 Dev Module
+18:49:55.845116   arg[12] = -no-real-time-diagnostics
+18:49:55.845116   arg[13] = -log
+18:49:55.845116   arg[14] = -logpath
+18:49:55.845116   arg[15] = l:\BaiduNetdiskDownload\ESP32S3-Cam视觉模块\6.软件工具&程序合辑\4.固件及程序合辑\ESP32S3\人脸识别例程\FaceDetection
+18:49:55.845116 logging to l:\BaiduNetdiskDownload\ESP32S3-Cam视觉模块\6.软件工具&程序合辑\4.固件及程序合辑\ESP32S3\人脸识别例程\FaceDetection\inols.log
+18:49:55.846134 [97mLS: : Initial board configuration: esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default[0m
+18:49:55.846134 [97mLS: : arduino-language-server.exe Version: 0.0.0-git Commit:  Date: [0m
+18:49:55.846134 [97mLS: : Language server temp directory: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server2111184326[0m
+18:49:55.846134 [97mLS: : Language server build path: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server2111184326\build[0m
+18:49:55.846134 [97mLS: : Language server build sketch root: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server2111184326\build\sketch[0m
+18:49:55.846134 [97mLS: : Language server FULL build path: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server2111184326\fullbuild[0m
+18:49:55.846134 IN Elapsed: 0s
+18:49:55.846134 [92mIDE --> LS REQU initialize 0[0m
+18:49:55.846648 [92m                initialize 0: [93mwrite-locked[0m[0m
+18:49:55.847157 [92m                initialize 0: [93mwrite-unlocked[0m[0m
+18:49:55.847157 [96mINIT --- : initializing workbench: file:///l%3A/BaiduNetdiskDownload/ESP32S3-Cam%E8%A7%86%E8%A7%89%E6%A8%A1%E5%9D%97/6.%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7%26%E7%A8%8B%E5%BA%8F%E5%90%88%E8%BE%91/4.%E5%9B%BA%E4%BB%B6%E5%8F%8A%E7%A8%8B%E5%BA%8F%E5%90%88%E8%BE%91/ESP32S3/%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E4%BE%8B%E7%A8%8B/FaceDetection[0m
+18:49:55.847157 [96mINIT --- : [93mread-locked[0m[0m
+18:49:55.847157 [96mINIT --- : [93mread-unlocked[0m[0m
+18:49:55.847671 [92m                initialize 0: initialization parameters: {"capabilities":{"textDocumentSync":{"openClose":true,"change":2,"save":{"includeText":true}},"completionProvider":{"triggerCharacters":[".","\u003c","\u003e",":","\"","/"],"allCommitCharacters":[" ","\t","(",")","[","]","{","}","\u003c","\u003e",":",";",",","+","-","/","*","%","^","\u0026","#","?",".","=","\"","'","|"],"completionItem":{}},"hoverProvider":{},"signatureHelpProvider":{"triggerCharacters":["(",","]},"definitionProvider":{},"documentHighlightProvider":{},"documentSymbolProvider":{},"codeActionProvider":{"codeActionKinds":["quickfix","refactor","info"]},"documentFormattingProvider":{},"documentRangeFormattingProvider":{},"documentOnTypeFormattingProvider":{"firstTriggerCharacter":"\n"},"renameProvider":{},"executeCommandProvider":{"commands":["clangd.applyFix","clangd.applyTweak"]},"workspaceSymbolProvider":{}},"serverInfo":{"name":"arduino-language-server","version":"0.0.0-git"}}[0m
+18:49:55.847671 [32mIDE <-- LS RESP initialize 0[0m
+18:49:55.847671 OUT Elapsed: 0s
+18:49:55.849204 IN Elapsed: 1.5331ms
+18:49:55.849204 [92mIDE --> LS NOTIF initialized[0m
+18:49:55.849204 [92m                 initialized: Notification is not propagated to clangd[0m
+18:49:55.849204 IN Elapsed: 0s
+18:49:55.849204 [92mIDE --> LS NOTIF textDocument/didOpen[0m
+18:49:55.849204 [92m                 textDocument/didOpen: [93mwrite-locked[0m[0m
+18:49:55.849204 [92m                 textDocument/didOpen: (throttled: waiting for clangd)[0m
+18:49:55.849204 [92m                 textDocument/didOpen: [93munlocked (waiting clangd)[0m[0m
+18:49:55.852269 [96mINIT --- : Running build with: {
+  "instance": {
+    "id": 1
+  },
+  "fqbn": "esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default",
+  "sketch_path": "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具\u0026程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection",
+  "build_path": "C:\\Users\\zhulin\\AppData\\Local\\Temp\\arduino-language-server2111184326\\fullbuild",
+  "verbose": true,
+  "create_compilation_database_only": true
+}[0m
+18:49:56.602573 [96mINIT --- : build stdout:[0m
+18:49:56.602573 [96mINIT --- : FQBN: esp32:esp32:esp32s3
+Using board 'esp32s3' from platform in folder: C:\Users\zhulin\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.3.2
+Using core 'esp32' from platform in folder: C:\Users\zhulin\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.3.2
+
+cmd /c if exist "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具&程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection\\partitions.csv" COPY /y "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具&程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection\\partitions.csv" "C:\\Users\\zhulin\\AppData\\Local\\Temp\\arduino-language-server2111184326\\fullbuild\\partitions.csv"
+[0m
+18:49:56.602573 [96mINIT --- : build stderr:[0m
+18:49:56.602573 [96mINIT --- : ��ʱ��Ӧ�� &��
+[0m
+18:49:56.603128 [96mINIT --- : error starting clang: error running compile: rpc error: code = Internal desc = exit status 1[0m
+18:49:56.603128 [92m                 textDocument/didOpen: [93mlocked (waiting clangd)[0m[0m
+18:49:56.603128 [92m                 textDocument/didOpen: clangd startup failed: quitting Language server[0m
+
+
+
+
+
+
+
+Started logging.
+18:49:56.634608 Language server launched with arguments:
+18:49:56.634608   arg[0] = c:\Users\zhulin\AppData\Local\Programs\Arduino IDE\resources\app\lib\backend\resources\arduino-language-server.exe
+18:49:56.634608   arg[1] = -clangd
+18:49:56.634608   arg[2] = c:\Users\zhulin\AppData\Local\Programs\Arduino IDE\resources\app\lib\backend\resources\clangd.exe
+18:49:56.634608   arg[3] = -cli-daemon-addr
+18:49:56.634608   arg[4] = localhost:53632
+18:49:56.634608   arg[5] = -cli-daemon-instance
+18:49:56.634608   arg[6] = 1
+18:49:56.634608   arg[7] = -fqbn
+18:49:56.634608   arg[8] = esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default
+18:49:56.634608   arg[9] = -skip-libraries-discovery-on-rebuild
+18:49:56.634608   arg[10] = -board-name
+18:49:56.634608   arg[11] = ESP32S3 Dev Module
+18:49:56.634608   arg[12] = -no-real-time-diagnostics
+18:49:56.634608   arg[13] = -log
+18:49:56.634608   arg[14] = -logpath
+18:49:56.634608   arg[15] = l:\BaiduNetdiskDownload\ESP32S3-Cam视觉模块\6.软件工具&程序合辑\4.固件及程序合辑\ESP32S3\人脸识别例程\FaceDetection
+18:49:56.634608 logging to l:\BaiduNetdiskDownload\ESP32S3-Cam视觉模块\6.软件工具&程序合辑\4.固件及程序合辑\ESP32S3\人脸识别例程\FaceDetection\inols.log
+18:49:56.635728 [97mLS: : Initial board configuration: esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default[0m
+18:49:56.635728 [97mLS: : arduino-language-server.exe Version: 0.0.0-git Commit:  Date: [0m
+18:49:56.635728 [97mLS: : Language server temp directory: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server4095402663[0m
+18:49:56.635728 [97mLS: : Language server build path: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server4095402663\build[0m
+18:49:56.635728 [97mLS: : Language server build sketch root: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server4095402663\build\sketch[0m
+18:49:56.635728 [97mLS: : Language server FULL build path: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server4095402663\fullbuild[0m
+18:49:56.635728 IN Elapsed: 0s
+18:49:56.636269 [92mIDE --> LS REQU initialize 0[0m
+18:49:56.636831 [92m                initialize 0: [93mwrite-locked[0m[0m
+18:49:56.637368 [92m                initialize 0: [93mwrite-unlocked[0m[0m
+18:49:56.637368 [96mINIT --- : initializing workbench: file:///l%3A/BaiduNetdiskDownload/ESP32S3-Cam%E8%A7%86%E8%A7%89%E6%A8%A1%E5%9D%97/6.%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7%26%E7%A8%8B%E5%BA%8F%E5%90%88%E8%BE%91/4.%E5%9B%BA%E4%BB%B6%E5%8F%8A%E7%A8%8B%E5%BA%8F%E5%90%88%E8%BE%91/ESP32S3/%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E4%BE%8B%E7%A8%8B/FaceDetection[0m
+18:49:56.637368 [96mINIT --- : [93mread-locked[0m[0m
+18:49:56.637368 [96mINIT --- : [93mread-unlocked[0m[0m
+18:49:56.637368 [92m                initialize 0: initialization parameters: {"capabilities":{"textDocumentSync":{"openClose":true,"change":2,"save":{"includeText":true}},"completionProvider":{"triggerCharacters":[".","\u003c","\u003e",":","\"","/"],"allCommitCharacters":[" ","\t","(",")","[","]","{","}","\u003c","\u003e",":",";",",","+","-","/","*","%","^","\u0026","#","?",".","=","\"","'","|"],"completionItem":{}},"hoverProvider":{},"signatureHelpProvider":{"triggerCharacters":["(",","]},"definitionProvider":{},"documentHighlightProvider":{},"documentSymbolProvider":{},"codeActionProvider":{"codeActionKinds":["quickfix","refactor","info"]},"documentFormattingProvider":{},"documentRangeFormattingProvider":{},"documentOnTypeFormattingProvider":{"firstTriggerCharacter":"\n"},"renameProvider":{},"executeCommandProvider":{"commands":["clangd.applyFix","clangd.applyTweak"]},"workspaceSymbolProvider":{}},"serverInfo":{"name":"arduino-language-server","version":"0.0.0-git"}}[0m
+18:49:56.637368 [32mIDE <-- LS RESP initialize 0[0m
+18:49:56.637870 OUT Elapsed: 502.4µs
+18:49:56.639663 IN Elapsed: 1.7932ms
+18:49:56.639712 [92mIDE --> LS NOTIF initialized[0m
+18:49:56.639712 [92m                 initialized: Notification is not propagated to clangd[0m
+18:49:56.639712 IN Elapsed: 0s
+18:49:56.639712 [92mIDE --> LS NOTIF textDocument/didOpen[0m
+18:49:56.639712 [92m                 textDocument/didOpen: [93mwrite-locked[0m[0m
+18:49:56.639712 [92m                 textDocument/didOpen: (throttled: waiting for clangd)[0m
+18:49:56.639712 [92m                 textDocument/didOpen: [93munlocked (waiting clangd)[0m[0m
+18:49:56.643411 [96mINIT --- : Running build with: {
+  "instance": {
+    "id": 1
+  },
+  "fqbn": "esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default",
+  "sketch_path": "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具\u0026程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection",
+  "build_path": "C:\\Users\\zhulin\\AppData\\Local\\Temp\\arduino-language-server4095402663\\fullbuild",
+  "verbose": true,
+  "create_compilation_database_only": true
+}[0m
+18:49:57.420446 [96mINIT --- : build stdout:[0m
+18:49:57.420446 [96mINIT --- : FQBN: esp32:esp32:esp32s3
+Using board 'esp32s3' from platform in folder: C:\Users\zhulin\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.3.2
+Using core 'esp32' from platform in folder: C:\Users\zhulin\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.3.2
+
+cmd /c if exist "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具&程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection\\partitions.csv" COPY /y "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具&程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection\\partitions.csv" "C:\\Users\\zhulin\\AppData\\Local\\Temp\\arduino-language-server4095402663\\fullbuild\\partitions.csv"
+[0m
+18:49:57.420446 [96mINIT --- : build stderr:[0m
+18:49:57.420446 [96mINIT --- : ��ʱ��Ӧ�� &��
+[0m
+18:49:57.421414 [96mINIT --- : error starting clang: error running compile: rpc error: code = Internal desc = exit status 1[0m
+18:49:57.421414 [92m                 textDocument/didOpen: [93mlocked (waiting clangd)[0m[0m
+18:49:57.421414 [92m                 textDocument/didOpen: clangd startup failed: quitting Language server[0m
+
+
+
+
+
+
+
+Started logging.
+18:49:57.451129 Language server launched with arguments:
+18:49:57.451129   arg[0] = c:\Users\zhulin\AppData\Local\Programs\Arduino IDE\resources\app\lib\backend\resources\arduino-language-server.exe
+18:49:57.451129   arg[1] = -clangd
+18:49:57.451129   arg[2] = c:\Users\zhulin\AppData\Local\Programs\Arduino IDE\resources\app\lib\backend\resources\clangd.exe
+18:49:57.451129   arg[3] = -cli-daemon-addr
+18:49:57.451129   arg[4] = localhost:53632
+18:49:57.451129   arg[5] = -cli-daemon-instance
+18:49:57.451129   arg[6] = 1
+18:49:57.451633   arg[7] = -fqbn
+18:49:57.451633   arg[8] = esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default
+18:49:57.451633   arg[9] = -skip-libraries-discovery-on-rebuild
+18:49:57.451633   arg[10] = -board-name
+18:49:57.451633   arg[11] = ESP32S3 Dev Module
+18:49:57.451667   arg[12] = -no-real-time-diagnostics
+18:49:57.451667   arg[13] = -log
+18:49:57.451667   arg[14] = -logpath
+18:49:57.451667   arg[15] = l:\BaiduNetdiskDownload\ESP32S3-Cam视觉模块\6.软件工具&程序合辑\4.固件及程序合辑\ESP32S3\人脸识别例程\FaceDetection
+18:49:57.451667 logging to l:\BaiduNetdiskDownload\ESP32S3-Cam视觉模块\6.软件工具&程序合辑\4.固件及程序合辑\ESP32S3\人脸识别例程\FaceDetection\inols.log
+18:49:57.452709 [97mLS: : Initial board configuration: esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default[0m
+18:49:57.452709 [97mLS: : arduino-language-server.exe Version: 0.0.0-git Commit:  Date: [0m
+18:49:57.452752 [97mLS: : Language server temp directory: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server907308036[0m
+18:49:57.452752 [97mLS: : Language server build path: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server907308036\build[0m
+18:49:57.452752 [97mLS: : Language server build sketch root: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server907308036\build\sketch[0m
+18:49:57.452752 [97mLS: : Language server FULL build path: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server907308036\fullbuild[0m
+18:49:57.452752 IN Elapsed: 0s
+18:49:57.452752 [92mIDE --> LS REQU initialize 0[0m
+18:49:57.453263 [92m                initialize 0: [93mwrite-locked[0m[0m
+18:49:57.453771 [92m                initialize 0: [93mwrite-unlocked[0m[0m
+18:49:57.453771 [96mINIT --- : initializing workbench: file:///l%3A/BaiduNetdiskDownload/ESP32S3-Cam%E8%A7%86%E8%A7%89%E6%A8%A1%E5%9D%97/6.%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7%26%E7%A8%8B%E5%BA%8F%E5%90%88%E8%BE%91/4.%E5%9B%BA%E4%BB%B6%E5%8F%8A%E7%A8%8B%E5%BA%8F%E5%90%88%E8%BE%91/ESP32S3/%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E4%BE%8B%E7%A8%8B/FaceDetection[0m
+18:49:57.453771 [96mINIT --- : [93mread-locked[0m[0m
+18:49:57.453771 [96mINIT --- : [93mread-unlocked[0m[0m
+18:49:57.453771 [92m                initialize 0: initialization parameters: {"capabilities":{"textDocumentSync":{"openClose":true,"change":2,"save":{"includeText":true}},"completionProvider":{"triggerCharacters":[".","\u003c","\u003e",":","\"","/"],"allCommitCharacters":[" ","\t","(",")","[","]","{","}","\u003c","\u003e",":",";",",","+","-","/","*","%","^","\u0026","#","?",".","=","\"","'","|"],"completionItem":{}},"hoverProvider":{},"signatureHelpProvider":{"triggerCharacters":["(",","]},"definitionProvider":{},"documentHighlightProvider":{},"documentSymbolProvider":{},"codeActionProvider":{"codeActionKinds":["quickfix","refactor","info"]},"documentFormattingProvider":{},"documentRangeFormattingProvider":{},"documentOnTypeFormattingProvider":{"firstTriggerCharacter":"\n"},"renameProvider":{},"executeCommandProvider":{"commands":["clangd.applyFix","clangd.applyTweak"]},"workspaceSymbolProvider":{}},"serverInfo":{"name":"arduino-language-server","version":"0.0.0-git"}}[0m
+18:49:57.453771 [32mIDE <-- LS RESP initialize 0[0m
+18:49:57.453771 OUT Elapsed: 0s
+18:49:57.455312 IN Elapsed: 1.5412ms
+18:49:57.455312 [92mIDE --> LS NOTIF initialized[0m
+18:49:57.455312 [92m                 initialized: Notification is not propagated to clangd[0m
+18:49:57.455312 IN Elapsed: 0s
+18:49:57.455815 [92mIDE --> LS NOTIF textDocument/didOpen[0m
+18:49:57.455826 [92m                 textDocument/didOpen: [93mwrite-locked[0m[0m
+18:49:57.455826 [92m                 textDocument/didOpen: (throttled: waiting for clangd)[0m
+18:49:57.455826 [92m                 textDocument/didOpen: [93munlocked (waiting clangd)[0m[0m
+18:49:57.458890 [96mINIT --- : Running build with: {
+  "instance": {
+    "id": 1
+  },
+  "fqbn": "esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default",
+  "sketch_path": "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具\u0026程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection",
+  "build_path": "C:\\Users\\zhulin\\AppData\\Local\\Temp\\arduino-language-server907308036\\fullbuild",
+  "verbose": true,
+  "create_compilation_database_only": true
+}[0m
+18:49:58.202229 [96mINIT --- : build stdout:[0m
+18:49:58.202440 [96mINIT --- : FQBN: esp32:esp32:esp32s3
+Using board 'esp32s3' from platform in folder: C:\Users\zhulin\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.3.2
+Using core 'esp32' from platform in folder: C:\Users\zhulin\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.3.2
+
+cmd /c if exist "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具&程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection\\partitions.csv" COPY /y "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具&程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection\\partitions.csv" "C:\\Users\\zhulin\\AppData\\Local\\Temp\\arduino-language-server907308036\\fullbuild\\partitions.csv"
+[0m
+18:49:58.202440 [96mINIT --- : build stderr:[0m
+18:49:58.202440 [96mINIT --- : ��ʱ��Ӧ�� &��
+[0m
+18:49:58.202487 [96mINIT --- : error starting clang: error running compile: rpc error: code = Internal desc = exit status 1[0m
+18:49:58.202487 [92m                 textDocument/didOpen: [93mlocked (waiting clangd)[0m[0m
+18:49:58.202487 [92m                 textDocument/didOpen: clangd startup failed: quitting Language server[0m
+
+
+
+
+
+
+
+Started logging.
+18:49:58.230934 Language server launched with arguments:
+18:49:58.230934   arg[0] = c:\Users\zhulin\AppData\Local\Programs\Arduino IDE\resources\app\lib\backend\resources\arduino-language-server.exe
+18:49:58.230934   arg[1] = -clangd
+18:49:58.230934   arg[2] = c:\Users\zhulin\AppData\Local\Programs\Arduino IDE\resources\app\lib\backend\resources\clangd.exe
+18:49:58.230934   arg[3] = -cli-daemon-addr
+18:49:58.230934   arg[4] = localhost:53632
+18:49:58.231437   arg[5] = -cli-daemon-instance
+18:49:58.231443   arg[6] = 1
+18:49:58.231443   arg[7] = -fqbn
+18:49:58.231443   arg[8] = esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default
+18:49:58.231443   arg[9] = -skip-libraries-discovery-on-rebuild
+18:49:58.231443   arg[10] = -board-name
+18:49:58.231443   arg[11] = ESP32S3 Dev Module
+18:49:58.231443   arg[12] = -no-real-time-diagnostics
+18:49:58.231443   arg[13] = -log
+18:49:58.231443   arg[14] = -logpath
+18:49:58.231443   arg[15] = l:\BaiduNetdiskDownload\ESP32S3-Cam视觉模块\6.软件工具&程序合辑\4.固件及程序合辑\ESP32S3\人脸识别例程\FaceDetection
+18:49:58.231443 logging to l:\BaiduNetdiskDownload\ESP32S3-Cam视觉模块\6.软件工具&程序合辑\4.固件及程序合辑\ESP32S3\人脸识别例程\FaceDetection\inols.log
+18:49:58.232477 [97mLS: : Initial board configuration: esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default[0m
+18:49:58.232477 [97mLS: : arduino-language-server.exe Version: 0.0.0-git Commit:  Date: [0m
+18:49:58.232477 [97mLS: : Language server temp directory: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server2113511808[0m
+18:49:58.232477 [97mLS: : Language server build path: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server2113511808\build[0m
+18:49:58.232477 [97mLS: : Language server build sketch root: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server2113511808\build\sketch[0m
+18:49:58.232477 [97mLS: : Language server FULL build path: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server2113511808\fullbuild[0m
+18:49:58.232477 IN Elapsed: 0s
+18:49:58.232980 [92mIDE --> LS REQU initialize 0[0m
+18:49:58.233549 [92m                initialize 0: [93mwrite-locked[0m[0m
+18:49:58.233549 [92m                initialize 0: [93mwrite-unlocked[0m[0m
+18:49:58.234061 [96mINIT --- : initializing workbench: file:///l%3A/BaiduNetdiskDownload/ESP32S3-Cam%E8%A7%86%E8%A7%89%E6%A8%A1%E5%9D%97/6.%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7%26%E7%A8%8B%E5%BA%8F%E5%90%88%E8%BE%91/4.%E5%9B%BA%E4%BB%B6%E5%8F%8A%E7%A8%8B%E5%BA%8F%E5%90%88%E8%BE%91/ESP32S3/%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E4%BE%8B%E7%A8%8B/FaceDetection[0m
+18:49:58.234061 [96mINIT --- : [93mread-locked[0m[0m
+18:49:58.234061 [96mINIT --- : [93mread-unlocked[0m[0m
+18:49:58.234061 [92m                initialize 0: initialization parameters: {"capabilities":{"textDocumentSync":{"openClose":true,"change":2,"save":{"includeText":true}},"completionProvider":{"triggerCharacters":[".","\u003c","\u003e",":","\"","/"],"allCommitCharacters":[" ","\t","(",")","[","]","{","}","\u003c","\u003e",":",";",",","+","-","/","*","%","^","\u0026","#","?",".","=","\"","'","|"],"completionItem":{}},"hoverProvider":{},"signatureHelpProvider":{"triggerCharacters":["(",","]},"definitionProvider":{},"documentHighlightProvider":{},"documentSymbolProvider":{},"codeActionProvider":{"codeActionKinds":["quickfix","refactor","info"]},"documentFormattingProvider":{},"documentRangeFormattingProvider":{},"documentOnTypeFormattingProvider":{"firstTriggerCharacter":"\n"},"renameProvider":{},"executeCommandProvider":{"commands":["clangd.applyFix","clangd.applyTweak"]},"workspaceSymbolProvider":{}},"serverInfo":{"name":"arduino-language-server","version":"0.0.0-git"}}[0m
+18:49:58.234061 [32mIDE <-- LS RESP initialize 0[0m
+18:49:58.234061 OUT Elapsed: 0s
+18:49:58.235593 IN Elapsed: 1.5325ms
+18:49:58.235593 [92mIDE --> LS NOTIF initialized[0m
+18:49:58.235593 [92m                 initialized: Notification is not propagated to clangd[0m
+18:49:58.235593 IN Elapsed: 0s
+18:49:58.235593 [92mIDE --> LS NOTIF textDocument/didOpen[0m
+18:49:58.235593 [92m                 textDocument/didOpen: [93mwrite-locked[0m[0m
+18:49:58.235593 [92m                 textDocument/didOpen: (throttled: waiting for clangd)[0m
+18:49:58.235593 [92m                 textDocument/didOpen: [93munlocked (waiting clangd)[0m[0m
+18:49:58.239268 [96mINIT --- : Running build with: {
+  "instance": {
+    "id": 1
+  },
+  "fqbn": "esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default",
+  "sketch_path": "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具\u0026程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection",
+  "build_path": "C:\\Users\\zhulin\\AppData\\Local\\Temp\\arduino-language-server2113511808\\fullbuild",
+  "verbose": true,
+  "create_compilation_database_only": true
+}[0m
+18:49:58.967001 [96mINIT --- : build stdout:[0m
+18:49:58.967001 [96mINIT --- : FQBN: esp32:esp32:esp32s3
+Using board 'esp32s3' from platform in folder: C:\Users\zhulin\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.3.2
+Using core 'esp32' from platform in folder: C:\Users\zhulin\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.3.2
+
+cmd /c if exist "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具&程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection\\partitions.csv" COPY /y "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具&程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection\\partitions.csv" "C:\\Users\\zhulin\\AppData\\Local\\Temp\\arduino-language-server2113511808\\fullbuild\\partitions.csv"
+[0m
+18:49:58.967001 [96mINIT --- : build stderr:[0m
+18:49:58.967001 [96mINIT --- : ��ʱ��Ӧ�� &��
+[0m
+18:49:58.967001 [96mINIT --- : error starting clang: error running compile: rpc error: code = Internal desc = exit status 1[0m
+18:49:58.967512 [92m                 textDocument/didOpen: [93mlocked (waiting clangd)[0m[0m
+18:49:58.967512 [92m                 textDocument/didOpen: clangd startup failed: quitting Language server[0m
+
+
+
+
+
+
+
+Started logging.
+18:54:39.838863 Language server launched with arguments:
+18:54:39.839370   arg[0] = c:\Users\zhulin\AppData\Local\Programs\Arduino IDE\resources\app\lib\backend\resources\arduino-language-server.exe
+18:54:39.839371   arg[1] = -clangd
+18:54:39.839371   arg[2] = c:\Users\zhulin\AppData\Local\Programs\Arduino IDE\resources\app\lib\backend\resources\clangd.exe
+18:54:39.839371   arg[3] = -cli-daemon-addr
+18:54:39.839371   arg[4] = localhost:53972
+18:54:39.839371   arg[5] = -cli-daemon-instance
+18:54:39.839371   arg[6] = 1
+18:54:39.839371   arg[7] = -fqbn
+18:54:39.839371   arg[8] = esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default
+18:54:39.839371   arg[9] = -skip-libraries-discovery-on-rebuild
+18:54:39.839371   arg[10] = -board-name
+18:54:39.839371   arg[11] = ESP32S3 Dev Module
+18:54:39.839371   arg[12] = -no-real-time-diagnostics
+18:54:39.839371   arg[13] = -log
+18:54:39.839371   arg[14] = -logpath
+18:54:39.839371   arg[15] = l:\BaiduNetdiskDownload\ESP32S3-Cam视觉模块\6.软件工具&程序合辑\4.固件及程序合辑\ESP32S3\人脸识别例程\FaceDetection
+18:54:39.839371 logging to l:\BaiduNetdiskDownload\ESP32S3-Cam视觉模块\6.软件工具&程序合辑\4.固件及程序合辑\ESP32S3\人脸识别例程\FaceDetection\inols.log
+18:54:39.840388 [97mLS: : Initial board configuration: esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default[0m
+18:54:39.840388 [97mLS: : arduino-language-server.exe Version: 0.0.0-git Commit:  Date: [0m
+18:54:39.840388 [97mLS: : Language server temp directory: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server1220244110[0m
+18:54:39.840388 [97mLS: : Language server build path: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server1220244110\build[0m
+18:54:39.840388 [97mLS: : Language server build sketch root: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server1220244110\build\sketch[0m
+18:54:39.840388 [97mLS: : Language server FULL build path: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server1220244110\fullbuild[0m
+18:54:39.840388 IN Elapsed: 0s
+18:54:39.840388 [92mIDE --> LS REQU initialize 0[0m
+18:54:39.840898 [92m                initialize 0: [93mwrite-locked[0m[0m
+18:54:39.841442 [92m                initialize 0: [93mwrite-unlocked[0m[0m
+18:54:39.841442 [96mINIT --- : initializing workbench: file:///l%3A/BaiduNetdiskDownload/ESP32S3-Cam%E8%A7%86%E8%A7%89%E6%A8%A1%E5%9D%97/6.%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7%26%E7%A8%8B%E5%BA%8F%E5%90%88%E8%BE%91/4.%E5%9B%BA%E4%BB%B6%E5%8F%8A%E7%A8%8B%E5%BA%8F%E5%90%88%E8%BE%91/ESP32S3/%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E4%BE%8B%E7%A8%8B/FaceDetection[0m
+18:54:39.841442 [96mINIT --- : [93mread-locked[0m[0m
+18:54:39.841442 [96mINIT --- : [93mread-unlocked[0m[0m
+18:54:39.841442 [92m                initialize 0: initialization parameters: {"capabilities":{"textDocumentSync":{"openClose":true,"change":2,"save":{"includeText":true}},"completionProvider":{"triggerCharacters":[".","\u003c","\u003e",":","\"","/"],"allCommitCharacters":[" ","\t","(",")","[","]","{","}","\u003c","\u003e",":",";",",","+","-","/","*","%","^","\u0026","#","?",".","=","\"","'","|"],"completionItem":{}},"hoverProvider":{},"signatureHelpProvider":{"triggerCharacters":["(",","]},"definitionProvider":{},"documentHighlightProvider":{},"documentSymbolProvider":{},"codeActionProvider":{"codeActionKinds":["quickfix","refactor","info"]},"documentFormattingProvider":{},"documentRangeFormattingProvider":{},"documentOnTypeFormattingProvider":{"firstTriggerCharacter":"\n"},"renameProvider":{},"executeCommandProvider":{"commands":["clangd.applyFix","clangd.applyTweak"]},"workspaceSymbolProvider":{}},"serverInfo":{"name":"arduino-language-server","version":"0.0.0-git"}}[0m
+18:54:39.841442 [32mIDE <-- LS RESP initialize 0[0m
+18:54:39.841944 OUT Elapsed: 502.7µs
+18:54:39.847016 [96mINIT --- : Running build with: {
+  "instance": {
+    "id": 1
+  },
+  "fqbn": "esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default",
+  "sketch_path": "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具\u0026程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection",
+  "build_path": "C:\\Users\\zhulin\\AppData\\Local\\Temp\\arduino-language-server1220244110\\fullbuild",
+  "verbose": true,
+  "create_compilation_database_only": true
+}[0m
+18:54:39.847016 IN Elapsed: 5.072ms
+18:54:39.847016 [92mIDE --> LS NOTIF initialized[0m
+18:54:39.847016 [92m                 initialized: Notification is not propagated to clangd[0m
+18:54:39.847016 IN Elapsed: 0s
+18:54:39.847016 [92mIDE --> LS NOTIF textDocument/didOpen[0m
+18:54:39.847519 [92m                 textDocument/didOpen: [93mwrite-locked[0m[0m
+18:54:39.847528 [92m                 textDocument/didOpen: (throttled: waiting for clangd)[0m
+18:54:39.847528 [92m                 textDocument/didOpen: [93munlocked (waiting clangd)[0m[0m
+18:54:40.559706 [96mINIT --- : build stdout:[0m
+18:54:40.559749 [96mINIT --- : FQBN: esp32:esp32:esp32s3
+Using board 'esp32s3' from platform in folder: C:\Users\zhulin\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.3.2
+Using core 'esp32' from platform in folder: C:\Users\zhulin\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.3.2
+
+cmd /c if exist "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具&程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection\\partitions.csv" COPY /y "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具&程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection\\partitions.csv" "C:\\Users\\zhulin\\AppData\\Local\\Temp\\arduino-language-server1220244110\\fullbuild\\partitions.csv"
+[0m
+18:54:40.559749 [96mINIT --- : build stderr:[0m
+18:54:40.559749 [96mINIT --- : ��ʱ��Ӧ�� &��
+[0m
+18:54:40.559749 [96mINIT --- : error starting clang: error running compile: rpc error: code = Internal desc = exit status 1[0m
+18:54:40.559749 [92m                 textDocument/didOpen: [93mlocked (waiting clangd)[0m[0m
+18:54:40.559749 [92m                 textDocument/didOpen: clangd startup failed: quitting Language server[0m
+
+
+
+
+
+
+
+Started logging.
+18:54:40.602340 Language server launched with arguments:
+18:54:40.602340   arg[0] = c:\Users\zhulin\AppData\Local\Programs\Arduino IDE\resources\app\lib\backend\resources\arduino-language-server.exe
+18:54:40.602340   arg[1] = -clangd
+18:54:40.602340   arg[2] = c:\Users\zhulin\AppData\Local\Programs\Arduino IDE\resources\app\lib\backend\resources\clangd.exe
+18:54:40.602340   arg[3] = -cli-daemon-addr
+18:54:40.602340   arg[4] = localhost:53972
+18:54:40.602340   arg[5] = -cli-daemon-instance
+18:54:40.602340   arg[6] = 1
+18:54:40.602340   arg[7] = -fqbn
+18:54:40.602340   arg[8] = esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default
+18:54:40.602340   arg[9] = -skip-libraries-discovery-on-rebuild
+18:54:40.602340   arg[10] = -board-name
+18:54:40.602340   arg[11] = ESP32S3 Dev Module
+18:54:40.602340   arg[12] = -no-real-time-diagnostics
+18:54:40.602340   arg[13] = -log
+18:54:40.602340   arg[14] = -logpath
+18:54:40.602340   arg[15] = l:\BaiduNetdiskDownload\ESP32S3-Cam视觉模块\6.软件工具&程序合辑\4.固件及程序合辑\ESP32S3\人脸识别例程\FaceDetection
+18:54:40.602340 logging to l:\BaiduNetdiskDownload\ESP32S3-Cam视觉模块\6.软件工具&程序合辑\4.固件及程序合辑\ESP32S3\人脸识别例程\FaceDetection\inols.log
+18:54:40.603358 [97mLS: : Initial board configuration: esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default[0m
+18:54:40.603358 [97mLS: : arduino-language-server.exe Version: 0.0.0-git Commit:  Date: [0m
+18:54:40.603358 [97mLS: : Language server temp directory: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server2256279416[0m
+18:54:40.603358 [97mLS: : Language server build path: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server2256279416\build[0m
+18:54:40.603358 [97mLS: : Language server build sketch root: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server2256279416\build\sketch[0m
+18:54:40.603358 [97mLS: : Language server FULL build path: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server2256279416\fullbuild[0m
+18:54:40.603866 IN Elapsed: 508.6µs
+18:54:40.603866 [92mIDE --> LS REQU initialize 0[0m
+18:54:40.604377 [92m                initialize 0: [93mwrite-locked[0m[0m
+18:54:40.604377 [92m                initialize 0: [93mwrite-unlocked[0m[0m
+18:54:40.604896 [96mINIT --- : initializing workbench: file:///l%3A/BaiduNetdiskDownload/ESP32S3-Cam%E8%A7%86%E8%A7%89%E6%A8%A1%E5%9D%97/6.%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7%26%E7%A8%8B%E5%BA%8F%E5%90%88%E8%BE%91/4.%E5%9B%BA%E4%BB%B6%E5%8F%8A%E7%A8%8B%E5%BA%8F%E5%90%88%E8%BE%91/ESP32S3/%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E4%BE%8B%E7%A8%8B/FaceDetection[0m
+18:54:40.604896 [96mINIT --- : [93mread-locked[0m[0m
+18:54:40.604896 [96mINIT --- : [93mread-unlocked[0m[0m
+18:54:40.604896 [92m                initialize 0: initialization parameters: {"capabilities":{"textDocumentSync":{"openClose":true,"change":2,"save":{"includeText":true}},"completionProvider":{"triggerCharacters":[".","\u003c","\u003e",":","\"","/"],"allCommitCharacters":[" ","\t","(",")","[","]","{","}","\u003c","\u003e",":",";",",","+","-","/","*","%","^","\u0026","#","?",".","=","\"","'","|"],"completionItem":{}},"hoverProvider":{},"signatureHelpProvider":{"triggerCharacters":["(",","]},"definitionProvider":{},"documentHighlightProvider":{},"documentSymbolProvider":{},"codeActionProvider":{"codeActionKinds":["quickfix","refactor","info"]},"documentFormattingProvider":{},"documentRangeFormattingProvider":{},"documentOnTypeFormattingProvider":{"firstTriggerCharacter":"\n"},"renameProvider":{},"executeCommandProvider":{"commands":["clangd.applyFix","clangd.applyTweak"]},"workspaceSymbolProvider":{}},"serverInfo":{"name":"arduino-language-server","version":"0.0.0-git"}}[0m
+18:54:40.604896 [32mIDE <-- LS RESP initialize 0[0m
+18:54:40.604896 OUT Elapsed: 0s
+18:54:40.606425 IN Elapsed: 1.529ms
+18:54:40.606425 [92mIDE --> LS NOTIF initialized[0m
+18:54:40.606425 [92m                 initialized: Notification is not propagated to clangd[0m
+18:54:40.606425 IN Elapsed: 0s
+18:54:40.606425 [92mIDE --> LS NOTIF textDocument/didOpen[0m
+18:54:40.606425 [92m                 textDocument/didOpen: [93mwrite-locked[0m[0m
+18:54:40.606425 [92m                 textDocument/didOpen: (throttled: waiting for clangd)[0m
+18:54:40.606425 [92m                 textDocument/didOpen: [93munlocked (waiting clangd)[0m[0m
+18:54:40.609744 [96mINIT --- : Running build with: {
+  "instance": {
+    "id": 1
+  },
+  "fqbn": "esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default",
+  "sketch_path": "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具\u0026程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection",
+  "build_path": "C:\\Users\\zhulin\\AppData\\Local\\Temp\\arduino-language-server2256279416\\fullbuild",
+  "verbose": true,
+  "create_compilation_database_only": true
+}[0m
+18:54:41.328213 [96mINIT --- : build stdout:[0m
+18:54:41.328213 [96mINIT --- : FQBN: esp32:esp32:esp32s3
+Using board 'esp32s3' from platform in folder: C:\Users\zhulin\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.3.2
+Using core 'esp32' from platform in folder: C:\Users\zhulin\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.3.2
+
+cmd /c if exist "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具&程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection\\partitions.csv" COPY /y "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具&程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection\\partitions.csv" "C:\\Users\\zhulin\\AppData\\Local\\Temp\\arduino-language-server2256279416\\fullbuild\\partitions.csv"
+[0m
+18:54:41.328213 [96mINIT --- : build stderr:[0m
+18:54:41.328213 [96mINIT --- : ��ʱ��Ӧ�� &��
+[0m
+18:54:41.328877 [96mINIT --- : error starting clang: error running compile: rpc error: code = Internal desc = exit status 1[0m
+18:54:41.328952 [92m                 textDocument/didOpen: [93mlocked (waiting clangd)[0m[0m
+18:54:41.328952 [92m                 textDocument/didOpen: clangd startup failed: quitting Language server[0m
+
+
+
+
+
+
+
+Started logging.
+18:54:41.359077 Language server launched with arguments:
+18:54:41.359077   arg[0] = c:\Users\zhulin\AppData\Local\Programs\Arduino IDE\resources\app\lib\backend\resources\arduino-language-server.exe
+18:54:41.359077   arg[1] = -clangd
+18:54:41.359077   arg[2] = c:\Users\zhulin\AppData\Local\Programs\Arduino IDE\resources\app\lib\backend\resources\clangd.exe
+18:54:41.359077   arg[3] = -cli-daemon-addr
+18:54:41.359077   arg[4] = localhost:53972
+18:54:41.359077   arg[5] = -cli-daemon-instance
+18:54:41.359077   arg[6] = 1
+18:54:41.359077   arg[7] = -fqbn
+18:54:41.359077   arg[8] = esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default
+18:54:41.359077   arg[9] = -skip-libraries-discovery-on-rebuild
+18:54:41.359077   arg[10] = -board-name
+18:54:41.359077   arg[11] = ESP32S3 Dev Module
+18:54:41.359077   arg[12] = -no-real-time-diagnostics
+18:54:41.359077   arg[13] = -log
+18:54:41.359077   arg[14] = -logpath
+18:54:41.359579   arg[15] = l:\BaiduNetdiskDownload\ESP32S3-Cam视觉模块\6.软件工具&程序合辑\4.固件及程序合辑\ESP32S3\人脸识别例程\FaceDetection
+18:54:41.359645 logging to l:\BaiduNetdiskDownload\ESP32S3-Cam视觉模块\6.软件工具&程序合辑\4.固件及程序合辑\ESP32S3\人脸识别例程\FaceDetection\inols.log
+18:54:41.360737 [97mLS: : Initial board configuration: esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default[0m
+18:54:41.360737 [97mLS: : arduino-language-server.exe Version: 0.0.0-git Commit:  Date: [0m
+18:54:41.360737 [97mLS: : Language server temp directory: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server3248173324[0m
+18:54:41.360737 [97mLS: : Language server build path: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server3248173324\build[0m
+18:54:41.360737 [97mLS: : Language server build sketch root: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server3248173324\build\sketch[0m
+18:54:41.360737 [97mLS: : Language server FULL build path: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server3248173324\fullbuild[0m
+18:54:41.360737 IN Elapsed: 0s
+18:54:41.361240 [92mIDE --> LS REQU initialize 0[0m
+18:54:41.361828 [92m                initialize 0: [93mwrite-locked[0m[0m
+18:54:41.361828 [92m                initialize 0: [93mwrite-unlocked[0m[0m
+18:54:41.361828 [96mINIT --- : initializing workbench: file:///l%3A/BaiduNetdiskDownload/ESP32S3-Cam%E8%A7%86%E8%A7%89%E6%A8%A1%E5%9D%97/6.%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7%26%E7%A8%8B%E5%BA%8F%E5%90%88%E8%BE%91/4.%E5%9B%BA%E4%BB%B6%E5%8F%8A%E7%A8%8B%E5%BA%8F%E5%90%88%E8%BE%91/ESP32S3/%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E4%BE%8B%E7%A8%8B/FaceDetection[0m
+18:54:41.361828 [96mINIT --- : [93mread-locked[0m[0m
+18:54:41.362331 [96mINIT --- : [93mread-unlocked[0m[0m
+18:54:41.362366 [92m                initialize 0: initialization parameters: {"capabilities":{"textDocumentSync":{"openClose":true,"change":2,"save":{"includeText":true}},"completionProvider":{"triggerCharacters":[".","\u003c","\u003e",":","\"","/"],"allCommitCharacters":[" ","\t","(",")","[","]","{","}","\u003c","\u003e",":",";",",","+","-","/","*","%","^","\u0026","#","?",".","=","\"","'","|"],"completionItem":{}},"hoverProvider":{},"signatureHelpProvider":{"triggerCharacters":["(",","]},"definitionProvider":{},"documentHighlightProvider":{},"documentSymbolProvider":{},"codeActionProvider":{"codeActionKinds":["quickfix","refactor","info"]},"documentFormattingProvider":{},"documentRangeFormattingProvider":{},"documentOnTypeFormattingProvider":{"firstTriggerCharacter":"\n"},"renameProvider":{},"executeCommandProvider":{"commands":["clangd.applyFix","clangd.applyTweak"]},"workspaceSymbolProvider":{}},"serverInfo":{"name":"arduino-language-server","version":"0.0.0-git"}}[0m
+18:54:41.362366 [32mIDE <-- LS RESP initialize 0[0m
+18:54:41.362366 OUT Elapsed: 0s
+18:54:41.363449 IN Elapsed: 1.0829ms
+18:54:41.363449 [92mIDE --> LS NOTIF initialized[0m
+18:54:41.363449 [92m                 initialized: Notification is not propagated to clangd[0m
+18:54:41.363449 IN Elapsed: 0s
+18:54:41.363449 [92mIDE --> LS NOTIF textDocument/didOpen[0m
+18:54:41.363952 [92m                 textDocument/didOpen: [93mwrite-locked[0m[0m
+18:54:41.363952 [92m                 textDocument/didOpen: (throttled: waiting for clangd)[0m
+18:54:41.363952 [92m                 textDocument/didOpen: [93munlocked (waiting clangd)[0m[0m
+18:54:41.367273 [96mINIT --- : Running build with: {
+  "instance": {
+    "id": 1
+  },
+  "fqbn": "esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default",
+  "sketch_path": "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具\u0026程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection",
+  "build_path": "C:\\Users\\zhulin\\AppData\\Local\\Temp\\arduino-language-server3248173324\\fullbuild",
+  "verbose": true,
+  "create_compilation_database_only": true
+}[0m
+18:54:42.067010 [96mINIT --- : build stdout:[0m
+18:54:42.067010 [96mINIT --- : FQBN: esp32:esp32:esp32s3
+Using board 'esp32s3' from platform in folder: C:\Users\zhulin\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.3.2
+Using core 'esp32' from platform in folder: C:\Users\zhulin\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.3.2
+
+cmd /c if exist "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具&程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection\\partitions.csv" COPY /y "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具&程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection\\partitions.csv" "C:\\Users\\zhulin\\AppData\\Local\\Temp\\arduino-language-server3248173324\\fullbuild\\partitions.csv"
+[0m
+18:54:42.067010 [96mINIT --- : build stderr:[0m
+18:54:42.067010 [96mINIT --- : ��ʱ��Ӧ�� &��
+[0m
+18:54:42.067010 [96mINIT --- : error starting clang: error running compile: rpc error: code = Internal desc = exit status 1[0m
+18:54:42.067010 [92m                 textDocument/didOpen: [93mlocked (waiting clangd)[0m[0m
+18:54:42.067010 [92m                 textDocument/didOpen: clangd startup failed: quitting Language server[0m
+
+
+
+
+
+
+
+Started logging.
+18:54:42.098838 Language server launched with arguments:
+18:54:42.098838   arg[0] = c:\Users\zhulin\AppData\Local\Programs\Arduino IDE\resources\app\lib\backend\resources\arduino-language-server.exe
+18:54:42.098838   arg[1] = -clangd
+18:54:42.098838   arg[2] = c:\Users\zhulin\AppData\Local\Programs\Arduino IDE\resources\app\lib\backend\resources\clangd.exe
+18:54:42.098838   arg[3] = -cli-daemon-addr
+18:54:42.098838   arg[4] = localhost:53972
+18:54:42.098838   arg[5] = -cli-daemon-instance
+18:54:42.098838   arg[6] = 1
+18:54:42.098838   arg[7] = -fqbn
+18:54:42.098838   arg[8] = esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default
+18:54:42.098838   arg[9] = -skip-libraries-discovery-on-rebuild
+18:54:42.098838   arg[10] = -board-name
+18:54:42.098838   arg[11] = ESP32S3 Dev Module
+18:54:42.098838   arg[12] = -no-real-time-diagnostics
+18:54:42.098838   arg[13] = -log
+18:54:42.098838   arg[14] = -logpath
+18:54:42.098838   arg[15] = l:\BaiduNetdiskDownload\ESP32S3-Cam视觉模块\6.软件工具&程序合辑\4.固件及程序合辑\ESP32S3\人脸识别例程\FaceDetection
+18:54:42.098838 logging to l:\BaiduNetdiskDownload\ESP32S3-Cam视觉模块\6.软件工具&程序合辑\4.固件及程序合辑\ESP32S3\人脸识别例程\FaceDetection\inols.log
+18:54:42.099944 [97mLS: : Initial board configuration: esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default[0m
+18:54:42.099944 [97mLS: : arduino-language-server.exe Version: 0.0.0-git Commit:  Date: [0m
+18:54:42.099944 [97mLS: : Language server temp directory: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server1222145679[0m
+18:54:42.099944 [97mLS: : Language server build path: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server1222145679\build[0m
+18:54:42.099944 [97mLS: : Language server build sketch root: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server1222145679\build\sketch[0m
+18:54:42.099944 [97mLS: : Language server FULL build path: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server1222145679\fullbuild[0m
+18:54:42.100454 IN Elapsed: 510.1µs
+18:54:42.100989 [92mIDE --> LS REQU initialize 0[0m
+18:54:42.101527 [92m                initialize 0: [93mwrite-locked[0m[0m
+18:54:42.101527 [92m                initialize 0: [93mwrite-unlocked[0m[0m
+18:54:42.102066 [96mINIT --- : initializing workbench: file:///l%3A/BaiduNetdiskDownload/ESP32S3-Cam%E8%A7%86%E8%A7%89%E6%A8%A1%E5%9D%97/6.%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7%26%E7%A8%8B%E5%BA%8F%E5%90%88%E8%BE%91/4.%E5%9B%BA%E4%BB%B6%E5%8F%8A%E7%A8%8B%E5%BA%8F%E5%90%88%E8%BE%91/ESP32S3/%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E4%BE%8B%E7%A8%8B/FaceDetection[0m
+18:54:42.102066 [96mINIT --- : [93mread-locked[0m[0m
+18:54:42.102066 [96mINIT --- : [93mread-unlocked[0m[0m
+18:54:42.102066 [92m                initialize 0: initialization parameters: {"capabilities":{"textDocumentSync":{"openClose":true,"change":2,"save":{"includeText":true}},"completionProvider":{"triggerCharacters":[".","\u003c","\u003e",":","\"","/"],"allCommitCharacters":[" ","\t","(",")","[","]","{","}","\u003c","\u003e",":",";",",","+","-","/","*","%","^","\u0026","#","?",".","=","\"","'","|"],"completionItem":{}},"hoverProvider":{},"signatureHelpProvider":{"triggerCharacters":["(",","]},"definitionProvider":{},"documentHighlightProvider":{},"documentSymbolProvider":{},"codeActionProvider":{"codeActionKinds":["quickfix","refactor","info"]},"documentFormattingProvider":{},"documentRangeFormattingProvider":{},"documentOnTypeFormattingProvider":{"firstTriggerCharacter":"\n"},"renameProvider":{},"executeCommandProvider":{"commands":["clangd.applyFix","clangd.applyTweak"]},"workspaceSymbolProvider":{}},"serverInfo":{"name":"arduino-language-server","version":"0.0.0-git"}}[0m
+18:54:42.102066 [32mIDE <-- LS RESP initialize 0[0m
+18:54:42.102066 OUT Elapsed: 0s
+18:54:42.103141 IN Elapsed: 1.0742ms
+18:54:42.103141 [92mIDE --> LS NOTIF initialized[0m
+18:54:42.103644 [92m                 initialized: Notification is not propagated to clangd[0m
+18:54:42.103644 IN Elapsed: 0s
+18:54:42.103678 [92mIDE --> LS NOTIF textDocument/didOpen[0m
+18:54:42.103678 [92m                 textDocument/didOpen: [93mwrite-locked[0m[0m
+18:54:42.103678 [92m                 textDocument/didOpen: (throttled: waiting for clangd)[0m
+18:54:42.103678 [92m                 textDocument/didOpen: [93munlocked (waiting clangd)[0m[0m
+18:54:42.106503 [96mINIT --- : Running build with: {
+  "instance": {
+    "id": 1
+  },
+  "fqbn": "esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default",
+  "sketch_path": "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具\u0026程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection",
+  "build_path": "C:\\Users\\zhulin\\AppData\\Local\\Temp\\arduino-language-server1222145679\\fullbuild",
+  "verbose": true,
+  "create_compilation_database_only": true
+}[0m
+18:54:42.810271 [96mINIT --- : build stdout:[0m
+18:54:42.810271 [96mINIT --- : FQBN: esp32:esp32:esp32s3
+Using board 'esp32s3' from platform in folder: C:\Users\zhulin\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.3.2
+Using core 'esp32' from platform in folder: C:\Users\zhulin\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.3.2
+
+cmd /c if exist "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具&程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection\\partitions.csv" COPY /y "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具&程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection\\partitions.csv" "C:\\Users\\zhulin\\AppData\\Local\\Temp\\arduino-language-server1222145679\\fullbuild\\partitions.csv"
+[0m
+18:54:42.810271 [96mINIT --- : build stderr:[0m
+18:54:42.810271 [96mINIT --- : ��ʱ��Ӧ�� &��
+[0m
+18:54:42.811095 [96mINIT --- : error starting clang: error running compile: rpc error: code = Internal desc = exit status 1[0m
+18:54:42.811095 [92m                 textDocument/didOpen: [93mlocked (waiting clangd)[0m[0m
+18:54:42.811095 [92m                 textDocument/didOpen: clangd startup failed: quitting Language server[0m
+
+
+
+
+
+
+
+Started logging.
+18:54:42.839594 Language server launched with arguments:
+18:54:42.839594   arg[0] = c:\Users\zhulin\AppData\Local\Programs\Arduino IDE\resources\app\lib\backend\resources\arduino-language-server.exe
+18:54:42.839955   arg[1] = -clangd
+18:54:42.839955   arg[2] = c:\Users\zhulin\AppData\Local\Programs\Arduino IDE\resources\app\lib\backend\resources\clangd.exe
+18:54:42.839955   arg[3] = -cli-daemon-addr
+18:54:42.839955   arg[4] = localhost:53972
+18:54:42.839955   arg[5] = -cli-daemon-instance
+18:54:42.839955   arg[6] = 1
+18:54:42.839955   arg[7] = -fqbn
+18:54:42.839955   arg[8] = esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default
+18:54:42.839955   arg[9] = -skip-libraries-discovery-on-rebuild
+18:54:42.839955   arg[10] = -board-name
+18:54:42.839955   arg[11] = ESP32S3 Dev Module
+18:54:42.839955   arg[12] = -no-real-time-diagnostics
+18:54:42.839955   arg[13] = -log
+18:54:42.839955   arg[14] = -logpath
+18:54:42.839955   arg[15] = l:\BaiduNetdiskDownload\ESP32S3-Cam视觉模块\6.软件工具&程序合辑\4.固件及程序合辑\ESP32S3\人脸识别例程\FaceDetection
+18:54:42.839955 logging to l:\BaiduNetdiskDownload\ESP32S3-Cam视觉模块\6.软件工具&程序合辑\4.固件及程序合辑\ESP32S3\人脸识别例程\FaceDetection\inols.log
+18:54:42.841011 [97mLS: : Initial board configuration: esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default[0m
+18:54:42.841011 [97mLS: : arduino-language-server.exe Version: 0.0.0-git Commit:  Date: [0m
+18:54:42.841011 [97mLS: : Language server temp directory: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server3147765897[0m
+18:54:42.841011 [97mLS: : Language server build path: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server3147765897\build[0m
+18:54:42.841011 [97mLS: : Language server build sketch root: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server3147765897\build\sketch[0m
+18:54:42.841011 [97mLS: : Language server FULL build path: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server3147765897\fullbuild[0m
+18:54:42.841011 IN Elapsed: 0s
+18:54:42.841573 [92mIDE --> LS REQU initialize 0[0m
+18:54:42.842099 [92m                initialize 0: [93mwrite-locked[0m[0m
+18:54:42.842099 [92m                initialize 0: [93mwrite-unlocked[0m[0m
+18:54:42.842602 [96mINIT --- : initializing workbench: file:///l%3A/BaiduNetdiskDownload/ESP32S3-Cam%E8%A7%86%E8%A7%89%E6%A8%A1%E5%9D%97/6.%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7%26%E7%A8%8B%E5%BA%8F%E5%90%88%E8%BE%91/4.%E5%9B%BA%E4%BB%B6%E5%8F%8A%E7%A8%8B%E5%BA%8F%E5%90%88%E8%BE%91/ESP32S3/%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E4%BE%8B%E7%A8%8B/FaceDetection[0m
+18:54:42.842638 [96mINIT --- : [93mread-locked[0m[0m
+18:54:42.842638 [96mINIT --- : [93mread-unlocked[0m[0m
+18:54:42.842638 [92m                initialize 0: initialization parameters: {"capabilities":{"textDocumentSync":{"openClose":true,"change":2,"save":{"includeText":true}},"completionProvider":{"triggerCharacters":[".","\u003c","\u003e",":","\"","/"],"allCommitCharacters":[" ","\t","(",")","[","]","{","}","\u003c","\u003e",":",";",",","+","-","/","*","%","^","\u0026","#","?",".","=","\"","'","|"],"completionItem":{}},"hoverProvider":{},"signatureHelpProvider":{"triggerCharacters":["(",","]},"definitionProvider":{},"documentHighlightProvider":{},"documentSymbolProvider":{},"codeActionProvider":{"codeActionKinds":["quickfix","refactor","info"]},"documentFormattingProvider":{},"documentRangeFormattingProvider":{},"documentOnTypeFormattingProvider":{"firstTriggerCharacter":"\n"},"renameProvider":{},"executeCommandProvider":{"commands":["clangd.applyFix","clangd.applyTweak"]},"workspaceSymbolProvider":{}},"serverInfo":{"name":"arduino-language-server","version":"0.0.0-git"}}[0m
+18:54:42.842638 [32mIDE <-- LS RESP initialize 0[0m
+18:54:42.842638 OUT Elapsed: 0s
+18:54:42.843711 IN Elapsed: 1.073ms
+18:54:42.843711 [92mIDE --> LS NOTIF initialized[0m
+18:54:42.843711 [92m                 initialized: Notification is not propagated to clangd[0m
+18:54:42.843711 IN Elapsed: 0s
+18:54:42.843711 [92mIDE --> LS NOTIF textDocument/didOpen[0m
+18:54:42.843711 [92m                 textDocument/didOpen: [93mwrite-locked[0m[0m
+18:54:42.844214 [92m                 textDocument/didOpen: (throttled: waiting for clangd)[0m
+18:54:42.844214 [92m                 textDocument/didOpen: [93munlocked (waiting clangd)[0m[0m
+18:54:42.847035 [96mINIT --- : Running build with: {
+  "instance": {
+    "id": 1
+  },
+  "fqbn": "esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default",
+  "sketch_path": "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具\u0026程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection",
+  "build_path": "C:\\Users\\zhulin\\AppData\\Local\\Temp\\arduino-language-server3147765897\\fullbuild",
+  "verbose": true,
+  "create_compilation_database_only": true
+}[0m
+18:54:43.565044 [96mINIT --- : build stdout:[0m
+18:54:43.565044 [96mINIT --- : FQBN: esp32:esp32:esp32s3
+Using board 'esp32s3' from platform in folder: C:\Users\zhulin\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.3.2
+Using core 'esp32' from platform in folder: C:\Users\zhulin\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.3.2
+
+cmd /c if exist "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具&程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection\\partitions.csv" COPY /y "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具&程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection\\partitions.csv" "C:\\Users\\zhulin\\AppData\\Local\\Temp\\arduino-language-server3147765897\\fullbuild\\partitions.csv"
+[0m
+18:54:43.565044 [96mINIT --- : build stderr:[0m
+18:54:43.565044 [96mINIT --- : ��ʱ��Ӧ�� &��
+[0m
+18:54:43.567246 [96mINIT --- : error starting clang: error running compile: rpc error: code = Internal desc = exit status 1[0m
+18:54:43.567246 [92m                 textDocument/didOpen: [93mlocked (waiting clangd)[0m[0m
+18:54:43.567246 [92m                 textDocument/didOpen: clangd startup failed: quitting Language server[0m
+
+
+
+
+
+
+
+Started logging.
+11:47:10.726326 Language server launched with arguments:
+11:47:10.726326   arg[0] = c:\Users\zhulin\AppData\Local\Programs\Arduino IDE\resources\app\lib\backend\resources\arduino-language-server.exe
+11:47:10.726326   arg[1] = -clangd
+11:47:10.726326   arg[2] = c:\Users\zhulin\AppData\Local\Programs\Arduino IDE\resources\app\lib\backend\resources\clangd.exe
+11:47:10.726326   arg[3] = -cli-daemon-addr
+11:47:10.726326   arg[4] = localhost:58438
+11:47:10.726326   arg[5] = -cli-daemon-instance
+11:47:10.726326   arg[6] = 1
+11:47:10.726326   arg[7] = -fqbn
+11:47:10.726326   arg[8] = esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default
+11:47:10.726326   arg[9] = -skip-libraries-discovery-on-rebuild
+11:47:10.726326   arg[10] = -board-name
+11:47:10.726326   arg[11] = ESP32S3 Dev Module
+11:47:10.726326   arg[12] = -no-real-time-diagnostics
+11:47:10.726326   arg[13] = -log
+11:47:10.726326   arg[14] = -logpath
+11:47:10.726326   arg[15] = l:\BaiduNetdiskDownload\ESP32S3-Cam视觉模块\6.软件工具&程序合辑\4.固件及程序合辑\ESP32S3\人脸识别例程\FaceDetection
+11:47:10.726326 logging to l:\BaiduNetdiskDownload\ESP32S3-Cam视觉模块\6.软件工具&程序合辑\4.固件及程序合辑\ESP32S3\人脸识别例程\FaceDetection\inols.log
+11:47:10.736805 [97mLS: : Initial board configuration: esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default[0m
+11:47:10.736805 [97mLS: : arduino-language-server.exe Version: 0.0.0-git Commit:  Date: [0m
+11:47:10.736805 [97mLS: : Language server temp directory: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server1113823227[0m
+11:47:10.736805 [97mLS: : Language server build path: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server1113823227\build[0m
+11:47:10.736805 [97mLS: : Language server build sketch root: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server1113823227\build\sketch[0m
+11:47:10.736805 [97mLS: : Language server FULL build path: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server1113823227\fullbuild[0m
+11:47:10.736805 IN Elapsed: 0s
+11:47:10.736805 [92mIDE --> LS REQU initialize 0[0m
+11:47:10.737637 [92m                initialize 0: [93mwrite-locked[0m[0m
+11:47:10.738632 [92m                initialize 0: [93mwrite-unlocked[0m[0m
+11:47:10.738632 [92m                initialize 0: initialization parameters: {"capabilities":{"textDocumentSync":{"openClose":true,"change":2,"save":{"includeText":true}},"completionProvider":{"triggerCharacters":[".","\u003c","\u003e",":","\"","/"],"allCommitCharacters":[" ","\t","(",")","[","]","{","}","\u003c","\u003e",":",";",",","+","-","/","*","%","^","\u0026","#","?",".","=","\"","'","|"],"completionItem":{}},"hoverProvider":{},"signatureHelpProvider":{"triggerCharacters":["(",","]},"definitionProvider":{},"documentHighlightProvider":{},"documentSymbolProvider":{},"codeActionProvider":{"codeActionKinds":["quickfix","refactor","info"]},"documentFormattingProvider":{},"documentRangeFormattingProvider":{},"documentOnTypeFormattingProvider":{"firstTriggerCharacter":"\n"},"renameProvider":{},"executeCommandProvider":{"commands":["clangd.applyFix","clangd.applyTweak"]},"workspaceSymbolProvider":{}},"serverInfo":{"name":"arduino-language-server","version":"0.0.0-git"}}[0m
+11:47:10.738632 [32mIDE <-- LS RESP initialize 0[0m
+11:47:10.738632 OUT Elapsed: 0s
+11:47:10.738632 [96mINIT --- : initializing workbench: file:///l%3A/BaiduNetdiskDownload/ESP32S3-Cam%E8%A7%86%E8%A7%89%E6%A8%A1%E5%9D%97/6.%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7%26%E7%A8%8B%E5%BA%8F%E5%90%88%E8%BE%91/4.%E5%9B%BA%E4%BB%B6%E5%8F%8A%E7%A8%8B%E5%BA%8F%E5%90%88%E8%BE%91/ESP32S3/%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E4%BE%8B%E7%A8%8B/FaceDetection[0m
+11:47:10.738632 [96mINIT --- : [93mread-locked[0m[0m
+11:47:10.738632 [96mINIT --- : [93mread-unlocked[0m[0m
+11:47:10.740628 [96mINIT --- : Running build with: {
+  "instance": {
+    "id": 1
+  },
+  "fqbn": "esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default",
+  "sketch_path": "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具\u0026程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection",
+  "build_path": "C:\\Users\\zhulin\\AppData\\Local\\Temp\\arduino-language-server1113823227\\fullbuild",
+  "verbose": true,
+  "create_compilation_database_only": true
+}[0m
+11:47:10.747161 IN Elapsed: 8.5297ms
+11:47:10.747680 [92mIDE --> LS NOTIF initialized[0m
+11:47:10.747680 [92m                 initialized: Notification is not propagated to clangd[0m
+11:47:10.747680 IN Elapsed: 0s
+11:47:10.747680 [92mIDE --> LS NOTIF textDocument/didOpen[0m
+11:47:10.747680 [92m                 textDocument/didOpen: [93mwrite-locked[0m[0m
+11:47:10.747680 [92m                 textDocument/didOpen: (throttled: waiting for clangd)[0m
+11:47:10.747680 [92m                 textDocument/didOpen: [93munlocked (waiting clangd)[0m[0m
+11:47:11.634048 [96mINIT --- : build stdout:[0m
+11:47:11.634048 [96mINIT --- : FQBN: esp32:esp32:esp32s3
+Using board 'esp32s3' from platform in folder: C:\Users\zhulin\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.3.2
+Using core 'esp32' from platform in folder: C:\Users\zhulin\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.3.2
+
+cmd /c if exist "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具&程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection\\partitions.csv" COPY /y "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具&程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection\\partitions.csv" "C:\\Users\\zhulin\\AppData\\Local\\Temp\\arduino-language-server1113823227\\fullbuild\\partitions.csv"
+[0m
+11:47:11.634048 [96mINIT --- : build stderr:[0m
+11:47:11.634048 [96mINIT --- : ��ʱ��Ӧ�� &��
+[0m
+11:47:11.634048 [96mINIT --- : error starting clang: error running compile: rpc error: code = Internal desc = exit status 1[0m
+11:47:11.634048 [92m                 textDocument/didOpen: [93mlocked (waiting clangd)[0m[0m
+11:47:11.634048 [92m                 textDocument/didOpen: clangd startup failed: quitting Language server[0m
+
+
+
+
+
+
+
+Started logging.
+11:47:11.695677 Language server launched with arguments:
+11:47:11.696185   arg[0] = c:\Users\zhulin\AppData\Local\Programs\Arduino IDE\resources\app\lib\backend\resources\arduino-language-server.exe
+11:47:11.696192   arg[1] = -clangd
+11:47:11.696192   arg[2] = c:\Users\zhulin\AppData\Local\Programs\Arduino IDE\resources\app\lib\backend\resources\clangd.exe
+11:47:11.696192   arg[3] = -cli-daemon-addr
+11:47:11.696192   arg[4] = localhost:58438
+11:47:11.696192   arg[5] = -cli-daemon-instance
+11:47:11.696192   arg[6] = 1
+11:47:11.696192   arg[7] = -fqbn
+11:47:11.696192   arg[8] = esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default
+11:47:11.696192   arg[9] = -skip-libraries-discovery-on-rebuild
+11:47:11.696192   arg[10] = -board-name
+11:47:11.696192   arg[11] = ESP32S3 Dev Module
+11:47:11.696192   arg[12] = -no-real-time-diagnostics
+11:47:11.696192   arg[13] = -log
+11:47:11.696192   arg[14] = -logpath
+11:47:11.696192   arg[15] = l:\BaiduNetdiskDownload\ESP32S3-Cam视觉模块\6.软件工具&程序合辑\4.固件及程序合辑\ESP32S3\人脸识别例程\FaceDetection
+11:47:11.696192 logging to l:\BaiduNetdiskDownload\ESP32S3-Cam视觉模块\6.软件工具&程序合辑\4.固件及程序合辑\ESP32S3\人脸识别例程\FaceDetection\inols.log
+11:47:11.697213 [97mLS: : Initial board configuration: esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default[0m
+11:47:11.697213 [97mLS: : arduino-language-server.exe Version: 0.0.0-git Commit:  Date: [0m
+11:47:11.697213 [97mLS: : Language server temp directory: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server3148337394[0m
+11:47:11.697213 [97mLS: : Language server build path: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server3148337394\build[0m
+11:47:11.697213 [97mLS: : Language server build sketch root: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server3148337394\build\sketch[0m
+11:47:11.697213 [97mLS: : Language server FULL build path: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server3148337394\fullbuild[0m
+11:47:11.697729 IN Elapsed: 0s
+11:47:11.697729 [92mIDE --> LS REQU initialize 0[0m
+11:47:11.698747 [92m                initialize 0: [93mwrite-locked[0m[0m
+11:47:11.698747 [92m                initialize 0: [93mwrite-unlocked[0m[0m
+11:47:11.699264 [96mINIT --- : initializing workbench: file:///l%3A/BaiduNetdiskDownload/ESP32S3-Cam%E8%A7%86%E8%A7%89%E6%A8%A1%E5%9D%97/6.%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7%26%E7%A8%8B%E5%BA%8F%E5%90%88%E8%BE%91/4.%E5%9B%BA%E4%BB%B6%E5%8F%8A%E7%A8%8B%E5%BA%8F%E5%90%88%E8%BE%91/ESP32S3/%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E4%BE%8B%E7%A8%8B/FaceDetection[0m
+11:47:11.699273 [96mINIT --- : [93mread-locked[0m[0m
+11:47:11.699273 [96mINIT --- : [93mread-unlocked[0m[0m
+11:47:11.699273 [92m                initialize 0: initialization parameters: {"capabilities":{"textDocumentSync":{"openClose":true,"change":2,"save":{"includeText":true}},"completionProvider":{"triggerCharacters":[".","\u003c","\u003e",":","\"","/"],"allCommitCharacters":[" ","\t","(",")","[","]","{","}","\u003c","\u003e",":",";",",","+","-","/","*","%","^","\u0026","#","?",".","=","\"","'","|"],"completionItem":{}},"hoverProvider":{},"signatureHelpProvider":{"triggerCharacters":["(",","]},"definitionProvider":{},"documentHighlightProvider":{},"documentSymbolProvider":{},"codeActionProvider":{"codeActionKinds":["quickfix","refactor","info"]},"documentFormattingProvider":{},"documentRangeFormattingProvider":{},"documentOnTypeFormattingProvider":{"firstTriggerCharacter":"\n"},"renameProvider":{},"executeCommandProvider":{"commands":["clangd.applyFix","clangd.applyTweak"]},"workspaceSymbolProvider":{}},"serverInfo":{"name":"arduino-language-server","version":"0.0.0-git"}}[0m
+11:47:11.699273 [32mIDE <-- LS RESP initialize 0[0m
+11:47:11.699273 OUT Elapsed: 0s
+11:47:11.701360 IN Elapsed: 1.5356ms
+11:47:11.701360 [92mIDE --> LS NOTIF initialized[0m
+11:47:11.701360 [92m                 initialized: Notification is not propagated to clangd[0m
+11:47:11.701360 IN Elapsed: 0s
+11:47:11.701360 [92mIDE --> LS NOTIF textDocument/didOpen[0m
+11:47:11.701360 [92m                 textDocument/didOpen: [93mwrite-locked[0m[0m
+11:47:11.701360 [92m                 textDocument/didOpen: (throttled: waiting for clangd)[0m
+11:47:11.701360 [92m                 textDocument/didOpen: [93munlocked (waiting clangd)[0m[0m
+11:47:11.705128 [96mINIT --- : Running build with: {
+  "instance": {
+    "id": 1
+  },
+  "fqbn": "esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default",
+  "sketch_path": "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具\u0026程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection",
+  "build_path": "C:\\Users\\zhulin\\AppData\\Local\\Temp\\arduino-language-server3148337394\\fullbuild",
+  "verbose": true,
+  "create_compilation_database_only": true
+}[0m
+11:47:12.496926 [96mINIT --- : build stdout:[0m
+11:47:12.497432 [96mINIT --- : FQBN: esp32:esp32:esp32s3
+Using board 'esp32s3' from platform in folder: C:\Users\zhulin\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.3.2
+Using core 'esp32' from platform in folder: C:\Users\zhulin\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.3.2
+
+cmd /c if exist "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具&程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection\\partitions.csv" COPY /y "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具&程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection\\partitions.csv" "C:\\Users\\zhulin\\AppData\\Local\\Temp\\arduino-language-server3148337394\\fullbuild\\partitions.csv"
+[0m
+11:47:12.497477 [96mINIT --- : build stderr:[0m
+11:47:12.497477 [96mINIT --- : ��ʱ��Ӧ�� &��
+[0m
+11:47:12.497988 [96mINIT --- : error starting clang: error running compile: rpc error: code = Internal desc = exit status 1[0m
+11:47:12.497988 [92m                 textDocument/didOpen: [93mlocked (waiting clangd)[0m[0m
+11:47:12.497988 [92m                 textDocument/didOpen: clangd startup failed: quitting Language server[0m
+
+
+
+
+
+
+
+Started logging.
+11:47:12.528968 Language server launched with arguments:
+11:47:12.528968   arg[0] = c:\Users\zhulin\AppData\Local\Programs\Arduino IDE\resources\app\lib\backend\resources\arduino-language-server.exe
+11:47:12.528968   arg[1] = -clangd
+11:47:12.528968   arg[2] = c:\Users\zhulin\AppData\Local\Programs\Arduino IDE\resources\app\lib\backend\resources\clangd.exe
+11:47:12.528968   arg[3] = -cli-daemon-addr
+11:47:12.528968   arg[4] = localhost:58438
+11:47:12.528968   arg[5] = -cli-daemon-instance
+11:47:12.528968   arg[6] = 1
+11:47:12.528968   arg[7] = -fqbn
+11:47:12.528968   arg[8] = esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default
+11:47:12.528968   arg[9] = -skip-libraries-discovery-on-rebuild
+11:47:12.528968   arg[10] = -board-name
+11:47:12.528968   arg[11] = ESP32S3 Dev Module
+11:47:12.528968   arg[12] = -no-real-time-diagnostics
+11:47:12.528968   arg[13] = -log
+11:47:12.528968   arg[14] = -logpath
+11:47:12.528968   arg[15] = l:\BaiduNetdiskDownload\ESP32S3-Cam视觉模块\6.软件工具&程序合辑\4.固件及程序合辑\ESP32S3\人脸识别例程\FaceDetection
+11:47:12.528968 logging to l:\BaiduNetdiskDownload\ESP32S3-Cam视觉模块\6.软件工具&程序合辑\4.固件及程序合辑\ESP32S3\人脸识别例程\FaceDetection\inols.log
+11:47:12.530508 [97mLS: : Initial board configuration: esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default[0m
+11:47:12.530508 [97mLS: : arduino-language-server.exe Version: 0.0.0-git Commit:  Date: [0m
+11:47:12.530508 [97mLS: : Language server temp directory: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server1222651625[0m
+11:47:12.530508 [97mLS: : Language server build path: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server1222651625\build[0m
+11:47:12.530508 [97mLS: : Language server build sketch root: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server1222651625\build\sketch[0m
+11:47:12.530508 [97mLS: : Language server FULL build path: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server1222651625\fullbuild[0m
+11:47:12.530508 IN Elapsed: 0s
+11:47:12.530508 [92mIDE --> LS REQU initialize 0[0m
+11:47:12.531529 [92m                initialize 0: [93mwrite-locked[0m[0m
+11:47:12.531529 [92m                initialize 0: [93mwrite-unlocked[0m[0m
+11:47:12.532039 [96mINIT --- : initializing workbench: file:///l%3A/BaiduNetdiskDownload/ESP32S3-Cam%E8%A7%86%E8%A7%89%E6%A8%A1%E5%9D%97/6.%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7%26%E7%A8%8B%E5%BA%8F%E5%90%88%E8%BE%91/4.%E5%9B%BA%E4%BB%B6%E5%8F%8A%E7%A8%8B%E5%BA%8F%E5%90%88%E8%BE%91/ESP32S3/%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E4%BE%8B%E7%A8%8B/FaceDetection[0m
+11:47:12.532039 [96mINIT --- : [93mread-locked[0m[0m
+11:47:12.532039 [96mINIT --- : [93mread-unlocked[0m[0m
+11:47:12.532039 [92m                initialize 0: initialization parameters: {"capabilities":{"textDocumentSync":{"openClose":true,"change":2,"save":{"includeText":true}},"completionProvider":{"triggerCharacters":[".","\u003c","\u003e",":","\"","/"],"allCommitCharacters":[" ","\t","(",")","[","]","{","}","\u003c","\u003e",":",";",",","+","-","/","*","%","^","\u0026","#","?",".","=","\"","'","|"],"completionItem":{}},"hoverProvider":{},"signatureHelpProvider":{"triggerCharacters":["(",","]},"definitionProvider":{},"documentHighlightProvider":{},"documentSymbolProvider":{},"codeActionProvider":{"codeActionKinds":["quickfix","refactor","info"]},"documentFormattingProvider":{},"documentRangeFormattingProvider":{},"documentOnTypeFormattingProvider":{"firstTriggerCharacter":"\n"},"renameProvider":{},"executeCommandProvider":{"commands":["clangd.applyFix","clangd.applyTweak"]},"workspaceSymbolProvider":{}},"serverInfo":{"name":"arduino-language-server","version":"0.0.0-git"}}[0m
+11:47:12.532039 [32mIDE <-- LS RESP initialize 0[0m
+11:47:12.532039 OUT Elapsed: 0s
+11:47:12.533597 IN Elapsed: 1.558ms
+11:47:12.533597 [92mIDE --> LS NOTIF initialized[0m
+11:47:12.533597 [92m                 initialized: Notification is not propagated to clangd[0m
+11:47:12.533597 IN Elapsed: 0s
+11:47:12.533597 [92mIDE --> LS NOTIF textDocument/didOpen[0m
+11:47:12.533597 [92m                 textDocument/didOpen: [93mwrite-locked[0m[0m
+11:47:12.533597 [92m                 textDocument/didOpen: (throttled: waiting for clangd)[0m
+11:47:12.533597 [92m                 textDocument/didOpen: [93munlocked (waiting clangd)[0m[0m
+11:47:12.537314 [96mINIT --- : Running build with: {
+  "instance": {
+    "id": 1
+  },
+  "fqbn": "esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default",
+  "sketch_path": "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具\u0026程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection",
+  "build_path": "C:\\Users\\zhulin\\AppData\\Local\\Temp\\arduino-language-server1222651625\\fullbuild",
+  "verbose": true,
+  "create_compilation_database_only": true
+}[0m
+11:47:13.360267 [96mINIT --- : build stdout:[0m
+11:47:13.360267 [96mINIT --- : FQBN: esp32:esp32:esp32s3
+Using board 'esp32s3' from platform in folder: C:\Users\zhulin\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.3.2
+Using core 'esp32' from platform in folder: C:\Users\zhulin\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.3.2
+
+cmd /c if exist "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具&程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection\\partitions.csv" COPY /y "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具&程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection\\partitions.csv" "C:\\Users\\zhulin\\AppData\\Local\\Temp\\arduino-language-server1222651625\\fullbuild\\partitions.csv"
+[0m
+11:47:13.360267 [96mINIT --- : build stderr:[0m
+11:47:13.360267 [96mINIT --- : ��ʱ��Ӧ�� &��
+[0m
+11:47:13.360830 [96mINIT --- : error starting clang: error running compile: rpc error: code = Internal desc = exit status 1[0m
+11:47:13.360838 [92m                 textDocument/didOpen: [93mlocked (waiting clangd)[0m[0m
+11:47:13.360838 [92m                 textDocument/didOpen: clangd startup failed: quitting Language server[0m
+
+
+
+
+
+
+
+Started logging.
+11:47:13.394940 Language server launched with arguments:
+11:47:13.394940   arg[0] = c:\Users\zhulin\AppData\Local\Programs\Arduino IDE\resources\app\lib\backend\resources\arduino-language-server.exe
+11:47:13.394940   arg[1] = -clangd
+11:47:13.394940   arg[2] = c:\Users\zhulin\AppData\Local\Programs\Arduino IDE\resources\app\lib\backend\resources\clangd.exe
+11:47:13.394940   arg[3] = -cli-daemon-addr
+11:47:13.401328   arg[4] = localhost:58438
+11:47:13.401328   arg[5] = -cli-daemon-instance
+11:47:13.401328   arg[6] = 1
+11:47:13.401328   arg[7] = -fqbn
+11:47:13.401328   arg[8] = esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default
+11:47:13.401328   arg[9] = -skip-libraries-discovery-on-rebuild
+11:47:13.401328   arg[10] = -board-name
+11:47:13.401328   arg[11] = ESP32S3 Dev Module
+11:47:13.401328   arg[12] = -no-real-time-diagnostics
+11:47:13.401328   arg[13] = -log
+11:47:13.401328   arg[14] = -logpath
+11:47:13.401328   arg[15] = l:\BaiduNetdiskDownload\ESP32S3-Cam视觉模块\6.软件工具&程序合辑\4.固件及程序合辑\ESP32S3\人脸识别例程\FaceDetection
+11:47:13.401832 logging to l:\BaiduNetdiskDownload\ESP32S3-Cam视觉模块\6.软件工具&程序合辑\4.固件及程序合辑\ESP32S3\人脸识别例程\FaceDetection\inols.log
+11:47:13.402895 [97mLS: : Initial board configuration: esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default[0m
+11:47:13.402895 [97mLS: : arduino-language-server.exe Version: 0.0.0-git Commit:  Date: [0m
+11:47:13.402895 [97mLS: : Language server temp directory: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server1508315739[0m
+11:47:13.402895 [97mLS: : Language server build path: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server1508315739\build[0m
+11:47:13.402895 [97mLS: : Language server build sketch root: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server1508315739\build\sketch[0m
+11:47:13.402895 [97mLS: : Language server FULL build path: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server1508315739\fullbuild[0m
+11:47:13.402895 IN Elapsed: 0s
+11:47:13.402895 [92mIDE --> LS REQU initialize 0[0m
+11:47:13.403405 [92m                initialize 0: [93mwrite-locked[0m[0m
+11:47:13.403911 [92m                initialize 0: [93mwrite-unlocked[0m[0m
+11:47:13.403911 [96mINIT --- : initializing workbench: file:///l%3A/BaiduNetdiskDownload/ESP32S3-Cam%E8%A7%86%E8%A7%89%E6%A8%A1%E5%9D%97/6.%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7%26%E7%A8%8B%E5%BA%8F%E5%90%88%E8%BE%91/4.%E5%9B%BA%E4%BB%B6%E5%8F%8A%E7%A8%8B%E5%BA%8F%E5%90%88%E8%BE%91/ESP32S3/%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E4%BE%8B%E7%A8%8B/FaceDetection[0m
+11:47:13.403911 [96mINIT --- : [93mread-locked[0m[0m
+11:47:13.403911 [96mINIT --- : [93mread-unlocked[0m[0m
+11:47:13.404421 [92m                initialize 0: initialization parameters: {"capabilities":{"textDocumentSync":{"openClose":true,"change":2,"save":{"includeText":true}},"completionProvider":{"triggerCharacters":[".","\u003c","\u003e",":","\"","/"],"allCommitCharacters":[" ","\t","(",")","[","]","{","}","\u003c","\u003e",":",";",",","+","-","/","*","%","^","\u0026","#","?",".","=","\"","'","|"],"completionItem":{}},"hoverProvider":{},"signatureHelpProvider":{"triggerCharacters":["(",","]},"definitionProvider":{},"documentHighlightProvider":{},"documentSymbolProvider":{},"codeActionProvider":{"codeActionKinds":["quickfix","refactor","info"]},"documentFormattingProvider":{},"documentRangeFormattingProvider":{},"documentOnTypeFormattingProvider":{"firstTriggerCharacter":"\n"},"renameProvider":{},"executeCommandProvider":{"commands":["clangd.applyFix","clangd.applyTweak"]},"workspaceSymbolProvider":{}},"serverInfo":{"name":"arduino-language-server","version":"0.0.0-git"}}[0m
+11:47:13.404421 [32mIDE <-- LS RESP initialize 0[0m
+11:47:13.404421 OUT Elapsed: 0s
+11:47:13.405441 IN Elapsed: 1.0199ms
+11:47:13.405441 [92mIDE --> LS NOTIF initialized[0m
+11:47:13.405441 [92m                 initialized: Notification is not propagated to clangd[0m
+11:47:13.405948 IN Elapsed: 506.5µs
+11:47:13.405958 [92mIDE --> LS NOTIF textDocument/didOpen[0m
+11:47:13.405958 [92m                 textDocument/didOpen: [93mwrite-locked[0m[0m
+11:47:13.405958 [92m                 textDocument/didOpen: (throttled: waiting for clangd)[0m
+11:47:13.405958 [92m                 textDocument/didOpen: [93munlocked (waiting clangd)[0m[0m
+11:47:13.405958 [96mINIT --- : Running build with: {
+  "instance": {
+    "id": 1
+  },
+  "fqbn": "esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default",
+  "sketch_path": "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具\u0026程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection",
+  "build_path": "C:\\Users\\zhulin\\AppData\\Local\\Temp\\arduino-language-server1508315739\\fullbuild",
+  "verbose": true,
+  "create_compilation_database_only": true
+}[0m
+11:47:14.245047 [96mINIT --- : build stdout:[0m
+11:47:14.245047 [96mINIT --- : FQBN: esp32:esp32:esp32s3
+Using board 'esp32s3' from platform in folder: C:\Users\zhulin\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.3.2
+Using core 'esp32' from platform in folder: C:\Users\zhulin\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.3.2
+
+cmd /c if exist "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具&程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection\\partitions.csv" COPY /y "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具&程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection\\partitions.csv" "C:\\Users\\zhulin\\AppData\\Local\\Temp\\arduino-language-server1508315739\\fullbuild\\partitions.csv"
+[0m
+11:47:14.245047 [96mINIT --- : build stderr:[0m
+11:47:14.245047 [96mINIT --- : ��ʱ��Ӧ�� &��
+[0m
+11:47:14.245587 [96mINIT --- : error starting clang: error running compile: rpc error: code = Internal desc = exit status 1[0m
+11:47:14.245587 [92m                 textDocument/didOpen: [93mlocked (waiting clangd)[0m[0m
+11:47:14.245587 [92m                 textDocument/didOpen: clangd startup failed: quitting Language server[0m
+
+
+
+
+
+
+
+Started logging.
+11:47:14.276683 Language server launched with arguments:
+11:47:14.276683   arg[0] = c:\Users\zhulin\AppData\Local\Programs\Arduino IDE\resources\app\lib\backend\resources\arduino-language-server.exe
+11:47:14.276683   arg[1] = -clangd
+11:47:14.276683   arg[2] = c:\Users\zhulin\AppData\Local\Programs\Arduino IDE\resources\app\lib\backend\resources\clangd.exe
+11:47:14.276683   arg[3] = -cli-daemon-addr
+11:47:14.276683   arg[4] = localhost:58438
+11:47:14.276683   arg[5] = -cli-daemon-instance
+11:47:14.276683   arg[6] = 1
+11:47:14.276683   arg[7] = -fqbn
+11:47:14.276683   arg[8] = esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default
+11:47:14.276683   arg[9] = -skip-libraries-discovery-on-rebuild
+11:47:14.276683   arg[10] = -board-name
+11:47:14.276683   arg[11] = ESP32S3 Dev Module
+11:47:14.276683   arg[12] = -no-real-time-diagnostics
+11:47:14.276683   arg[13] = -log
+11:47:14.276683   arg[14] = -logpath
+11:47:14.276683   arg[15] = l:\BaiduNetdiskDownload\ESP32S3-Cam视觉模块\6.软件工具&程序合辑\4.固件及程序合辑\ESP32S3\人脸识别例程\FaceDetection
+11:47:14.276683 logging to l:\BaiduNetdiskDownload\ESP32S3-Cam视觉模块\6.软件工具&程序合辑\4.固件及程序合辑\ESP32S3\人脸识别例程\FaceDetection\inols.log
+11:47:14.277706 [97mLS: : Initial board configuration: esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default[0m
+11:47:14.278216 [97mLS: : arduino-language-server.exe Version: 0.0.0-git Commit:  Date: [0m
+11:47:14.278216 [97mLS: : Language server temp directory: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server2296977561[0m
+11:47:14.278216 [97mLS: : Language server build path: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server2296977561\build[0m
+11:47:14.278216 [97mLS: : Language server build sketch root: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server2296977561\build\sketch[0m
+11:47:14.278216 [97mLS: : Language server FULL build path: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server2296977561\fullbuild[0m
+11:47:14.278216 IN Elapsed: 0s
+11:47:14.278216 [92mIDE --> LS REQU initialize 0[0m
+11:47:14.278727 [92m                initialize 0: [93mwrite-locked[0m[0m
+11:47:14.279238 [92m                initialize 0: [93mwrite-unlocked[0m[0m
+11:47:14.279238 [96mINIT --- : initializing workbench: file:///l%3A/BaiduNetdiskDownload/ESP32S3-Cam%E8%A7%86%E8%A7%89%E6%A8%A1%E5%9D%97/6.%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7%26%E7%A8%8B%E5%BA%8F%E5%90%88%E8%BE%91/4.%E5%9B%BA%E4%BB%B6%E5%8F%8A%E7%A8%8B%E5%BA%8F%E5%90%88%E8%BE%91/ESP32S3/%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E4%BE%8B%E7%A8%8B/FaceDetection[0m
+11:47:14.279238 [96mINIT --- : [93mread-locked[0m[0m
+11:47:14.279238 [96mINIT --- : [93mread-unlocked[0m[0m
+11:47:14.279750 [92m                initialize 0: initialization parameters: {"capabilities":{"textDocumentSync":{"openClose":true,"change":2,"save":{"includeText":true}},"completionProvider":{"triggerCharacters":[".","\u003c","\u003e",":","\"","/"],"allCommitCharacters":[" ","\t","(",")","[","]","{","}","\u003c","\u003e",":",";",",","+","-","/","*","%","^","\u0026","#","?",".","=","\"","'","|"],"completionItem":{}},"hoverProvider":{},"signatureHelpProvider":{"triggerCharacters":["(",","]},"definitionProvider":{},"documentHighlightProvider":{},"documentSymbolProvider":{},"codeActionProvider":{"codeActionKinds":["quickfix","refactor","info"]},"documentFormattingProvider":{},"documentRangeFormattingProvider":{},"documentOnTypeFormattingProvider":{"firstTriggerCharacter":"\n"},"renameProvider":{},"executeCommandProvider":{"commands":["clangd.applyFix","clangd.applyTweak"]},"workspaceSymbolProvider":{}},"serverInfo":{"name":"arduino-language-server","version":"0.0.0-git"}}[0m
+11:47:14.279750 [32mIDE <-- LS RESP initialize 0[0m
+11:47:14.279750 OUT Elapsed: 0s
+11:47:14.280771 IN Elapsed: 1.021ms
+11:47:14.280771 [92mIDE --> LS NOTIF initialized[0m
+11:47:14.280771 [92m                 initialized: Notification is not propagated to clangd[0m
+11:47:14.280771 IN Elapsed: 0s
+11:47:14.280771 [92mIDE --> LS NOTIF textDocument/didOpen[0m
+11:47:14.280771 [92m                 textDocument/didOpen: [93mwrite-locked[0m[0m
+11:47:14.280771 [92m                 textDocument/didOpen: (throttled: waiting for clangd)[0m
+11:47:14.280771 [92m                 textDocument/didOpen: [93munlocked (waiting clangd)[0m[0m
+11:47:14.284393 [96mINIT --- : Running build with: {
+  "instance": {
+    "id": 1
+  },
+  "fqbn": "esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default",
+  "sketch_path": "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具\u0026程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection",
+  "build_path": "C:\\Users\\zhulin\\AppData\\Local\\Temp\\arduino-language-server2296977561\\fullbuild",
+  "verbose": true,
+  "create_compilation_database_only": true
+}[0m
+11:47:15.133383 [96mINIT --- : build stdout:[0m
+11:47:15.133383 [96mINIT --- : FQBN: esp32:esp32:esp32s3
+Using board 'esp32s3' from platform in folder: C:\Users\zhulin\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.3.2
+Using core 'esp32' from platform in folder: C:\Users\zhulin\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.3.2
+
+cmd /c if exist "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具&程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection\\partitions.csv" COPY /y "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具&程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection\\partitions.csv" "C:\\Users\\zhulin\\AppData\\Local\\Temp\\arduino-language-server2296977561\\fullbuild\\partitions.csv"
+[0m
+11:47:15.133383 [96mINIT --- : build stderr:[0m
+11:47:15.133383 [96mINIT --- : ��ʱ��Ӧ�� &��
+[0m
+11:47:15.133383 [96mINIT --- : error starting clang: error running compile: rpc error: code = Internal desc = exit status 1[0m
+11:47:15.133383 [92m                 textDocument/didOpen: [93mlocked (waiting clangd)[0m[0m
+11:47:15.133383 [92m                 textDocument/didOpen: clangd startup failed: quitting Language server[0m
+
+
+
+
+
+
+
+Started logging.
+11:47:59.288257 Language server launched with arguments:
+11:47:59.288257   arg[0] = c:\Users\zhulin\AppData\Local\Programs\Arduino IDE\resources\app\lib\backend\resources\arduino-language-server.exe
+11:47:59.288257   arg[1] = -clangd
+11:47:59.288257   arg[2] = c:\Users\zhulin\AppData\Local\Programs\Arduino IDE\resources\app\lib\backend\resources\clangd.exe
+11:47:59.288257   arg[3] = -cli-daemon-addr
+11:47:59.288257   arg[4] = localhost:58536
+11:47:59.288257   arg[5] = -cli-daemon-instance
+11:47:59.288257   arg[6] = 1
+11:47:59.288257   arg[7] = -fqbn
+11:47:59.288257   arg[8] = esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default
+11:47:59.288257   arg[9] = -skip-libraries-discovery-on-rebuild
+11:47:59.288257   arg[10] = -board-name
+11:47:59.288760   arg[11] = ESP32S3 Dev Module
+11:47:59.288766   arg[12] = -no-real-time-diagnostics
+11:47:59.288766   arg[13] = -log
+11:47:59.288766   arg[14] = -logpath
+11:47:59.288766   arg[15] = l:\BaiduNetdiskDownload\ESP32S3-Cam视觉模块\6.软件工具&程序合辑\4.固件及程序合辑\ESP32S3\人脸识别例程\FaceDetection
+11:47:59.288766 logging to l:\BaiduNetdiskDownload\ESP32S3-Cam视觉模块\6.软件工具&程序合辑\4.固件及程序合辑\ESP32S3\人脸识别例程\FaceDetection\inols.log
+11:47:59.289784 [97mLS: : Initial board configuration: esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default[0m
+11:47:59.289784 [97mLS: : arduino-language-server.exe Version: 0.0.0-git Commit:  Date: [0m
+11:47:59.289784 [97mLS: : Language server temp directory: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server615542211[0m
+11:47:59.289784 [97mLS: : Language server build path: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server615542211\build[0m
+11:47:59.289784 [97mLS: : Language server build sketch root: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server615542211\build\sketch[0m
+11:47:59.289784 [97mLS: : Language server FULL build path: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server615542211\fullbuild[0m
+11:47:59.289784 IN Elapsed: 0s
+11:47:59.289784 [92mIDE --> LS REQU initialize 0[0m
+11:47:59.290804 [92m                initialize 0: [93mwrite-locked[0m[0m
+11:47:59.290804 [92m                initialize 0: [93mwrite-unlocked[0m[0m
+11:47:59.290804 [96mINIT --- : initializing workbench: file:///l%3A/BaiduNetdiskDownload/ESP32S3-Cam%E8%A7%86%E8%A7%89%E6%A8%A1%E5%9D%97/6.%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7%26%E7%A8%8B%E5%BA%8F%E5%90%88%E8%BE%91/4.%E5%9B%BA%E4%BB%B6%E5%8F%8A%E7%A8%8B%E5%BA%8F%E5%90%88%E8%BE%91/ESP32S3/%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E4%BE%8B%E7%A8%8B/FaceDetection[0m
+11:47:59.291337 [96mINIT --- : [93mread-locked[0m[0m
+11:47:59.291337 [96mINIT --- : [93mread-unlocked[0m[0m
+11:47:59.291337 [92m                initialize 0: initialization parameters: {"capabilities":{"textDocumentSync":{"openClose":true,"change":2,"save":{"includeText":true}},"completionProvider":{"triggerCharacters":[".","\u003c","\u003e",":","\"","/"],"allCommitCharacters":[" ","\t","(",")","[","]","{","}","\u003c","\u003e",":",";",",","+","-","/","*","%","^","\u0026","#","?",".","=","\"","'","|"],"completionItem":{}},"hoverProvider":{},"signatureHelpProvider":{"triggerCharacters":["(",","]},"definitionProvider":{},"documentHighlightProvider":{},"documentSymbolProvider":{},"codeActionProvider":{"codeActionKinds":["quickfix","refactor","info"]},"documentFormattingProvider":{},"documentRangeFormattingProvider":{},"documentOnTypeFormattingProvider":{"firstTriggerCharacter":"\n"},"renameProvider":{},"executeCommandProvider":{"commands":["clangd.applyFix","clangd.applyTweak"]},"workspaceSymbolProvider":{}},"serverInfo":{"name":"arduino-language-server","version":"0.0.0-git"}}[0m
+11:47:59.291337 [32mIDE <-- LS RESP initialize 0[0m
+11:47:59.291337 OUT Elapsed: 0s
+11:47:59.296600 [96mINIT --- : Running build with: {
+  "instance": {
+    "id": 1
+  },
+  "fqbn": "esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default",
+  "sketch_path": "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具\u0026程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection",
+  "build_path": "C:\\Users\\zhulin\\AppData\\Local\\Temp\\arduino-language-server615542211\\fullbuild",
+  "verbose": true,
+  "create_compilation_database_only": true
+}[0m
+11:47:59.296600 IN Elapsed: 5.2637ms
+11:47:59.296600 [92mIDE --> LS NOTIF initialized[0m
+11:47:59.296600 [92m                 initialized: Notification is not propagated to clangd[0m
+11:47:59.296600 IN Elapsed: 0s
+11:47:59.296600 [92mIDE --> LS NOTIF textDocument/didOpen[0m
+11:47:59.296600 [92m                 textDocument/didOpen: [93mwrite-locked[0m[0m
+11:47:59.296600 [92m                 textDocument/didOpen: (throttled: waiting for clangd)[0m
+11:47:59.296600 [92m                 textDocument/didOpen: [93munlocked (waiting clangd)[0m[0m
+11:48:00.044772 [96mINIT --- : build stdout:[0m
+11:48:00.045275 [96mINIT --- : FQBN: esp32:esp32:esp32s3
+Using board 'esp32s3' from platform in folder: C:\Users\zhulin\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.3.2
+Using core 'esp32' from platform in folder: C:\Users\zhulin\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.3.2
+
+cmd /c if exist "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具&程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection\\partitions.csv" COPY /y "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具&程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection\\partitions.csv" "C:\\Users\\zhulin\\AppData\\Local\\Temp\\arduino-language-server615542211\\fullbuild\\partitions.csv"
+[0m
+11:48:00.045380 [96mINIT --- : build stderr:[0m
+11:48:00.045380 [96mINIT --- : ��ʱ��Ӧ�� &��
+[0m
+11:48:00.045941 [96mINIT --- : error starting clang: error running compile: rpc error: code = Internal desc = exit status 1[0m
+11:48:00.045941 [92m                 textDocument/didOpen: [93mlocked (waiting clangd)[0m[0m
+11:48:00.045941 [92m                 textDocument/didOpen: clangd startup failed: quitting Language server[0m
+
+
+
+
+
+
+
+Started logging.
+11:48:00.091905 Language server launched with arguments:
+11:48:00.091905   arg[0] = c:\Users\zhulin\AppData\Local\Programs\Arduino IDE\resources\app\lib\backend\resources\arduino-language-server.exe
+11:48:00.091905   arg[1] = -clangd
+11:48:00.091905   arg[2] = c:\Users\zhulin\AppData\Local\Programs\Arduino IDE\resources\app\lib\backend\resources\clangd.exe
+11:48:00.091905   arg[3] = -cli-daemon-addr
+11:48:00.091974   arg[4] = localhost:58536
+11:48:00.091974   arg[5] = -cli-daemon-instance
+11:48:00.091974   arg[6] = 1
+11:48:00.091974   arg[7] = -fqbn
+11:48:00.091974   arg[8] = esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default
+11:48:00.091974   arg[9] = -skip-libraries-discovery-on-rebuild
+11:48:00.091974   arg[10] = -board-name
+11:48:00.091974   arg[11] = ESP32S3 Dev Module
+11:48:00.091974   arg[12] = -no-real-time-diagnostics
+11:48:00.091974   arg[13] = -log
+11:48:00.091974   arg[14] = -logpath
+11:48:00.091974   arg[15] = l:\BaiduNetdiskDownload\ESP32S3-Cam视觉模块\6.软件工具&程序合辑\4.固件及程序合辑\ESP32S3\人脸识别例程\FaceDetection
+11:48:00.092084 logging to l:\BaiduNetdiskDownload\ESP32S3-Cam视觉模块\6.软件工具&程序合辑\4.固件及程序合辑\ESP32S3\人脸识别例程\FaceDetection\inols.log
+11:48:00.093153 [97mLS: : Initial board configuration: esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default[0m
+11:48:00.093153 [97mLS: : arduino-language-server.exe Version: 0.0.0-git Commit:  Date: [0m
+11:48:00.093153 [97mLS: : Language server temp directory: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server1638958610[0m
+11:48:00.093153 [97mLS: : Language server build path: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server1638958610\build[0m
+11:48:00.093153 [97mLS: : Language server build sketch root: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server1638958610\build\sketch[0m
+11:48:00.093153 [97mLS: : Language server FULL build path: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server1638958610\fullbuild[0m
+11:48:00.093153 IN Elapsed: 0s
+11:48:00.093153 [92mIDE --> LS REQU initialize 0[0m
+11:48:00.094186 [92m                initialize 0: [93mwrite-locked[0m[0m
+11:48:00.094703 [92m                initialize 0: [93mwrite-unlocked[0m[0m
+11:48:00.094703 [96mINIT --- : initializing workbench: file:///l%3A/BaiduNetdiskDownload/ESP32S3-Cam%E8%A7%86%E8%A7%89%E6%A8%A1%E5%9D%97/6.%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7%26%E7%A8%8B%E5%BA%8F%E5%90%88%E8%BE%91/4.%E5%9B%BA%E4%BB%B6%E5%8F%8A%E7%A8%8B%E5%BA%8F%E5%90%88%E8%BE%91/ESP32S3/%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E4%BE%8B%E7%A8%8B/FaceDetection[0m
+11:48:00.094703 [96mINIT --- : [93mread-locked[0m[0m
+11:48:00.094703 [96mINIT --- : [93mread-unlocked[0m[0m
+11:48:00.095218 [92m                initialize 0: initialization parameters: {"capabilities":{"textDocumentSync":{"openClose":true,"change":2,"save":{"includeText":true}},"completionProvider":{"triggerCharacters":[".","\u003c","\u003e",":","\"","/"],"allCommitCharacters":[" ","\t","(",")","[","]","{","}","\u003c","\u003e",":",";",",","+","-","/","*","%","^","\u0026","#","?",".","=","\"","'","|"],"completionItem":{}},"hoverProvider":{},"signatureHelpProvider":{"triggerCharacters":["(",","]},"definitionProvider":{},"documentHighlightProvider":{},"documentSymbolProvider":{},"codeActionProvider":{"codeActionKinds":["quickfix","refactor","info"]},"documentFormattingProvider":{},"documentRangeFormattingProvider":{},"documentOnTypeFormattingProvider":{"firstTriggerCharacter":"\n"},"renameProvider":{},"executeCommandProvider":{"commands":["clangd.applyFix","clangd.applyTweak"]},"workspaceSymbolProvider":{}},"serverInfo":{"name":"arduino-language-server","version":"0.0.0-git"}}[0m
+11:48:00.095218 [32mIDE <-- LS RESP initialize 0[0m
+11:48:00.095218 OUT Elapsed: 0s
+11:48:00.096762 IN Elapsed: 1.5444ms
+11:48:00.096762 [92mIDE --> LS NOTIF initialized[0m
+11:48:00.096762 [92m                 initialized: Notification is not propagated to clangd[0m
+11:48:00.096762 IN Elapsed: 0s
+11:48:00.096762 [92mIDE --> LS NOTIF textDocument/didOpen[0m
+11:48:00.097298 [92m                 textDocument/didOpen: [93mwrite-locked[0m[0m
+11:48:00.097298 [92m                 textDocument/didOpen: (throttled: waiting for clangd)[0m
+11:48:00.097298 [92m                 textDocument/didOpen: [93munlocked (waiting clangd)[0m[0m
+11:48:00.100989 [96mINIT --- : Running build with: {
+  "instance": {
+    "id": 1
+  },
+  "fqbn": "esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default",
+  "sketch_path": "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具\u0026程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection",
+  "build_path": "C:\\Users\\zhulin\\AppData\\Local\\Temp\\arduino-language-server1638958610\\fullbuild",
+  "verbose": true,
+  "create_compilation_database_only": true
+}[0m
+11:48:00.845298 [96mINIT --- : build stdout:[0m
+11:48:00.845298 [96mINIT --- : FQBN: esp32:esp32:esp32s3
+Using board 'esp32s3' from platform in folder: C:\Users\zhulin\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.3.2
+Using core 'esp32' from platform in folder: C:\Users\zhulin\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.3.2
+
+cmd /c if exist "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具&程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection\\partitions.csv" COPY /y "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具&程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection\\partitions.csv" "C:\\Users\\zhulin\\AppData\\Local\\Temp\\arduino-language-server1638958610\\fullbuild\\partitions.csv"
+[0m
+11:48:00.845298 [96mINIT --- : build stderr:[0m
+11:48:00.845298 [96mINIT --- : ��ʱ��Ӧ�� &��
+[0m
+11:48:00.845298 [96mINIT --- : error starting clang: error running compile: rpc error: code = Internal desc = exit status 1[0m
+11:48:00.845298 [92m                 textDocument/didOpen: [93mlocked (waiting clangd)[0m[0m
+11:48:00.845298 [92m                 textDocument/didOpen: clangd startup failed: quitting Language server[0m
+
+
+
+
+
+
+
+Started logging.
+11:48:00.875206 Language server launched with arguments:
+11:48:00.875206   arg[0] = c:\Users\zhulin\AppData\Local\Programs\Arduino IDE\resources\app\lib\backend\resources\arduino-language-server.exe
+11:48:00.875206   arg[1] = -clangd
+11:48:00.875206   arg[2] = c:\Users\zhulin\AppData\Local\Programs\Arduino IDE\resources\app\lib\backend\resources\clangd.exe
+11:48:00.875206   arg[3] = -cli-daemon-addr
+11:48:00.875206   arg[4] = localhost:58536
+11:48:00.875206   arg[5] = -cli-daemon-instance
+11:48:00.875206   arg[6] = 1
+11:48:00.875206   arg[7] = -fqbn
+11:48:00.875206   arg[8] = esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default
+11:48:00.875206   arg[9] = -skip-libraries-discovery-on-rebuild
+11:48:00.875206   arg[10] = -board-name
+11:48:00.875206   arg[11] = ESP32S3 Dev Module
+11:48:00.875206   arg[12] = -no-real-time-diagnostics
+11:48:00.875206   arg[13] = -log
+11:48:00.875206   arg[14] = -logpath
+11:48:00.875206   arg[15] = l:\BaiduNetdiskDownload\ESP32S3-Cam视觉模块\6.软件工具&程序合辑\4.固件及程序合辑\ESP32S3\人脸识别例程\FaceDetection
+11:48:00.875206 logging to l:\BaiduNetdiskDownload\ESP32S3-Cam视觉模块\6.软件工具&程序合辑\4.固件及程序合辑\ESP32S3\人脸识别例程\FaceDetection\inols.log
+11:48:00.876762 [97mLS: : Initial board configuration: esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default[0m
+11:48:00.876762 [97mLS: : arduino-language-server.exe Version: 0.0.0-git Commit:  Date: [0m
+11:48:00.876762 [97mLS: : Language server temp directory: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server3488126[0m
+11:48:00.876762 [97mLS: : Language server build path: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server3488126\build[0m
+11:48:00.876762 [97mLS: : Language server build sketch root: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server3488126\build\sketch[0m
+11:48:00.876762 [97mLS: : Language server FULL build path: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server3488126\fullbuild[0m
+11:48:00.876762 IN Elapsed: 0s
+11:48:00.877274 [92mIDE --> LS REQU initialize 0[0m
+11:48:00.877807 [92m                initialize 0: [93mwrite-locked[0m[0m
+11:48:00.878331 [92m                initialize 0: [93mwrite-unlocked[0m[0m
+11:48:00.878878 [96mINIT --- : initializing workbench: file:///l%3A/BaiduNetdiskDownload/ESP32S3-Cam%E8%A7%86%E8%A7%89%E6%A8%A1%E5%9D%97/6.%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7%26%E7%A8%8B%E5%BA%8F%E5%90%88%E8%BE%91/4.%E5%9B%BA%E4%BB%B6%E5%8F%8A%E7%A8%8B%E5%BA%8F%E5%90%88%E8%BE%91/ESP32S3/%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E4%BE%8B%E7%A8%8B/FaceDetection[0m
+11:48:00.878878 [96mINIT --- : [93mread-locked[0m[0m
+11:48:00.878878 [96mINIT --- : [93mread-unlocked[0m[0m
+11:48:00.878878 [92m                initialize 0: initialization parameters: {"capabilities":{"textDocumentSync":{"openClose":true,"change":2,"save":{"includeText":true}},"completionProvider":{"triggerCharacters":[".","\u003c","\u003e",":","\"","/"],"allCommitCharacters":[" ","\t","(",")","[","]","{","}","\u003c","\u003e",":",";",",","+","-","/","*","%","^","\u0026","#","?",".","=","\"","'","|"],"completionItem":{}},"hoverProvider":{},"signatureHelpProvider":{"triggerCharacters":["(",","]},"definitionProvider":{},"documentHighlightProvider":{},"documentSymbolProvider":{},"codeActionProvider":{"codeActionKinds":["quickfix","refactor","info"]},"documentFormattingProvider":{},"documentRangeFormattingProvider":{},"documentOnTypeFormattingProvider":{"firstTriggerCharacter":"\n"},"renameProvider":{},"executeCommandProvider":{"commands":["clangd.applyFix","clangd.applyTweak"]},"workspaceSymbolProvider":{}},"serverInfo":{"name":"arduino-language-server","version":"0.0.0-git"}}[0m
+11:48:00.878878 [32mIDE <-- LS RESP initialize 0[0m
+11:48:00.878878 OUT Elapsed: 0s
+11:48:00.880426 IN Elapsed: 1.5472ms
+11:48:00.880426 [92mIDE --> LS NOTIF initialized[0m
+11:48:00.880426 [92m                 initialized: Notification is not propagated to clangd[0m
+11:48:00.880426 IN Elapsed: 0s
+11:48:00.880929 [92mIDE --> LS NOTIF textDocument/didOpen[0m
+11:48:00.880940 [92m                 textDocument/didOpen: [93mwrite-locked[0m[0m
+11:48:00.880940 [92m                 textDocument/didOpen: (throttled: waiting for clangd)[0m
+11:48:00.880940 [92m                 textDocument/didOpen: [93munlocked (waiting clangd)[0m[0m
+11:48:00.883015 [96mINIT --- : Running build with: {
+  "instance": {
+    "id": 1
+  },
+  "fqbn": "esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default",
+  "sketch_path": "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具\u0026程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection",
+  "build_path": "C:\\Users\\zhulin\\AppData\\Local\\Temp\\arduino-language-server3488126\\fullbuild",
+  "verbose": true,
+  "create_compilation_database_only": true
+}[0m
+11:48:01.646954 [96mINIT --- : build stdout:[0m
+11:48:01.647469 [96mINIT --- : FQBN: esp32:esp32:esp32s3
+Using board 'esp32s3' from platform in folder: C:\Users\zhulin\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.3.2
+Using core 'esp32' from platform in folder: C:\Users\zhulin\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.3.2
+
+cmd /c if exist "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具&程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection\\partitions.csv" COPY /y "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具&程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection\\partitions.csv" "C:\\Users\\zhulin\\AppData\\Local\\Temp\\arduino-language-server3488126\\fullbuild\\partitions.csv"
+[0m
+11:48:01.647469 [96mINIT --- : build stderr:[0m
+11:48:01.647469 [96mINIT --- : ��ʱ��Ӧ�� &��
+[0m
+11:48:01.647469 [96mINIT --- : error starting clang: error running compile: rpc error: code = Internal desc = exit status 1[0m
+11:48:01.647469 [92m                 textDocument/didOpen: [93mlocked (waiting clangd)[0m[0m
+11:48:01.647469 [92m                 textDocument/didOpen: clangd startup failed: quitting Language server[0m
+
+
+
+
+
+
+
+Started logging.
+11:48:01.680974 Language server launched with arguments:
+11:48:01.680974   arg[0] = c:\Users\zhulin\AppData\Local\Programs\Arduino IDE\resources\app\lib\backend\resources\arduino-language-server.exe
+11:48:01.680974   arg[1] = -clangd
+11:48:01.680974   arg[2] = c:\Users\zhulin\AppData\Local\Programs\Arduino IDE\resources\app\lib\backend\resources\clangd.exe
+11:48:01.680974   arg[3] = -cli-daemon-addr
+11:48:01.680974   arg[4] = localhost:58536
+11:48:01.680974   arg[5] = -cli-daemon-instance
+11:48:01.680974   arg[6] = 1
+11:48:01.680974   arg[7] = -fqbn
+11:48:01.680974   arg[8] = esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default
+11:48:01.680974   arg[9] = -skip-libraries-discovery-on-rebuild
+11:48:01.680974   arg[10] = -board-name
+11:48:01.680974   arg[11] = ESP32S3 Dev Module
+11:48:01.680974   arg[12] = -no-real-time-diagnostics
+11:48:01.680974   arg[13] = -log
+11:48:01.680974   arg[14] = -logpath
+11:48:01.680974   arg[15] = l:\BaiduNetdiskDownload\ESP32S3-Cam视觉模块\6.软件工具&程序合辑\4.固件及程序合辑\ESP32S3\人脸识别例程\FaceDetection
+11:48:01.680974 logging to l:\BaiduNetdiskDownload\ESP32S3-Cam视觉模块\6.软件工具&程序合辑\4.固件及程序合辑\ESP32S3\人脸识别例程\FaceDetection\inols.log
+11:48:01.682504 [97mLS: : Initial board configuration: esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default[0m
+11:48:01.682504 [97mLS: : arduino-language-server.exe Version: 0.0.0-git Commit:  Date: [0m
+11:48:01.682504 [97mLS: : Language server temp directory: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server3164129950[0m
+11:48:01.682504 [97mLS: : Language server build path: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server3164129950\build[0m
+11:48:01.682504 [97mLS: : Language server build sketch root: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server3164129950\build\sketch[0m
+11:48:01.682504 [97mLS: : Language server FULL build path: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server3164129950\fullbuild[0m
+11:48:01.682504 IN Elapsed: 0s
+11:48:01.682504 [92mIDE --> LS REQU initialize 0[0m
+11:48:01.683525 [92m                initialize 0: [93mwrite-locked[0m[0m
+11:48:01.684716 [92m                initialize 0: [93mwrite-unlocked[0m[0m
+11:48:01.684716 [96mINIT --- : initializing workbench: file:///l%3A/BaiduNetdiskDownload/ESP32S3-Cam%E8%A7%86%E8%A7%89%E6%A8%A1%E5%9D%97/6.%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7%26%E7%A8%8B%E5%BA%8F%E5%90%88%E8%BE%91/4.%E5%9B%BA%E4%BB%B6%E5%8F%8A%E7%A8%8B%E5%BA%8F%E5%90%88%E8%BE%91/ESP32S3/%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E4%BE%8B%E7%A8%8B/FaceDetection[0m
+11:48:01.684716 [96mINIT --- : [93mread-locked[0m[0m
+11:48:01.685220 [96mINIT --- : [93mread-unlocked[0m[0m
+11:48:01.685232 [92m                initialize 0: initialization parameters: {"capabilities":{"textDocumentSync":{"openClose":true,"change":2,"save":{"includeText":true}},"completionProvider":{"triggerCharacters":[".","\u003c","\u003e",":","\"","/"],"allCommitCharacters":[" ","\t","(",")","[","]","{","}","\u003c","\u003e",":",";",",","+","-","/","*","%","^","\u0026","#","?",".","=","\"","'","|"],"completionItem":{}},"hoverProvider":{},"signatureHelpProvider":{"triggerCharacters":["(",","]},"definitionProvider":{},"documentHighlightProvider":{},"documentSymbolProvider":{},"codeActionProvider":{"codeActionKinds":["quickfix","refactor","info"]},"documentFormattingProvider":{},"documentRangeFormattingProvider":{},"documentOnTypeFormattingProvider":{"firstTriggerCharacter":"\n"},"renameProvider":{},"executeCommandProvider":{"commands":["clangd.applyFix","clangd.applyTweak"]},"workspaceSymbolProvider":{}},"serverInfo":{"name":"arduino-language-server","version":"0.0.0-git"}}[0m
+11:48:01.685232 [32mIDE <-- LS RESP initialize 0[0m
+11:48:01.685743 OUT Elapsed: 0s
+11:48:01.686767 IN Elapsed: 1.024ms
+11:48:01.686767 [92mIDE --> LS NOTIF initialized[0m
+11:48:01.686767 [92m                 initialized: Notification is not propagated to clangd[0m
+11:48:01.686767 IN Elapsed: 0s
+11:48:01.686767 [92mIDE --> LS NOTIF textDocument/didOpen[0m
+11:48:01.686767 [92m                 textDocument/didOpen: [93mwrite-locked[0m[0m
+11:48:01.686767 [92m                 textDocument/didOpen: (throttled: waiting for clangd)[0m
+11:48:01.686767 [92m                 textDocument/didOpen: [93munlocked (waiting clangd)[0m[0m
+11:48:01.688807 [96mINIT --- : Running build with: {
+  "instance": {
+    "id": 1
+  },
+  "fqbn": "esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default",
+  "sketch_path": "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具\u0026程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection",
+  "build_path": "C:\\Users\\zhulin\\AppData\\Local\\Temp\\arduino-language-server3164129950\\fullbuild",
+  "verbose": true,
+  "create_compilation_database_only": true
+}[0m
+11:48:02.457197 [96mINIT --- : build stdout:[0m
+11:48:02.457197 [96mINIT --- : FQBN: esp32:esp32:esp32s3
+Using board 'esp32s3' from platform in folder: C:\Users\zhulin\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.3.2
+Using core 'esp32' from platform in folder: C:\Users\zhulin\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.3.2
+
+cmd /c if exist "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具&程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection\\partitions.csv" COPY /y "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具&程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection\\partitions.csv" "C:\\Users\\zhulin\\AppData\\Local\\Temp\\arduino-language-server3164129950\\fullbuild\\partitions.csv"
+[0m
+11:48:02.457197 [96mINIT --- : build stderr:[0m
+11:48:02.457197 [96mINIT --- : ��ʱ��Ӧ�� &��
+[0m
+11:48:02.459314 [96mINIT --- : error starting clang: error running compile: rpc error: code = Internal desc = exit status 1[0m
+11:48:02.459314 [92m                 textDocument/didOpen: [93mlocked (waiting clangd)[0m[0m
+11:48:02.459314 [92m                 textDocument/didOpen: clangd startup failed: quitting Language server[0m
+
+
+
+
+
+
+
+Started logging.
+11:48:02.489507 Language server launched with arguments:
+11:48:02.489507   arg[0] = c:\Users\zhulin\AppData\Local\Programs\Arduino IDE\resources\app\lib\backend\resources\arduino-language-server.exe
+11:48:02.489507   arg[1] = -clangd
+11:48:02.489507   arg[2] = c:\Users\zhulin\AppData\Local\Programs\Arduino IDE\resources\app\lib\backend\resources\clangd.exe
+11:48:02.489507   arg[3] = -cli-daemon-addr
+11:48:02.489507   arg[4] = localhost:58536
+11:48:02.489507   arg[5] = -cli-daemon-instance
+11:48:02.489507   arg[6] = 1
+11:48:02.489507   arg[7] = -fqbn
+11:48:02.489507   arg[8] = esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default
+11:48:02.489507   arg[9] = -skip-libraries-discovery-on-rebuild
+11:48:02.489507   arg[10] = -board-name
+11:48:02.489507   arg[11] = ESP32S3 Dev Module
+11:48:02.489507   arg[12] = -no-real-time-diagnostics
+11:48:02.489507   arg[13] = -log
+11:48:02.489507   arg[14] = -logpath
+11:48:02.489507   arg[15] = l:\BaiduNetdiskDownload\ESP32S3-Cam视觉模块\6.软件工具&程序合辑\4.固件及程序合辑\ESP32S3\人脸识别例程\FaceDetection
+11:48:02.489507 logging to l:\BaiduNetdiskDownload\ESP32S3-Cam视觉模块\6.软件工具&程序合辑\4.固件及程序合辑\ESP32S3\人脸识别例程\FaceDetection\inols.log
+11:48:02.491101 [97mLS: : Initial board configuration: esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default[0m
+11:48:02.491101 [97mLS: : arduino-language-server.exe Version: 0.0.0-git Commit:  Date: [0m
+11:48:02.491101 [97mLS: : Language server temp directory: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server2755290756[0m
+11:48:02.491101 [97mLS: : Language server build path: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server2755290756\build[0m
+11:48:02.491101 [97mLS: : Language server build sketch root: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server2755290756\build\sketch[0m
+11:48:02.491101 [97mLS: : Language server FULL build path: C:\Users\zhulin\AppData\Local\Temp\arduino-language-server2755290756\fullbuild[0m
+11:48:02.491101 IN Elapsed: 0s
+11:48:02.491101 [92mIDE --> LS REQU initialize 0[0m
+11:48:02.491637 [92m                initialize 0: [93mwrite-locked[0m[0m
+11:48:02.492151 [92m                initialize 0: [93mwrite-unlocked[0m[0m
+11:48:02.492151 [96mINIT --- : initializing workbench: file:///l%3A/BaiduNetdiskDownload/ESP32S3-Cam%E8%A7%86%E8%A7%89%E6%A8%A1%E5%9D%97/6.%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7%26%E7%A8%8B%E5%BA%8F%E5%90%88%E8%BE%91/4.%E5%9B%BA%E4%BB%B6%E5%8F%8A%E7%A8%8B%E5%BA%8F%E5%90%88%E8%BE%91/ESP32S3/%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E4%BE%8B%E7%A8%8B/FaceDetection[0m
+11:48:02.492151 [96mINIT --- : [93mread-locked[0m[0m
+11:48:02.492151 [96mINIT --- : [93mread-unlocked[0m[0m
+11:48:02.492678 [92m                initialize 0: initialization parameters: {"capabilities":{"textDocumentSync":{"openClose":true,"change":2,"save":{"includeText":true}},"completionProvider":{"triggerCharacters":[".","\u003c","\u003e",":","\"","/"],"allCommitCharacters":[" ","\t","(",")","[","]","{","}","\u003c","\u003e",":",";",",","+","-","/","*","%","^","\u0026","#","?",".","=","\"","'","|"],"completionItem":{}},"hoverProvider":{},"signatureHelpProvider":{"triggerCharacters":["(",","]},"definitionProvider":{},"documentHighlightProvider":{},"documentSymbolProvider":{},"codeActionProvider":{"codeActionKinds":["quickfix","refactor","info"]},"documentFormattingProvider":{},"documentRangeFormattingProvider":{},"documentOnTypeFormattingProvider":{"firstTriggerCharacter":"\n"},"renameProvider":{},"executeCommandProvider":{"commands":["clangd.applyFix","clangd.applyTweak"]},"workspaceSymbolProvider":{}},"serverInfo":{"name":"arduino-language-server","version":"0.0.0-git"}}[0m
+11:48:02.492678 [32mIDE <-- LS RESP initialize 0[0m
+11:48:02.492727 OUT Elapsed: 0s
+11:48:02.493747 IN Elapsed: 1.0199ms
+11:48:02.493747 [92mIDE --> LS NOTIF initialized[0m
+11:48:02.493747 [92m                 initialized: Notification is not propagated to clangd[0m
+11:48:02.493747 IN Elapsed: 0s
+11:48:02.493747 [92mIDE --> LS NOTIF textDocument/didOpen[0m
+11:48:02.493747 [92m                 textDocument/didOpen: [93mwrite-locked[0m[0m
+11:48:02.493747 [92m                 textDocument/didOpen: (throttled: waiting for clangd)[0m
+11:48:02.493747 [92m                 textDocument/didOpen: [93munlocked (waiting clangd)[0m[0m
+11:48:02.496857 [96mINIT --- : Running build with: {
+  "instance": {
+    "id": 1
+  },
+  "fqbn": "esp32:esp32:esp32s3:UploadSpeed=921600,USBMode=hwcdc,CDCOnBoot=default,MSCOnBoot=default,DFUOnBoot=default,UploadMode=default,CPUFreq=240,FlashMode=qio,FlashSize=4M,PartitionScheme=default,DebugLevel=none,PSRAM=disabled,LoopCore=1,EventsCore=1,EraseFlash=none,JTAGAdapter=default,ZigbeeMode=default",
+  "sketch_path": "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具\u0026程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection",
+  "build_path": "C:\\Users\\zhulin\\AppData\\Local\\Temp\\arduino-language-server2755290756\\fullbuild",
+  "verbose": true,
+  "create_compilation_database_only": true
+}[0m
+11:48:03.243947 [96mINIT --- : build stdout:[0m
+11:48:03.243947 [96mINIT --- : FQBN: esp32:esp32:esp32s3
+Using board 'esp32s3' from platform in folder: C:\Users\zhulin\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.3.2
+Using core 'esp32' from platform in folder: C:\Users\zhulin\AppData\Local\Arduino15\packages\esp32\hardware\esp32\3.3.2
+
+cmd /c if exist "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具&程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection\\partitions.csv" COPY /y "L:\\BaiduNetdiskDownload\\ESP32S3-Cam视觉模块\\6.软件工具&程序合辑\\4.固件及程序合辑\\ESP32S3\\人脸识别例程\\FaceDetection\\partitions.csv" "C:\\Users\\zhulin\\AppData\\Local\\Temp\\arduino-language-server2755290756\\fullbuild\\partitions.csv"
+[0m
+11:48:03.243947 [96mINIT --- : build stderr:[0m
+11:48:03.244772 [96mINIT --- : ��ʱ��Ӧ�� &��
+[0m
+11:48:03.244772 [96mINIT --- : error starting clang: error running compile: rpc error: code = Internal desc = exit status 1[0m
+11:48:03.244772 [92m                 textDocument/didOpen: [93mlocked (waiting clangd)[0m[0m
+11:48:03.244772 [92m                 textDocument/didOpen: clangd startup failed: quitting Language server[0m
