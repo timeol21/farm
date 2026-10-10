@@ -9,11 +9,20 @@
 
 extern struct tm *GetRtc_tm(void);
 
-Camera::Camera()
+Camera::Camera(const CameraConfig& config)
     :
+    id_(config.id),
     serial(),
-    image(serial)
+    image(serial),
+    config_(config)
 {
+
+}
+
+int Camera::id() const
+{
+
+    return id_;
 
 }
 
@@ -122,9 +131,29 @@ uint8_t Camera::TakephotoFun(void)
 
 void Camera::CameraDemoApp(void)
 {
-    mkdir("/home/ztl/program/Check/Check_demo/picture",0777);
-
-    int Portfd = serial.PortOpen(&sPortInfo);
+    //mkdir("/home/ztl/program/Check/Check_demo/picture",0777);
+    //mkdir("/home/ztl/program/Check/Check_demo/rknn_zoo_base/install/rk356x_linux_aarch64/rknn_yolov5_demo/model/",0777);
+    
+    mkdir(config_.image.savePath.c_str(),0777);
+    
+    portinfo_t portInfo =
+    {
+        config_.serial.debug,
+        config_.serial.baudrate,
+        config_.serial.databit,
+        config_.serial.debug,
+        config_.serial.echo,
+        config_.serial.fctl,
+        config_.serial.tty,
+        config_.serial.parity,
+        config_.serial.stopbit,
+        0,
+        1024
+    };
+    
+    int Portfd = serial.PortOpen(&portInfo);
+    
+    //int Portfd = serial.PortOpen(&sPortInfo);
 
     if(Portfd < 0)
     {
@@ -139,7 +168,8 @@ void Camera::CameraDemoApp(void)
     uint32_t length = 0;
     uint32_t AddrOff = 0, NByte = 20480, NTimes = 0, LastByte = 0;
     uint8_t  bCompleteRead = 1;
-    uint8_t  bUseOsd = 1;
+    //uint8_t  bUseOsd = 1;
+    uint8_t bUseOsd = config_.osd.enable ? 1 : 0;
     uint8_t *pMemJPG = NULL;
     uint32_t rxcount = 0, total_size = 0;
     uint32_t i = 0;
@@ -154,7 +184,16 @@ void Camera::CameraDemoApp(void)
     image.getPhotoFileName(filename,sizeof(filename));
 
     //去掉前面的 "./"
-    snprintf(pFilepath,sizeof(pFilepath),"/home/ztl/program/Check/Check_demo/picture/%s",filename + 2);
+    //snprintf(pFilepath,sizeof(pFilepath),"/home/ztl/program/Check/Check_demo/rknn_zoo_base/install/rk356x_linux_aarch64/rknn_yolov5_demo/model/%s",filename + 2);
+    
+    snprintf(
+    pFilepath,
+    sizeof(pFilepath),
+    "%s/%s",
+    config_.image.savePath.c_str(),
+    filename+2
+    );
+
     printf_time();
     printf("save image to file: %s\n", pFilepath);
 
@@ -162,7 +201,11 @@ void Camera::CameraDemoApp(void)
     {
         return ;
     }
-    SetResolutionFun(cByteImageSize2560x1440); // 设置拍摄画质
+    //SetResolutionFun(cByteImageSize2560x1440); // 设置拍摄画质
+    
+    SetResolutionFun(
+        getResolutionCommand(config_.image.resolution)
+    );
     
     if(bUseOsd) /*使用OSD叠加字符时，需在拍照前设置文本*/
     {

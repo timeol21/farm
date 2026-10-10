@@ -25,12 +25,14 @@
 
 #include "dao_layer/camera/camera_protocol.h"
 
+#include "dao_layer/camera/camera_config_data.h"
+
 class Camera
 {
 
 public:
 
-    Camera();
+    Camera(const CameraConfig& config);
 
     void CameraDemoApp();
 
@@ -43,12 +45,17 @@ public:
     uint8_t TakephotoFun();
     
     int printf_time(void);
+    
+    int id() const;
 
 private:
+    int id_;
 
     CameraSerial serial;
 
     CameraImage image;
+    
+    CameraConfig config_;
 
     OsdConf_t _sOsdConf[4] =
     {

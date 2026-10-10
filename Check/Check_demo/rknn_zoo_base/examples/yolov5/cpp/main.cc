@@ -35,8 +35,8 @@
     #include "dma_alloc.hpp"
 #endif
 
-#define OUT_PHOTO_DIR       "/home/ztl/rknn_zoo_base/out_photo/"
-#define OLD_PHOTO_DIR       "/home/ztl/rknn_zoo_base/examples/yolov5/old_photo/"
+#define OUT_PHOTO_DIR       "/home/ztl/program/Check/Check_demo/rknn_zoo_base/out_photo/"
+#define OLD_PHOTO_DIR       "/home/ztl/program/Check/Check_demo/rknn_zoo_base/examples/yolov5/old_photo/"
 
 
 // 创建目录，不存在则创建

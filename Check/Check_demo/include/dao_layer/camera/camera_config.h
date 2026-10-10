@@ -24,6 +24,6 @@ typedef struct{
 
 typedef portinfo_t * pportinfo_t;
 
-extern portinfo_t sPortInfo;
+//extern portinfo_t sPortInfo;
 
 #endif

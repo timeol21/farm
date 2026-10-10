@@ -1,0 +1,165 @@
+{
+    "camera":
+    [
+        {
+            "id":0,
+
+            "type":"SERIAL_CAMERA",
+
+
+            "serial":
+            {
+                "tty":"0",
+
+                "baudrate":921600,
+
+                "databit":"8",
+
+                "debug":"0",
+
+                "echo":"0",
+
+                "fctl":"0",
+
+                "parity":"0",
+
+                "stopbit":"1"
+            },
+
+
+            "image":
+            {
+                "resolution":"IMAGE_SIZE_2560_1440",
+
+                "save_path":
+                "/home/ztl/program/Check/Check_demo/picture"
+            },
+
+
+            "osd":
+            {
+                "enable":true
+            }
+        },
+        {
+            "id":1,
+
+            "type":"SERIAL_CAMERA",
+
+
+            "serial":
+            {
+                "tty":"1",
+
+                "baudrate":921600,
+
+                "databit":"8",
+
+                "debug":"0",
+
+                "echo":"0",
+
+                "fctl":"0",
+
+                "parity":"0",
+
+                "stopbit":"1"
+            },
+
+
+            "image":
+            {
+                "resolution":"IMAGE_SIZE_2560_1440",
+
+                "save_path":
+                "/home/ztl/program/Check/Check_demo/picture"
+            },
+
+
+            "osd":
+            {
+                "enable":true
+            }
+        },
+        {
+            "id":2,
+
+            "type":"SERIAL_CAMERA",
+
+
+            "serial":
+            {
+                "tty":"2",
+
+                "baudrate":921600,
+
+                "databit":"8",
+
+                "debug":"0",
+
+                "echo":"0",
+
+                "fctl":"0",
+
+                "parity":"0",
+
+                "stopbit":"1"
+            },
+
+
+            "image":
+            {
+                "resolution":"IMAGE_SIZE_2560_1440",
+
+                "save_path":
+                "/home/ztl/program/Check/Check_demo/picture"
+            },
+
+
+            "osd":
+            {
+                "enable":true
+            }
+        },
+        {
+            "id":3,
+
+            "type":"SERIAL_CAMERA",
+
+
+            "serial":
+            {
+                "tty":"3",
+
+                "baudrate":921600,
+
+                "databit":"8",
+
+                "debug":"0",
+
+                "echo":"0",
+
+                "fctl":"0",
+
+                "parity":"0",
+
+                "stopbit":"1"
+            },
+
+
+            "image":
+            {
+                "resolution":"IMAGE_SIZE_2560_1440",
+
+                "save_path":
+                "/home/ztl/program/Check/Check_demo/picture"
+            },
+
+
+            "osd":
+            {
+                "enable":true
+            }
+        }
+    ]
+}
