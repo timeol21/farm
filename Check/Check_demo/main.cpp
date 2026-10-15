@@ -24,6 +24,15 @@ int main()
 
     manager.getCamera(1)->CameraDemoApp();
     
+    std::this_thread::sleep_for(std::chrono::milliseconds(1500));
+
+    manager.getCamera(2)->CameraDemoApp();
+    
+    std::this_thread::sleep_for(std::chrono::milliseconds(1500));
+
+    manager.getCamera(3)->CameraDemoApp();
+    
+    
      /*Camera camera;
     
      printf("CameraDemoAPP Start   !!!\n");
