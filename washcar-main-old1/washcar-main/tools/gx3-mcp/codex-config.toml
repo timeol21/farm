@@ -1,0 +1,5 @@
+[mcp_servers.gx3_ladder]
+command = "C:/python3.10/python.exe"
+args = ["C:/Users/zhuta/source/repos/washcar(ztl)/tools/gx3-mcp/server.py", "--project", "C:/Users/zhuta/source/repos/washcar(ztl)/tools/gx3-mcp/projects/yigongli/source_snapshot.gx3"]
+startup_timeout_sec = 30
+tool_timeout_sec = 60

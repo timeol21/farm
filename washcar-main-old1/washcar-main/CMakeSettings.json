@@ -1,0 +1,93 @@
+{
+  "configurations": [
+    {
+      "name": "x64-Debug",
+      "generator": "Ninja",
+      "configurationType": "Debug",
+      "inheritEnvironments": [ "msvc_x64_x64" ],
+      "buildRoot": "${projectDir}\\out\\build\\${name}",
+      "installRoot": "${projectDir}\\out\\install\\${name}",
+      "cmakeCommandArgs": "",
+      "buildCommandArgs": "",
+      "ctestCommandArgs": ""
+    },
+    {
+      "name": "Linux-GCC-Debug",
+      "generator": "Ninja",
+      "configurationType": "Debug",
+      "cmakeExecutable": "cmake",
+      "remoteCopySourcesExclusionList": [ ".vs", ".git", "out" ],
+      "cmakeCommandArgs": "",
+      "buildCommandArgs": "-j$(nproc)",
+      "ctestCommandArgs": "",
+      "inheritEnvironments": [ "linux_x64" ],
+      "remoteMachineName": "${defaultRemoteMachineName}",
+      "remoteCMakeListsRoot": "$HOME/.vs/${projectDirName}/${workspaceHash}/src",
+      "remoteBuildRoot": "$HOME/.vs/${projectDirName}/${workspaceHash}/out/build/${name}",
+      "remoteInstallRoot": "$HOME/.vs/${projectDirName}/${workspaceHash}/out/install/${name}",
+      "remoteCopySources": true,
+      "rsyncCommandArgs": "-t --delete",
+      "remoteCopyBuildOutput": false,
+      "remoteCopySourcesMethod": "rsync",
+      "variables": [
+        {
+          "name": "CMAKE_C_COMPILER",
+          "value": "/usr/bin/gcc",
+          "type": "STRING"
+        },
+        {
+          "name": "CMAKE_CXX_COMPILER",
+          "value": "/usr/bin/g++",
+          "type": "STRING"
+        },
+        {
+          "name": "CMAKE_C_COMPILER_LAUNCHER",
+          "value": "ccache",
+          "type": "STRING"
+        },
+        {
+          "name": "CMAKE_CXX_COMPILER_LAUNCHER",
+          "value": "ccache",
+          "type": "STRING"
+        }
+      ]
+    },
+    {
+      "name": "WSL-GCC-aarch64-Debug",
+      "generator": "Ninja",
+      "configurationType": "Debug",
+      "inheritEnvironments": [ "linux_x64" ],
+      "wslPath": "${defaultWSLPath}",
+      "buildRoot": "${projectDir}\\out\\build\\${name}",
+      "installRoot": "${projectDir}\\out\\install\\${name}",
+      "cmakeExecutable": "/usr/bin/cmake",
+      "cmakeToolchain": "wsl-cross/toolchain-aarch64-wsl.cmake",
+      "cmakeCommandArgs": "",
+      "buildCommandArgs": "-j$(nproc)",
+      "ctestCommandArgs": "",
+      "intelliSenseMode": "linux-gcc-arm",
+      "variables": [
+        {
+          "name": "CMAKE_C_COMPILER",
+          "value": "aarch64-linux-gnu-gcc-9",
+          "type": "STRING"
+        },
+        {
+          "name": "CMAKE_CXX_COMPILER",
+          "value": "aarch64-linux-gnu-g++-9",
+          "type": "STRING"
+        },
+        {
+          "name": "CMAKE_C_COMPILER_LAUNCHER",
+          "value": "ccache",
+          "type": "STRING"
+        },
+        {
+          "name": "CMAKE_CXX_COMPILER_LAUNCHER",
+          "value": "ccache",
+          "type": "STRING"
+        }
+      ]
+    }
+  ]
+}

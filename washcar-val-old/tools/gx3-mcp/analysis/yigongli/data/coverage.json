@@ -1,0 +1,56 @@
+{
+  "source_path": "C:\\Users\\zhuta\\Documents\\Codex\\2026-09-16\\ni-s\\outputs\\gx3_mcp\\source_snapshot.gx3",
+  "snapshot_sha256": "358473951ae0b2d22bf91934d63340783cd1a15bcb4b1ed2eb2b146e8a5b5447",
+  "cpu": "FX5U",
+  "programs": [
+    {
+      "id": "program1",
+      "member": "f147681f1865ec6a_LDDB.db",
+      "block_count": 678,
+      "step_matches": 678,
+      "aliases": [
+        {
+          "member": "c9906ee5decb30c2_LDDB.db",
+          "reason": "All ordered block conditional-net signatures, instructions, output order, operands, pointers and comments match",
+          "block_count": 678,
+          "verified_blocks": 678
+        }
+      ]
+    }
+  ],
+  "counts": {
+    "blocks": 678,
+    "block_types": {
+      "statement": 33,
+      "ladder": 644,
+      "end": 1
+    },
+    "instructions_and_contacts": 2604,
+    "comments": 3574,
+    "comment_types": {
+      "device": 3521,
+      "label_text_unclassified": 20,
+      "statement": 33
+    },
+    "unique_referenced_devices": 799,
+    "reference_records": 3662
+  },
+  "issues": [],
+  "unclassified_access_opcodes": {
+    "ADPRW": 9,
+    "RS2": 1,
+    "CRC": 1
+  },
+  "verification": {
+    "syntax": "Every string length, placeholder and structure delimiter is checked; no unconsumed data accepted",
+    "topology": "Static connectivity derived from explicit grid wires and conditional contacts; visual verification pending",
+    "snapshot": "Saved project only; unsaved GX Works3 changes and live PLC state are not included",
+    "comments": "All device comment rows and ladder statements retained, including languages/deletion flags; label text preserved separately",
+    "limitations": [
+      "Opaque project metadata and binary parameter files retained as original bytes, not semantically decoded",
+      "ADPRW/RS2/CRC operand access and variable buffer effects are unresolved; explicit operands remain searchable",
+      "Program name association in _Project.txc is unresolved; database member is the stable program identifier",
+      "STL scope and CALL links are exposed, not executed; no scan-cycle or interlock simulation"
+    ]
+  }
+}

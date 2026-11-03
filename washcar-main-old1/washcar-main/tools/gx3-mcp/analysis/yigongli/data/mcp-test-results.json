@@ -1,0 +1,58 @@
+[
+  {
+    "check": "initialize_and_tools",
+    "protocol": "2025-11-25",
+    "tools": [
+      "project_info",
+      "list_blocks",
+      "get_block",
+      "search_device",
+      "device_relations",
+      "trace_device",
+      "search_comments",
+      "source_inventory",
+      "read_source_rows",
+      "read_source_bytes"
+    ]
+  },
+  {
+    "check": "get_block",
+    "ok": true
+  },
+  {
+    "check": "get_block",
+    "ok": true
+  },
+  {
+    "check": "search_device",
+    "ok": true
+  },
+  {
+    "check": "device_relations",
+    "ok": true
+  },
+  {
+    "check": "trace_device",
+    "ok": true
+  },
+  {
+    "check": "source_inventory",
+    "ok": true
+  },
+  {
+    "check": "read_source_rows",
+    "ok": true
+  },
+  {
+    "check": "read_source_bytes",
+    "ok": true
+  },
+  {
+    "check": "all_device_comments_through_mcp",
+    "count": 3521
+  },
+  {
+    "check": "invalid_arguments_return_tool_errors",
+    "ok": true
+  }
+]

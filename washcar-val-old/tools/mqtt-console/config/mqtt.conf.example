@@ -1,0 +1,27 @@
+# =============================================================
+#  mqtt-cli 配置文件
+#  部署到服务器：/root/program/MQTT/config/mqtt.conf
+#  权限建议：chmod 600（里面有明文密码）
+# =============================================================
+
+# broker 地址。工具和 Mosquitto 跑在同一台机器时用 127.0.0.1 最安全，
+# 不用把 1883 暴露给工具自己走一圈公网。
+broker_host=127.0.0.1
+broker_port=1883
+
+# 下面是 broker 上给本工具开的账号（不是盒子的账号，可以相同也可以不同，
+# 取决于你在 mosquitto 里怎么加 ACL；没有 ACL 时用同一套账号即可）
+username=washcar
+password=CHANGE_ME
+
+# 目标盒子的盒号。必须和盒子 config.json 里的 box.boxNo 完全一致，
+# 因为盒子只订阅 flexem/<boxNo>/command|read|reboot 这三个精确主题。
+box_no=123456
+
+# 双向日志文件。父目录必须存在。
+log_file=/root/program/MQTT/logs/mqtt.log
+
+# 以下两项不要改：盒子只实现了 QoS0，且不识别 RETAIN 位。
+# mqtt-cli 启动时会强制纠正并打印警告。
+qos=0
+retain=false

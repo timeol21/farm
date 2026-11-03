@@ -1,0 +1,27 @@
+# 统一行尾：这个项目最终运行在 Linux（RK3568 盒子）上，
+# shell 脚本一旦带 CRLF，shebang 会变成 "#!/bin/bash\r"，
+# 报错就是 "/bin/bash^M: bad interpreter" 或 "set: pipefail: invalid option name"。
+#
+# 这里把文本文件统一锁成 LF，Windows 上检出也不会带 CR。
+* text=auto eol=lf
+
+*.sh    text eol=lf
+*.md    text eol=lf
+*.json  text eol=lf
+*.txt   text eol=lf
+*.cmake text eol=lf
+*.h     text eol=lf
+*.hpp   text eol=lf
+*.cpp   text eol=lf
+*.cc    text eol=lf
+*.c     text eol=lf
+*.py    text eol=lf
+
+# 二进制，别做任何转换
+*.png   binary
+*.jpg   binary
+*.so    binary
+*.so.*  binary
+*.a     binary
+*.db    binary
+*.docx  binary

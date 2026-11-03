@@ -1,0 +1,69 @@
+################################################################################
+# 此 .gitignore 文件已由 Microsoft(R) Visual Studio 自动创建。
+################################################################################
+
+/.vs
+/src/build
+/src/data
+/out
+/洗车机方案.md
+/盒子第一稿(3).md
+/.clangd
+/deployed
+/data/
+
+# WSL cross-compile artifacts (do not commit)
+/build-wsl/
+/.ccache-wsl/
+
+# wsl-cross artifacts (do not commit)
+# 一键编译回传的产物（wsl-cross/一键编译.cmd 生成，含二进制/日志，不入库）
+/wsl-cross/dist/
+
+# 直跑 main 用的本地配置（含现场 boxNo / broker 地址，不入库）
+/wsl-cross/run/
+
+# VS state dir（.vscode/ 下的 tasks.json / launch.json / keybindings.json 已随 Docker 流程废弃）
+/.vs
+/.vscode
+
+# workbuddy 产物（.workbuddy/ 下的所有文件均为工作区临时文件，不入库）
+/.workbuddy
+
+build/
+bin/
+*.o
+*.obj
+*.exe
+*.out
+*.docx
+
+# CMake 临时文件
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# 给AI看的文件
+/洗车机项目通信协议总结.md
+/buffer_design.md
+/CLAUDE.md
+/mqtt_reliability_design.md
+/.trae
+/mqtt-http-commands.md
+/test_reports
+/docs
+/.mavis
+/washcar_http_tool.html
+/mock_http.py
+/.opencode/tmp
+/AGENTS.md
+/L1_摄像头_AI_spec.md
+/L1_摄像头_AI_业务拍齐版.md
+/L1_查询接口_业务拍齐版.md
+/L2_spec.md
+/L2_范围拍齐版.md
+/L3_范围拍齐版.md
+/build-aarch64
+/洗车业务修正.md
+/docs/HTTP_MQTT_命令拆分实现方案.md

@@ -1,0 +1,14 @@
+# Python 字节码缓存（跑一次就会生成，不该进版本库）
+__pycache__/
+*.py[cod]
+
+# 运行时日志（正常跑在 ~/plcmock-run，这里兜底 --run-dir . 的情况）
+*.log
+config_main.json
+plc_stub.log
+mqtt_broker.log
+main.log
+start.log
+
+# 渲染出来的梯形图
+梯形图.html

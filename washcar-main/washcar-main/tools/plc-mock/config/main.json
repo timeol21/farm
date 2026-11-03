@@ -1,0 +1,75 @@
+{
+  "box": {
+    "boxNo": "300823040333",
+    "dbPath": "./data",
+    "storageRoot": "./data",
+    "logPath": "./log",
+    "logLevel": "debug",
+    "plcEnabled": true,
+    "boxType": "haiTian"
+  },
+  "mqtt": {
+    "brokerIp": "127.0.0.1",
+    "port": 1883,
+    "username": "",
+    "password": "",
+    "heartbeatSec": 30,
+    "reconnectBaseSec": 2,
+    "reconnectMaxRetry": 5,
+    "topics": {
+      "monitor": "flexem/{boxNo}/monitor",
+      "readdata": "flexem/{boxNo}/readdata",
+      "read": "flexem/{boxNo}/read",
+      "pushalarm": "flexem/{boxNo}/pushalarm",
+      "command": "flexem/{boxNo}/command",
+      "commandreply": "flexem/{boxNo}/commandreply",
+      "reboot": "flexem/{boxNo}/reboot"
+    }
+  },
+  "plcSerial": {
+    "port": "/tmp/vplc-pty",
+    "baudRate": 9600,
+    "parity": "even",
+    "dataBits": 7,
+    "stopBits": 1
+  },
+  "plcTcp": {
+    "plcId": "tcp_plc_01",
+    "host": "192.168.31.250",
+    "port": 502,
+    "unitId": 1
+  },
+  "timing": {
+    "washcarMonitorIntervalMs": 500,
+    "washcarCommandConfirmTimeoutMs": 3000,
+    "dailyReportHour": 8,
+    "dailyReportMinute": 0,
+    "dailyReportCheckIntervalMs": 60000,
+    "faultReportIntervalMs": 3000,
+    "valueChangeIntervalMs": 3000,
+    "acquisitionIntervalMs": 100
+  },
+  "stateMachine": {
+    "mode": "log_only",
+    "logStateTransition": true
+  },
+  "http": {
+    "bind": "127.0.0.1",
+    "port": 18080
+  },
+  "cameras": [],
+  "ai": {
+    "aiEnabled": false,
+    "idleIntervalMs": 6000,
+    "workingIntervalMs": 2000,
+    "exitWorkingEmptyTimes": 20,
+    "resultRetentionDays": 30,
+    "maxDetectionResults": 200000,
+    "maxAlarmImageMb": 500,
+    "alarmImageKeepDays": 7,
+    "logSummaryIntervalSec": 60,
+    "logSummaryMaxIntervalSec": 1800,
+    "modelConfigs": [],
+    "regions": []
+  }
+}

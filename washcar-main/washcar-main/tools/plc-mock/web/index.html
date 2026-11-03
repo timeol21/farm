@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>洗车机 PLC 模拟器 · 看板</title>
+<link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="pulse" id="alive"></span>
+    <div class="brand-text">
+      <h1>洗车机 PLC 模拟器</h1>
+      <p><span id="simTitle">装载中…</span> · <span id="ladderName" class="mono">-</span></p>
+    </div>
+  </div>
+  <div class="top-actions">
+    <div class="chip" title="梯形图扫描速率"><span class="chip-k">扫描</span><b id="scanRate">0</b><span class="chip-u">s/s</span></div>
+    <div class="chip" title="模拟器已运行时长"><span class="chip-k">运行</span><b id="uptime">00:00</b></div>
+    <div class="seg" id="speedSeg" title="虚拟倍速（虚拟步长恒为 50ms）">
+      <button data-speed="1" class="on">1×</button>
+      <button data-speed="5">5×</button>
+      <button data-speed="25">25×</button>
+      <button data-speed="50">50×</button>
+    </div>
+    <button class="btn" id="pauseBtn">暂停</button>
+    <button class="btn ghost" id="stepBtn" title="暂停状态下走一个扫描周期">单步</button>
+  </div>
+</header>
+
+<div class="banner" id="banner" hidden></div>
+
+<div class="kpis">
+  <div class="kpi step-kpi">
+    <span class="kpi-k" id="kpiStepLabel">当前工序</span>
+    <div class="kpi-v"><b id="kpiStep">–</b><span id="kpiStepName">未开始</span></div>
+    <span class="kpi-s" id="kpiStepMeta">S– · 停留在 –</span>
+  </div>
+  <div class="kpi">
+    <span class="kpi-k">故障码 D2</span>
+    <div class="kpi-v"><b id="kpiFault">0</b><span id="kpiFaultName" class="ok">正常</span></div>
+    <span class="kpi-s" id="kpiFaultMeta">无故障上报</span>
+  </div>
+  <div class="kpi">
+    <span class="kpi-k">串口读写</span>
+    <div class="kpi-v"><b id="kpiSerial">0</b><span class="muted">/ <span id="kpiWrites">0</span> 写</span></div>
+    <span class="kpi-s mono" id="kpiPty">–</span>
+  </div>
+  <div class="kpi">
+    <span class="kpi-k">MQTT 测试服务器</span>
+    <div class="kpi-v"><b id="kpiClients">0</b><span class="muted">客户端</span></div>
+    <span class="kpi-s" id="kpiBroker">–</span>
+  </div>
+  <div class="kpi">
+    <span class="kpi-k">盒子主程序</span>
+    <div class="kpi-v"><b id="kpiMain">未启动</b></div>
+    <span class="kpi-s" id="kpiMainMeta">不连主程序也能看流程图</span>
+  </div>
+</div>
+
+<main class="layout">
+  <section class="panel flow-panel">
+    <div class="panel-head">
+      <div>
+        <h2>洗车流程图</h2>
+        <p class="panel-sub" id="flowSub">按工序号推进；机构动作靠现场物理模型补全</p>
+      </div>
+      <div class="legend">
+        <span><i class="dot fwd"></i>前进</span>
+        <span><i class="dot bwd"></i>后退</span>
+        <span><i class="dot idle"></i>就绪</span>
+        <span><i class="dot end"></i>结束</span>
+      </div>
+    </div>
+    <div class="flow-wrap">
+      <svg id="flowSvg" viewBox="0 0 1000 210" preserveAspectRatio="xMidYMid meet" role="img"
+           aria-label="洗车工序流程图"></svg>
+    </div>
+    <div class="trail-bar">
+      <span class="trail-title">工序轨迹</span>
+      <div id="trail" class="trail"></div>
+      <button class="btn tiny ghost" id="clearTrail">清空</button>
+    </div>
+  </section>
+
+  <section class="panel mqtt-panel">
+    <div class="panel-head compact">
+      <div>
+        <h2>MQTT 测试服务器</h2>
+        <p class="panel-sub" id="brokerLine">自建 broker · 收发都记在这里</p>
+      </div>
+      <span class="badge" id="brokerBadge">未启动</span>
+    </div>
+
+    <div class="publish">
+      <label class="field">
+        <span>主题</span>
+        <input id="pubTopic" class="mono" list="topicList" placeholder="flexem/{boxNo}/command" autocomplete="off">
+        <datalist id="topicList"></datalist>
+      </label>
+      <label class="field">
+        <span>负载（JSON / 文本）</span>
+        <textarea id="pubPayload" class="mono" rows="3" spellcheck="false">{"Manual start":1}</textarea>
+      </label>
+      <div class="presets" id="presets"></div>
+      <p class="publish-note" id="publishNote"></p>
+      <div class="publish-row">
+        <label class="qos">QoS
+          <select id="pubQos"><option value="0">0</option><option value="1">1</option></select>
+        </label>
+        <button class="btn primary" id="pubBtn">下发命令</button>
+        <span class="publish-hint" id="pubResult"></span>
+      </div>
+    </div>
+
+    <div class="msg-head">
+      <div class="seg small" id="msgFilter">
+        <button data-filter="" class="on">全部</button>
+        <button data-filter="up">盒子上行</button>
+        <button data-filter="down">测试下发</button>
+      </div>
+      <input id="msgSearch" class="search" placeholder="过滤主题/内容" autocomplete="off">
+      <span class="muted mono" id="msgCount">0</span>
+    </div>
+    <div class="messages" id="messages">
+      <div class="empty">还没有报文。盒子连上来、或手动下发一条命令后，这里会实时滚动。</div>
+    </div>
+  </section>
+
+  <section class="panel devices-panel">
+    <div class="panel-head compact">
+      <div>
+        <h2>软元件监视</h2>
+        <p class="panel-sub">按梯形图里的引用次数排序 —— 引用越多，改逻辑时越要先看它</p>
+      </div>
+      <div class="device-tools">
+        <div class="seg small" id="areaSeg">
+          <button data-area="" class="on">全部</button>
+          <button data-area="X">X</button>
+          <button data-area="Y">Y</button>
+          <button data-area="M">M</button>
+          <button data-area="S">S</button>
+          <button data-area="D">D</button>
+          <button data-area="T">T</button>
+          <button data-area="C">C</button>
+        </div>
+        <input id="deviceSearch" class="search" placeholder="搜软元件 / 说明" autocomplete="off">
+        <label class="toggle"><input type="checkbox" id="onlyChanged"> 只看变化</label>
+      </div>
+    </div>
+    <div class="keypoints" id="keypoints"></div>
+    <div class="table-wrap">
+      <table class="devices">
+        <thead>
+          <tr>
+            <th class="col-name">软元件</th>
+            <th class="col-value">值</th>
+            <th class="col-refs">引用次数</th>
+            <th class="col-rw">读 / 写</th>
+            <th class="col-note">说明</th>
+          </tr>
+        </thead>
+        <tbody id="deviceBody"></tbody>
+      </table>
+    </div>
+    <div class="table-foot">
+      <span class="muted" id="deviceCount">–</span>
+      <button class="btn tiny ghost" id="showAllBtn">显示全部</button>
+    </div>
+  </section>
+
+  <aside class="panel control-panel">
+    <div class="panel-head compact">
+      <div>
+        <h2>人工干预</h2>
+        <p class="panel-sub">强制写入会每个扫描周期压一次，方便造现场条件</p>
+      </div>
+    </div>
+    <div class="checks-title" id="checksTitle">启动前置检查 <span>每项独立动作，只改现场输入，不发命令</span></div>
+    <div class="checks" id="checks"></div>
+    <div class="demo-actions">
+      <button class="btn primary" id="demoStart">启动</button>
+      <button class="btn" id="demoStop">停止</button>
+      <button class="btn ghost" id="demoReset">复位</button>
+    </div>
+    <p class="hint demo-hint" id="demoHint"></p>
+    <div class="force">
+      <input id="forceDevice" class="mono" placeholder="软元件名" autocomplete="off">
+      <input id="forceValue" class="mono" placeholder="1" value="1" autocomplete="off">
+      <button class="btn" id="forceBtn">写入</button>
+    </div>
+    <div class="overrides" id="overrides"><span class="empty-inline">没有生效中的强制值</span></div>
+    <button class="btn tiny ghost" id="clearOverrides">解除全部强制</button>
+
+    <hr class="sep">
+    <dl class="facts">
+      <dt>实例 PID</dt><dd class="mono" id="factPid">–</dd>
+      <dt>串口桩</dt><dd class="mono" id="factPty">–</dd>
+      <dt>broker</dt><dd class="mono" id="factBroker">–</dd>
+      <dt>运行目录</dt><dd class="mono ellipsis" id="factRunDir">–</dd>
+      <dt>主程序日志</dt><dd class="mono ellipsis" id="factMainLog">–</dd>
+    </dl>
+    <p class="hint">点表格里的软元件可以带进上面的强制写入框；点报文可以展开完整负载。</p>
+  </aside>
+</main>
+
+<div class="toast" id="toast"></div>
+<script src="/static/app.js"></script>
+</body>
+</html>

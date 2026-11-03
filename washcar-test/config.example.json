@@ -1,0 +1,63 @@
+{
+  "box": {
+    "boxNo": "123456",
+    "boxType": "haiTian",
+    "dbPath": "./data",
+    "logLevel": "info",
+    "plcEnabled": true,
+    "storageRoot": "./data",
+    "logKeepDays": 7
+  },
+  "mqtt": {
+    "brokerIp": "116.204.32.197",
+    "heartbeatSec": 30,
+    "password": "llx@123456",
+    "port": 1883,
+    "reconnectBaseSec": 2,
+    "reconnectMaxRetry": 5,
+    "rebootEnabled": false,
+    "topicSeparator": ".",
+    "username": "admin"
+  },
+  "plcSerial": {
+    "baudRate": 9600,
+    "dataBits": 7,
+    "parity": "even",
+    "port": "/tmp/vplc-pty",
+    "stopBits": 1,
+    "timeoutMs": 200,
+    "frameDelayMs": 10
+  },
+  "plcTcp": {
+    "host": "192.168.31.250",
+    "plcId": "tcp_plc_01",
+    "port": 502,
+    "unitId": 1,
+    "timeoutMs": 2000
+  },
+  "stateMachine": {
+    "logStateTransition": true,
+    "mode": "log_only"
+  },
+  "timing": {
+    "dailyReportCheckIntervalMs": 60000,
+    "dailyReportHour": 8,
+    "dailyReportMinute": 0,
+    "faultReportIntervalMs": 3000,
+    "valueChangeIntervalMs": 3000,
+    "washcarCommandConfirmTimeoutMs": 3000,
+    "washcarMonitorIntervalMs": 500
+  },
+  "queueCapacity": {
+    "downCapacity": 256,
+    "upCapacity": 128,
+    "logCapacity": 4096
+  },
+  "sysmon": {
+    "enabled": true,
+    "intervalMs": 5000
+  },
+  "concurrency": {
+    "maxThreads": 16
+  }
+}

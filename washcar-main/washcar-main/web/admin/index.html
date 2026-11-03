@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>洗车机盒子 · 现场配置台</title>
+<link rel="stylesheet" href="./style.css?v=20261022c">
+</head>
+<body>
+
+<div id="login" class="login-screen">
+  <div class="login-brand">
+    <div class="login-logo">WC</div>
+    <div class="login-kicker">WASHCAR EDGE CONSOLE</div>
+    <h1>现场配置台</h1>
+    <p class="login-desc">改主题、加监控点、查日志，不用再带电脑去现场改代码。</p>
+    <div class="login-features">
+      <div><span class="feature-dot"></span> MQTT 主题配置</div>
+      <div><span class="feature-dot"></span> 监控点 / 上报映射</div>
+      <div><span class="feature-dot"></span> 分服务日志排查</div>
+      <div><span class="feature-dot"></span> 配置备份与回滚</div>
+    </div>
+    <div class="login-foot">单盒 · 局域网访问 · 配置改动重启生效</div>
+  </div>
+  <div class="login-panel">
+    <form id="login-form" class="login-card">
+      <div class="login-card-head"><h2>登录配置台</h2><p>使用盒子本地管理员账号</p></div>
+      <label>用户名<input id="login-user" name="username" value="admin" autocomplete="username" required></label>
+      <label>密码<input id="login-pass" name="password" type="password" autocomplete="current-password" placeholder="未改密码可留空"></label>
+      <button id="login-btn" class="btn primary block" type="submit">进入配置台</button>
+      <p id="login-error" class="error" role="alert"></p>
+      <p class="hint">首次登录默认 <b>admin / washcar</b>；未修改密码时密码可留空。登录后请在“设置”里修改密码。</p>
+    </form>
+  </div>
+</div>
+
+<div id="app" class="app hidden">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-logo">WC</div><div><div class="brand-title">现场配置台</div><div class="brand-sub" id="side-boxno">-</div></div></div>
+    <div class="nav-section-label">工作台</div>
+    <nav id="nav">
+      <button class="nav-item active" data-page="overview"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M4 13h6V4H4v9zm0 7h6v-5H4v5zm10 0h6v-9h-6v9zm0-16v5h6V4h-6z"/></svg></span>概览</button>
+      <button class="nav-item" data-page="mqtt"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0-9 9h3a6 6 0 0 1 6-6V3zm0 4a5 5 0 0 0-5 5h3a2 2 0 0 1 2-2V7zm0 4a1 1 0 1 0 0 2 1 1 0 0 0 0-2zM4 18h16v2H4v-2z"/></svg></span>MQTT 主题</button>
+      <button class="nav-item" data-page="points"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M4 6h16v3H4V6zm0 5h16v3H4v-3zm0 5h10v3H4v-3z"/></svg></span>监控点</button>
+      <button class="nav-item" data-page="logs"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M5 4h14v16H5V4zm3 4v2h8V8H8zm0 4v2h8v-2H8zm0 4v2h5v-2H8z"/></svg></span>日志</button>
+    </nav>
+    <div class="nav-section-label">配置</div>
+    <nav>
+      <button class="nav-item" data-page="apply"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 5v5l4 2-.8 1.8L11 13V7h2z"/></svg></span>应用 / 历史</button>
+      <button class="nav-item" data-page="settings"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M19.4 13a7.9 7.9 0 0 0 0-2l2-1.6-2-3.4-2.4 1a8 8 0 0 0-1.7-1L15 3h-4l-.3 2.6a8 8 0 0 0-1.7 1l-2.4-1-2 3.4L6.6 11a7.9 7.9 0 0 0 0 2l-2 1.6 2 3.4 2.4-1a8 8 0 0 0 1.7 1L11 21h4l.3-2.6a8 8 0 0 0 1.7-1l2.4 1 2-3.4-2-1.6zM13 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z"/></svg></span>设置</button>
+    </nav>
+    <div class="side-foot">
+      <div class="side-status-card">
+        <div class="side-status-row"><span class="dot" id="side-dot-mqtt"></span><span id="side-status-mqtt">MQTT</span></div>
+        <div class="side-status-row"><span class="dot" id="side-dot-plc"></span><span id="side-status-plc">PLC</span></div>
+        <div class="side-status-time" id="side-status-time">-</div>
+      </div>
+      <button id="logout-btn" class="btn ghost small block">退出登录</button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="topbar-title"><div class="eyebrow">WASHCAR / EDGE</div><div class="top-title" id="page-title">概览</div><div class="top-sub" id="top-sub">正在加载...</div></div>
+      <div class="topbar-actions">
+        <div class="conn-pill"><span class="dot off" id="dot-mqtt"></span>MQTT</div>
+        <div class="conn-pill"><span class="dot off" id="dot-plc"></span>PLC</div>
+        <button id="refresh-btn" class="btn ghost">刷新</button>
+      </div>
+    </header>
+
+    <section id="page-overview" class="page">
+      <div class="hero-card">
+        <div><div class="eyebrow light">DEVICE STATUS</div><div class="hero-title"><span id="ov-wash">-</span><span class="hero-box" id="ov-boxno">-</span></div><div class="hero-sub" id="ov-step">当前步骤 -</div><div class="hero-sub" id="ov-admission"></div></div>
+        <div class="hero-side">
+          <div class="hero-mini"><span>机型</span><b id="ov-box-type">-</b></div>
+          <div class="hero-mini"><span>配置版本</span><b id="ov-rev" class="mono">-</b></div>
+          <div class="hero-mini"><span>MQTT / PLC</span><b id="ov-conn">-</b></div>
+        </div>
+      </div>
+      <div class="cards">
+        <div class="card accent-blue"><div class="card-label">MQTT</div><div class="card-value" id="ov-mqtt">-</div><div class="card-foot" id="ov-broker">-</div></div>
+        <div class="card accent-teal"><div class="card-label">PLC</div><div class="card-value" id="ov-plc">-</div><div class="card-foot" id="ov-plc-foot">采集状态</div></div>
+        <div class="card accent-amber"><div class="card-label">配置状态</div><div class="card-value" id="ov-config">-</div><div class="card-foot" id="ov-degraded">正常</div></div>
+        <div class="card accent-violet"><div class="card-label">监控点</div><div class="card-value" id="ov-point-count">-</div><div class="card-foot">系统 + 自定义</div></div>
+      </div>
+      <div class="grid-2">
+        <div class="panel">
+          <div class="panel-head"><div><h2>当前主题</h2><p>盒子实际订阅/发布的 MQTT 主题</p></div><button class="btn ghost small" data-jump="mqtt">去修改</button></div>
+          <div class="table-wrap"><table><thead><tr><th>功能</th><th>主题</th></tr></thead><tbody id="ov-topics"></tbody></table></div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><div><h2>实时点位</h2><p>来自 PLC 采集缓存</p></div><span class="muted" id="ov-point-hint"></span></div>
+          <div class="table-wrap"><table><thead><tr><th>名称</th><th>软元件</th><th>值</th><th>上报</th></tr></thead><tbody id="ov-points"></tbody></table></div>
+        </div>
+      </div>
+      <div class="panel" id="maint-panel" hidden>
+        <div class="panel-head"><div><h2>维修模式</h2><p>本地切换, 云端不能远程把机器切进维修</p></div><span class="badge" id="maint-badge">-</span></div>
+        <p class="hint" id="maint-hint"></p>
+        <div class="actions"><button id="maint-toggle" class="btn ghost">进入维修模式</button></div>
+      </div>
+    </section>
+
+    <section id="page-mqtt" class="page hidden">
+      <div class="panel">
+        <div class="panel-head"><div><h2>盒子与 Broker</h2><p>盒号会进入 MQTT clientId 和主题里的 {boxNo}</p></div><span class="badge blue">连接配置</span></div>
+        <div class="form-grid">
+          <label>盒号<input id="cfg-boxno" placeholder="例如 300825090213"></label>
+          <label>机型<input id="cfg-boxtype" disabled></label>
+          <label>Broker<input id="cfg-broker" placeholder="IP / 域名"></label>
+          <label>端口<input id="cfg-port" type="number" placeholder="1883"></label>
+          <label>用户名<input id="cfg-user" autocomplete="off"></label>
+          <label>密码<input id="cfg-pass" type="password" autocomplete="new-password" placeholder="留空表示不修改"></label>
+        </div>
+        <p class="hint" id="cfg-pass-hint">密码不回显；留空保持原密码。</p>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><div><h2>主题映射</h2><p>生产默认斜杠；支持点号和自定义前缀</p></div><span class="badge">7 个功能</span></div>
+        <div class="inline-form">
+          <label>前缀<input id="topic-prefix" value="flexem"></label>
+          <label>分隔符<select id="topic-sep"><option value="/">斜杠 /</option><option value=".">点号 .</option></select></label>
+          <button id="gen-topics" class="btn ghost" type="button">按前缀生成</button>
+        </div>
+        <div class="table-wrap"><table><thead><tr><th>功能</th><th>方向</th><th>主题模板</th></tr></thead><tbody id="topic-rows"></tbody></table></div>
+        <p class="hint">切换分隔符/前缀会立即改写下面 7 条主题；主题必须包含 <b>{boxNo}</b> 或当前盒号，发布主题不能带 <b>#</b> / <b>+</b>，7 条不能重复。改主题前先确认云端已同步。</p>
+      </div>
+      <div class="actions"><button id="mqtt-validate" class="btn ghost">仅校验</button><button id="mqtt-apply" class="btn primary">保存并应用（重启）</button></div>
+      <div id="mqtt-issues" class="issues hidden"></div>
+    </section>
+
+    <section id="page-points" class="page hidden">
+      <div class="panel">
+        <div class="panel-head"><div><h2>监控点</h2><p>系统内置点位只读；自定义点位保存后应用重启生效</p></div><button id="add-point" class="btn primary small">新增监控点</button></div>
+        <div class="table-wrap"><table><thead><tr><th>显示名称</th><th>软元件</th><th>类型</th><th>变化</th><th>立即读</th><th>故障</th><th>云端字段</th><th>正常值</th><th>当前值</th><th>操作</th></tr></thead><tbody id="point-rows"></tbody></table></div>
+      </div>
+      <div class="actions"><button id="points-validate" class="btn ghost">仅校验</button><button id="points-apply" class="btn primary">保存并应用（重启）</button></div>
+      <div id="points-issues" class="issues hidden"></div>
+    </section>
+
+    <section id="page-logs" class="page hidden">
+      <div class="panel log-panel">
+        <div class="panel-head"><div><h2>运行日志</h2><p>按服务归类，默认看最新一天；只读日志尾部，不拖垮盒子</p></div><span class="badge" id="log-count">-</span></div>
+        <div class="log-toolbar">
+          <label class="toolbar-field">日期<select id="log-date"></select></label>
+          <label class="toolbar-field">级别<select id="log-level"><option value="">全部</option><option value="DEBUG">DEBUG</option><option value="INFO">INFO</option><option value="WARNING">WARNING</option><option value="ERROR">ERROR</option></select></label>
+          <label class="toolbar-field grow">搜索<input id="log-search" placeholder="关键字，例如 MQTT / D142 / timeout"></label>
+          <label class="switch"><input id="log-auto" type="checkbox"> 自动刷新</label>
+          <button id="log-maint" class="btn ghost small" title="只看跟维修模式相关的日志（英文 maintain + 中文 维修）">只看维修相关</button>
+          <button id="log-refresh" class="btn ghost">刷新</button>
+        </div>
+        <div id="log-services" class="service-pills"></div>
+        <div class="log-meta" id="log-meta">-</div>
+        <div class="log-view" id="log-view"></div>
+      </div>
+    </section>
+
+    <section id="page-apply" class="page hidden">
+      <div class="grid-2">
+        <div class="panel">
+          <div class="panel-head"><div><h2>当前配置</h2><p>保存前校验、备份，再重启程序</p></div><span class="badge blue">config.json</span></div>
+          <div class="kv"><span>版本</span><b id="apply-rev" class="mono">-</b></div>
+          <div class="kv"><span>状态</span><b id="apply-state">-</b></div>
+          <div class="kv"><span>路径</span><b id="apply-path" class="mono">-</b></div>
+          <p class="hint">洗车中不能应用或重启；应用后页面会自动等待盒子恢复。</p>
+          <div class="actions"><button id="apply-restart" class="btn ghost">只重启程序</button></div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><div><h2>配置历史</h2><p>每次应用前自动备份，可一键回滚</p></div><button id="history-refresh" class="btn ghost small">刷新</button></div>
+          <div class="table-wrap"><table><thead><tr><th>版本文件</th><th>大小</th><th>操作</th></tr></thead><tbody id="history-rows"></tbody></table></div>
+          <p class="hint">回滚同样会校验、备份当前配置并重启；回滚前确认云端已同步旧主题。</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="page-settings" class="page hidden">
+      <div class="grid-2">
+        <div class="panel">
+          <div class="panel-head"><div><h2>修改登录密码</h2><p id="pw-warning">用于局域网配置台登录</p></div><span class="badge">本地账号</span></div>
+          <form id="password-form" class="form-grid">
+            <label>旧密码<input id="pw-old" type="password" autocomplete="current-password"></label>
+            <label>新密码<input id="pw-new" type="password" autocomplete="new-password" placeholder="至少 6 位"></label>
+            <label>确认新密码<input id="pw-new2" type="password" autocomplete="new-password"></label>
+            <div class="form-action"><button class="btn primary" type="submit">修改密码</button></div>
+          </form>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><div><h2>程序与运行</h2><p>盒子上的 main 由 systemd 托管</p></div><span class="badge ok">Restart=always</span></div>
+          <div class="kv"><span>配置路径</span><b id="set-path" class="mono">-</b></div>
+          <div class="kv"><span>运行方式</span><b>systemd washcar.service</b></div>
+          <div class="kv"><span>重启耗时</span><b>约 5 秒</b></div>
+          <p class="hint">手动运行 <b>./main</b> 是前台进程；要后台运行请用 systemd（deploy/install.sh）。</p>
+          <div class="actions"><button id="restart-btn" class="btn ghost">重启程序</button></div>
+        </div>
+      </div>
+      <div class="panel"><div class="panel-head"><div><h2>说明</h2></div></div><p class="hint">单盒局域网配置台。云端下发的已知命令盒子会回执；盒子上报不需要云端回执。改动 MQTT 主题/盒号后，云端订阅与发布也要同步修改。</p></div>
+    </section>
+  </main>
+</div>
+
+<div id="modal" class="modal hidden"><div class="modal-card"><div class="modal-head"><h3 id="modal-title">编辑</h3><button id="modal-close" class="btn ghost small">关闭</button></div><div id="modal-body"></div><div id="modal-foot" class="modal-foot"></div></div></div>
+<div id="toast" class="toast hidden"></div>
+<div id="restart" class="restart hidden"><div class="restart-card"><div class="spinner"></div><h2>正在重启程序...</h2><p id="restart-text">配置已保存，等待盒子恢复。</p></div></div>
+<script src="./app.js?v=20261026a"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+# 构建产物（两条路线各一个目录，都在项目内，互不影响）
+/build-wsl/          # WSL 交叉编译
+/build-box/          # 盒子/本机编译
+
+# 可运行文件目录（两条编译路线的产物都落这里：main + libmosquitto.so.1 + config.json）
+/deployed/
+
+# ccache 缓存（放项目内，不写 $HOME）
+/.ccache/
+
+# 运行时生成
+/data/
+/config.json
+
+# 编辑器
+.vscode/
+*.swp

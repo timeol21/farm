@@ -1,0 +1,25 @@
+[Unit]
+Description=Washcar box agent (RK3568 / haiTian FxPlc)
+Documentation=file:///home/ztl/washcar/deployed/config.json
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+# 盒子上只有 ztl 这个普通用户，程序就是 ztl 手工跑起来的，不存在 washcar 用户。
+User=ztl
+Group=ztl
+WorkingDirectory=/home/ztl/washcar/deployed
+Environment=WASHCAR_CONFIG=/home/ztl/washcar/deployed/config.json
+# flock 保证全局只有一个实例：手工再跑一次 ./main 不会和本服务抢端口和数据库。
+# 用阻塞式（不加 -n）：如果已有人在跑，本服务排队等锁，不会失败重试刷日志。
+ExecStart=/usr/bin/flock /home/ztl/washcar/washcar.lock /home/ztl/washcar/deployed/main
+Restart=always
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=washcar
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target
